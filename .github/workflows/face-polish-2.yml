@@ -1,0 +1,52 @@
+name: face-polish-2
+
+# 一次性任务：加深腮红 + 刷新缓存参数 + 清理已完成的一次性 workflow
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/face-polish-2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tune blush and version
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          c = pathlib.Path("assets/js/character.js")
+          t = c.read_text(encoding="utf-8")
+          t = t.replace('radialTexture("rgba(203,94,78,0.35)", "rgba(203,94,78,0)")',
+                        'radialTexture("rgba(199,86,72,0.52)", "rgba(199,86,72,0)")')
+          c.write_text(t, encoding="utf-8")
+
+          h = pathlib.Path("index.html")
+          s = h.read_text(encoding="utf-8").replace("character.js?v=20261107c", "character.js?v=20261107d")
+          h.write_text(s, encoding="utf-8")
+          print("tuned")
+          PY
+
+      - name: Drop used one-off workflows
+        run: |
+          git rm -f .github/workflows/portrait-update.yml \
+                     .github/workflows/look-toggle.yml \
+                     .github/workflows/cache-bust-character.yml \
+                     .github/workflows/face-polish.yml || true
+          ls .github/workflows
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "style: warm up blush and drop one-off workflows" || echo "no changes"
+          git pull --rebase origin main || true
+          git push || echo "nothing to push"
