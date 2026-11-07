@@ -1,5 +1,5 @@
 /* ============================================================
-   LIN ZHIYUAN — CONTENT STUDIO
+   ZHENG YUBIN — CONTENT STUDIO
    Vanilla JS admin for the static portfolio. Content is read
    from / written to window.PortfolioStore (the same localStorage
    key the public site uses). No frameworks, no network, no build.
@@ -290,7 +290,7 @@
     document.title =
       (state.dirty && !state.saveError ? "● " : "") +
       section.label +
-      " · 内容工作台 · 林知远";
+      " · 内容工作台 · 郑宇彬";
   }
 
   function updateOverviewStatus() {
@@ -1039,8 +1039,8 @@
       '<section class="panel">' +
       '<header class="panel__head"><div><p class="eyebrow">BASIC</p><h3 class="panel__title">基本信息</h3></div></header>' +
       '<div class="form-grid">' +
-      field({ label: "姓名", en: "NAME", bind: "profile.name", value: profile.name, placeholder: "林知远", maxlength: 30 }) +
-      field({ label: "英文名", en: "NAME EN", bind: "profile.nameEn", value: profile.nameEn, placeholder: "Lin Zhiyuan", maxlength: 60 }) +
+      field({ label: "姓名", en: "NAME", bind: "profile.name", value: profile.name, placeholder: "郑宇彬", maxlength: 30 }) +
+      field({ label: "英文名", en: "NAME EN", bind: "profile.nameEn", value: profile.nameEn, placeholder: "Zheng Yubin", maxlength: 60 }) +
       field({ label: "身份 / 专业", en: "ROLE", bind: "profile.role", value: profile.role, placeholder: "数字经济 · 大二在读", maxlength: 60 }) +
       field({ label: "学校", en: "SCHOOL", bind: "profile.school", value: profile.school, placeholder: "南山大学" }) +
       field({ label: "所在城市", en: "LOCATION", bind: "profile.location", value: profile.location, placeholder: "杭州 / 中国" }) +
@@ -1214,7 +1214,7 @@
       '<section class="panel">' +
       '<header class="panel__head"><div><p class="eyebrow">SITE META</p><h3 class="panel__title">站点基础信息</h3></div></header>' +
       '<div class="form-grid">' +
-      field({ label: "网站标题", en: "SITE TITLE", bind: "settings.siteTitle", value: settings.siteTitle, span: true, placeholder: "林知远 · 数字经济与叙事" }) +
+      field({ label: "网站标题", en: "SITE TITLE", bind: "settings.siteTitle", value: settings.siteTitle, span: true, placeholder: "郑宇彬 · 数字经济与叙事" }) +
       field({ label: "网站描述", en: "SITE DESCRIPTION", bind: "settings.siteDescription", value: settings.siteDescription, type: "textarea", rows: 3, span: true, hint: "会用于搜索引擎摘要与分享卡片，建议 60–120 字。" }) +
       field({ label: "页脚文字", en: "FOOTER NOTE", bind: "settings.footerNote", value: settings.footerNote, span: true, placeholder: "用一点好奇心和很多杯咖啡做成。" }) +
       toggleField({ bind: "settings.showAdminLink", checked: !!settings.showAdminLink, text: "在网站显示「管理内容」入口", en: "SHOW ADMIN LINK", span: true, hint: "关闭后首页的入口隐藏；你仍然可以直接访问 /admin/。" }) +

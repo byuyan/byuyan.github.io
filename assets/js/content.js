@@ -1,5 +1,5 @@
 /* ============================================================
-   Default content for 林知远 / Lin Zhiyuan.
+   Default content for 郑宇彬 / Zheng Yubin.
    Everything here can be overridden from /admin/ — the studio
    saves a merged copy to localStorage under the same origin.
    ============================================================ */
@@ -8,8 +8,8 @@ window.PORTFOLIO_DEFAULT = {
   version: 1,
 
   profile: {
-    name: "林知远",
-    nameEn: "Lin Zhiyuan",
+    name: "郑宇彬",
+    nameEn: "Zheng Yubin",
     role: "数字经济 · 大二在读",
     school: "南山大学",
     location: "杭州 / 中国",
@@ -17,13 +17,13 @@ window.PORTFOLIO_DEFAULT = {
     status: "正在寻找数据分析 / 产品方向的实习",
     tagline: ["在数据与叙事之间，", "做一点有温度的建造。"],
     intro:
-      "我是林知远，南山大学数字经济专业大二学生。白天和表格、爬虫、回归模型打交道，晚上写点关于城市、手艺和人的故事。我相信数据不是终点，它只是理解世界的一个入口。",
+      "我是郑宇彬，南山大学数字经济专业大二学生。白天和表格、爬虫、回归模型打交道，晚上写点关于城市、手艺和人的故事。我相信数据不是终点，它只是理解世界的一个入口。",
     email: "hello@linzhiyuan.me",
     avatar: "assets/img/portrait.png",
     socials: [
       { label: "GitHub", handle: "@zhiyuan-lin", url: "https://github.com/" },
       { label: "小红书", handle: "@知远的数据簿", url: "https://www.xiaohongshu.com/" },
-      { label: "即刻", handle: "@林知远", url: "https://web.okjike.com/" },
+      { label: "即刻", handle: "@郑宇彬", url: "https://web.okjike.com/" },
       { label: "Bilibili", handle: "@在逃数分人", url: "https://www.bilibili.com/" }
     ]
   },
@@ -245,8 +245,8 @@ window.PORTFOLIO_DEFAULT = {
   ],
 
   settings: {
-    siteTitle: "林知远 · 数字经济与叙事",
-    siteDescription: "南山大学数字经济专业大二学生林知远的个人作品集：数据可视化、产品设计与城市观察。",
+    siteTitle: "郑宇彬 · 数字经济与叙事",
+    siteDescription: "南山大学数字经济专业大二学生郑宇彬的个人作品集：数据可视化、产品设计与城市观察。",
     marquee: ["OPEN TO 2026 SUMMER INTERNSHIP", "DATA · DESIGN · STORY", "BASED IN HANGZHOU"],
     footerNote: "用一点好奇心和很多杯咖啡做成。",
     showAdminLink: true,
