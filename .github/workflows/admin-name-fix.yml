@@ -1,0 +1,47 @@
+name: admin-name-fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/admin-name-fix.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Replace remaining demo name
+        run: |
+          python3 - <<'PY'
+          import pathlib
+
+          for name in ["admin/admin.js", "admin/index.html", "index.html", "assets/js/content.js", "assets/js/site.js"]:
+              p = pathlib.Path(name)
+              if not p.is_file():
+                  continue
+              text = p.read_text(encoding="utf-8")
+              before = text.count("林知远")
+              text = text.replace("林知远", "郑宇彬").replace("LIN ZHIYUAN", "ZHENG YUBIN")
+              p.write_text(text, encoding="utf-8")
+              print(f"{name}: replaced {before} name hits")
+          PY
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "fix: clear remaining demo name in studio"
+            git pull --rebase origin main || true
+            git push
+          fi
