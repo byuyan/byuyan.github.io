@@ -402,7 +402,7 @@
     var navClock = $("#nav-clock");
     if (navClock) navClock.textContent = "CN · " + time;
     var footerClock = $("#footer-clock");
-    if (footerClock) footerClock.textContent = "WUHAN · " + time;
+    if (footerClock) footerClock.textContent = "HANGZHOU · " + time;
   }
   updateClock();
   window.setInterval(updateClock, 30000);
@@ -686,7 +686,7 @@
       '<h2 class="note-reader__title" id="note-modal-title">' + escapeHTML(note.title) + "</h2>" +
       '<p class="note-reader__excerpt">' + escapeHTML(note.excerpt) + "</p>" +
       '<div class="note-reader__content">' + paragraphs(note.content) + "</div>" +
-      '<div class="note-reader__foot"><span>写于 ' + formatDate(note.date) + "</span><span>— 郑宇彬</span></div>" +
+      '<div class="note-reader__foot"><span>写于 ' + formatDate(note.date) + "</span><span>— 林知远</span></div>" +
       "</article>";
     openModal(noteModal);
   }

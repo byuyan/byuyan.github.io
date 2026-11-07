@@ -1,5 +1,5 @@
 /* ============================================================
-   ZHENG YUBIN — CONTENT STUDIO
+   LIN ZHIYUAN — CONTENT STUDIO
    Vanilla JS admin for the static portfolio. Content is read
    from / written to window.PortfolioStore (the same localStorage
    key the public site uses). No frameworks, no network, no build.
@@ -290,7 +290,7 @@
     document.title =
       (state.dirty && !state.saveError ? "● " : "") +
       section.label +
-      " · 内容工作台 · 郑宇彬";
+      " · 内容工作台 · 林知远";
   }
 
   function updateOverviewStatus() {
@@ -1006,7 +1006,7 @@
       return (
         '<div class="repeat-row repeat-row--social">' +
         field({ label: "平台", bind: "profile.socials." + index + ".label", value: social.label, placeholder: "GitHub" }) +
-        field({ label: "账号", bind: "profile.socials." + index + ".handle", value: social.handle, placeholder: "@byuyan" }) +
+        field({ label: "账号", bind: "profile.socials." + index + ".handle", value: social.handle, placeholder: "@zhiyuan-lin" }) +
         field({ label: "链接", bind: "profile.socials." + index + ".url", value: social.url, placeholder: "https://..." }) +
         '<button class="icon-btn icon-btn--danger repeat-row__remove" type="button" data-action="remove-social" data-index="' + index + '" aria-label="删除第 ' + (index + 1) + ' 条社交链接">✕</button>' +
         "</div>"
@@ -1039,11 +1039,11 @@
       '<section class="panel">' +
       '<header class="panel__head"><div><p class="eyebrow">BASIC</p><h3 class="panel__title">基本信息</h3></div></header>' +
       '<div class="form-grid">' +
-      field({ label: "姓名", en: "NAME", bind: "profile.name", value: profile.name, placeholder: "郑宇彬", maxlength: 30 }) +
-      field({ label: "英文名", en: "NAME EN", bind: "profile.nameEn", value: profile.nameEn, placeholder: "Zheng Yubin", maxlength: 60 }) +
+      field({ label: "姓名", en: "NAME", bind: "profile.name", value: profile.name, placeholder: "林知远", maxlength: 30 }) +
+      field({ label: "英文名", en: "NAME EN", bind: "profile.nameEn", value: profile.nameEn, placeholder: "Lin Zhiyuan", maxlength: 60 }) +
       field({ label: "身份 / 专业", en: "ROLE", bind: "profile.role", value: profile.role, placeholder: "数字经济 · 大二在读", maxlength: 60 }) +
-      field({ label: "学校", en: "SCHOOL", bind: "profile.school", value: profile.school, placeholder: "武汉理工大学" }) +
-      field({ label: "所在城市", en: "LOCATION", bind: "profile.location", value: profile.location, placeholder: "武汉 / 中国" }) +
+      field({ label: "学校", en: "SCHOOL", bind: "profile.school", value: profile.school, placeholder: "南山大学" }) +
+      field({ label: "所在城市", en: "LOCATION", bind: "profile.location", value: profile.location, placeholder: "杭州 / 中国" }) +
       field({ label: "状态徽章", en: "AVAILABILITY", bind: "profile.availability", value: profile.availability, placeholder: "2026 暑期实习开放中" }) +
       field({ label: "当前状态", en: "STATUS", bind: "profile.status", value: profile.status, placeholder: "正在寻找数据分析 / 产品方向的实习", span: true }) +
       field({ label: "联系邮箱", en: "EMAIL", bind: "profile.email", type: "email", value: profile.email, placeholder: "hello@example.com", span: true }) +
@@ -1214,7 +1214,7 @@
       '<section class="panel">' +
       '<header class="panel__head"><div><p class="eyebrow">SITE META</p><h3 class="panel__title">站点基础信息</h3></div></header>' +
       '<div class="form-grid">' +
-      field({ label: "网站标题", en: "SITE TITLE", bind: "settings.siteTitle", value: settings.siteTitle, span: true, placeholder: "郑宇彬 · 数字经济与叙事" }) +
+      field({ label: "网站标题", en: "SITE TITLE", bind: "settings.siteTitle", value: settings.siteTitle, span: true, placeholder: "林知远 · 数字经济与叙事" }) +
       field({ label: "网站描述", en: "SITE DESCRIPTION", bind: "settings.siteDescription", value: settings.siteDescription, type: "textarea", rows: 3, span: true, hint: "会用于搜索引擎摘要与分享卡片，建议 60–120 字。" }) +
       field({ label: "页脚文字", en: "FOOTER NOTE", bind: "settings.footerNote", value: settings.footerNote, span: true, placeholder: "用一点好奇心和很多杯咖啡做成。" }) +
       toggleField({ bind: "settings.showAdminLink", checked: !!settings.showAdminLink, text: "在网站显示「管理内容」入口", en: "SHOW ADMIN LINK", span: true, hint: "关闭后首页的入口隐藏；你仍然可以直接访问 /admin/。" }) +
