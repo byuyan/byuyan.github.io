@@ -317,7 +317,7 @@
   var lipMat = clay(0x9c5a52, 0.62);
   var freckleMat = clay(0xbb7c63, 0.6);
   var blushMat = new THREE.MeshBasicMaterial({
-    map: radialTexture("rgba(203,94,78,0.35)", "rgba(203,94,78,0)"),
+    map: radialTexture("rgba(199,86,72,0.52)", "rgba(199,86,72,0)"),
     transparent: true,
     depthWrite: false,
     opacity: 0.5
