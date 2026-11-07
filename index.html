@@ -1,3 +1,512 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="utf-8"><title>byuyan</title></head>
-<body><p>deploying…</p></body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f3efe6" />
+  <title>林知远 · 数字经济与叙事</title>
+  <meta name="description" content="南山大学数字经济专业大二学生林知远的个人作品集：数据可视化、产品设计与城市观察。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="林知远 · 数字经济与叙事" />
+  <meta property="og:description" content="在数据与叙事之间，做一点有温度的建造。" />
+  <meta property="og:image" content="https://aka.doubaocdn.com/s/XCKffTYRZ6" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="林知远 · 数字经济与叙事" />
+  <meta name="twitter:description" content="南山大学数字经济专业大二学生林知远的个人作品集。" />
+  <link rel="icon" href="https://aka.doubaocdn.com/s/nOVJvPppH1" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://aka.doubaocdn.com/s/mOavGPJLWB" />
+  <link rel="stylesheet" href="https://aka.doubaocdn.com/s/NmpyUD8mUg" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "林知远",
+      "alternateName": "Lin Zhiyuan",
+      "jobTitle": "数字经济专业学生",
+      "description": "南山大学数字经济专业大二学生，关注数据可视化、产品设计与城市观察。",
+      "email": "mailto:hello@linzhiyuan.me",
+      "address": { "@type": "PostalAddress", "addressLocality": "杭州", "addressCountry": "CN" }
+    }
+  </script>
+</head>
+<body class="is-loading">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="loader__name">林知远</span>
+      <span class="loader__meta">PORTFOLIO / 2026</span>
+    </div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <noscript>
+    <style>
+      body.is-loading { overflow: auto; }
+      .loader { display: none; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top" aria-label="回到首页">
+      <span class="nav__mark">知</span>
+      <span class="nav__brand-text">
+        <strong>林知远</strong>
+        <em>LIN ZHIYUAN</em>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="主导航">
+      <a href="#about" data-nav="about"><span>01</span>关于</a>
+      <a href="#skills" data-nav="skills"><span>02</span>能力</a>
+      <a href="#projects" data-nav="projects"><span>03</span>作品</a>
+      <a href="#notes" data-nav="notes"><span>04</span>笔记</a>
+      <a href="#contact" data-nav="contact"><span>05</span>联系</a>
+    </nav>
+
+    <div class="nav__meta">
+      <span class="nav__clock" id="nav-clock">CN · 00:00</span>
+      <a class="nav__cta" href="#contact">聊聊 <span aria-hidden="true">↗</span></a>
+      <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span>
+        <span class="visually-hidden">打开菜单</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="移动端导航">
+      <a href="#about"><span>01</span>关于</a>
+      <a href="#skills"><span>02</span>能力</a>
+      <a href="#projects"><span>03</span>作品</a>
+      <a href="#notes"><span>04</span>笔记</a>
+      <a href="#contact"><span>05</span>联系</a>
+    </nav>
+    <div class="mobile-menu__foot">
+      <span data-profile-email>hello@linzhiyuan.me</span>
+      <span data-profile-location>杭州 / 中国</span>
+    </div>
+  </div>
+
+  <!-- ================= FIXED 3D WORLD ================= -->
+  <div class="world" id="world" aria-hidden="true">
+    <div class="world__grid"></div>
+    <div class="world__arch" id="world-arch">
+      <div class="world__arch-glow"></div>
+      <div class="world__arch-inner">
+        <div class="world__ring world__ring--one"></div>
+        <div class="world__ring world__ring--two"></div>
+        <canvas id="character-canvas"></canvas>
+      </div>
+      <div class="world__badge">
+        <span>CLAY ME</span>
+        <span>NO. 001</span>
+      </div>
+      <div class="world__dot world__dot--a"></div>
+      <div class="world__dot world__dot--b"></div>
+      <div class="world__dot world__dot--c"></div>
+    </div>
+
+    <div class="world__note world__note--hello">
+      <span class="world__note-k">HELLO,</span>
+      <span class="world__note-v">WORLD<span class="world__note-dot">.</span></span>
+    </div>
+    <div class="world__note world__note--data">
+      <span class="world__note-k">STATUS</span>
+      <span class="world__note-v">LEARNING<br />&amp; BUILDING</span>
+    </div>
+    <div class="world__note world__note--year">
+      <span>©2026</span>
+    </div>
+    <div class="world__side">SCROLL TO EXPLORE — 向下滚动</div>
+  </div>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <div class="hero__inner container">
+        <div class="hero__copy">
+          <div class="hero__eyebrow">
+            <span class="dot"></span>
+            <span>PORTFOLIO — 2026</span>
+            <span class="slash">/</span>
+            <span data-profile-location>HANGZHOU, CN</span>
+          </div>
+
+          <h1 class="hero__title">
+            <span class="hero__title-cn" data-profile-name>林知远</span>
+            <span class="hero__title-en" data-profile-name-en>LIN ZHIYUAN</span>
+          </h1>
+
+          <p class="hero__statement serif">
+            <span data-tagline-1>在数据与叙事之间，</span><br />
+            <em data-tagline-2>做一点有温度的建造。</em>
+          </p>
+
+          <p class="hero__intro" data-profile-intro>
+            我是林知远，南山大学数字经济专业大二学生。白天和表格、爬虫、回归模型打交道，晚上写点关于城市、手艺和人的故事。
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">
+              看看我的作品
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a class="btn btn--ghost" href="#about">关于我 <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <div class="hero__aside">
+          <div class="hero__aside-top">
+            <span class="hero__aside-k">NOW</span>
+            <p data-profile-status>正在寻找数据分析 / 产品方向的实习</p>
+          </div>
+          <div class="hero__aside-list">
+            <div>
+              <span class="hero__aside-k">BASED IN</span>
+              <strong data-profile-location>杭州 · 中国</strong>
+            </div>
+            <div>
+              <span class="hero__aside-k">STUDYING</span>
+              <strong data-profile-role>数字经济 · 大二在读</strong>
+            </div>
+            <div>
+              <span class="hero__aside-k">SCHOOL</span>
+              <strong data-profile-school>南山大学</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__foot container">
+        <div class="hero__scroll">
+          <span class="hero__scroll-line"></span>
+          <span>向下滚动</span>
+          <em>SCROLL</em>
+        </div>
+        <div class="hero__status">
+          <span class="pulse"></span>
+          <span data-profile-availability>2026 暑期实习开放中</span>
+        </div>
+        <div class="hero__index">01 <span>/</span> 05</div>
+      </div>
+
+      <div class="marquee hero__marquee" aria-hidden="true">
+        <div class="marquee__track" data-marquee></div>
+      </div>
+    </section>
+
+    <!-- ================= SCROLL STORY ================= -->
+    <section class="story" id="story" aria-labelledby="story-title">
+      <h2 class="visually-hidden" id="story-title">滚动故事</h2>
+      <div class="story__sticky">
+        <div class="container story__grid">
+          <div class="story__main">
+            <div class="story__eyebrow eyebrow">
+              <span class="story__live"><i></i> SCROLL STORY</span>
+              <span>00 — 02</span>
+            </div>
+
+            <div class="story__acts">
+              <article class="act is-active" data-act="0">
+                <span class="act__index">01 / 03</span>
+                <p class="act__kicker">关于开始</p>
+                <h3 class="act__title serif">数据会说谎，<br />但故事不会。</h3>
+                <p class="act__body">
+                  我在数字经济的课堂上学会的第一件事：先怀疑数字，再相信数字背后的那个人。每一张表格里都藏着没有说出口的生活。
+                </p>
+                <span class="act__meta">QUESTION → DATA → STORY</span>
+              </article>
+
+              <article class="act" data-act="1">
+                <span class="act__index">02 / 03</span>
+                <p class="act__kicker">关于方法</p>
+                <h3 class="act__title serif">把抽象的东西，<br />变成能看见的东西。</h3>
+                <p class="act__body">
+                  从 Excel 到 Python，从问卷到可视化，我着迷于把复杂问题拆成一张清晰的图。让不懂代码的人，也能一眼看懂。
+                </p>
+                <span class="act__meta">MESSY → CLEAR → USEFUL</span>
+              </article>
+
+              <article class="act" data-act="2">
+                <span class="act__index">03 / 03</span>
+                <p class="act__kicker">关于以后</p>
+                <h3 class="act__title serif">还在长大，<br />也还在路上。</h3>
+                <p class="act__body">
+                  大二只是开头。我想做一些真正被人使用、被人记住的小产品，也想认识更多认真做事的人。
+                </p>
+                <span class="act__meta">KEEP CURIOUS · KEEP BUILDING</span>
+              </article>
+            </div>
+
+            <div class="story__hint">
+              <span class="story__hint-line"></span>
+              继续滚动，人物会跟着你的节奏转动
+            </div>
+          </div>
+
+          <aside class="story__rail" aria-hidden="true">
+            <span class="story__rail-label">SCROLL</span>
+            <div class="story__rail-track">
+              <span class="story__rail-fill" id="story-fill"></span>
+            </div>
+            <ol class="story__rail-dots">
+              <li class="is-active" data-rail="0"><span>01</span></li>
+              <li data-rail="1"><span>02</span></li>
+              <li data-rail="2"><span>03</span></li>
+            </ol>
+            <span class="story__rail-pct" id="story-pct">00</span>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE BODY ================= -->
+    <div class="page-body">
+      <!-- ABOUT -->
+      <section class="section about" id="about">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">01</span>
+              <span>ABOUT</span>
+              <em>关于我</em>
+            </div>
+            <h2 class="section-head__title serif">一个喜欢把问题<br />画出来的人。</h2>
+            <p class="section-head__note">
+              比起标准答案，我更好奇问题是怎么被问出来的。<br />
+              这是我的一些背景、方法和正在做的事。
+            </p>
+          </header>
+
+          <div class="about__grid">
+            <aside class="about__aside">
+              <figure class="about__portrait">
+                <div class="about__portrait-inner">
+                  <img src="https://aka.doubaocdn.com/s/XCKffTYRZ6" alt="林知远的黏土 3D 卡通形象" loading="lazy" width="720" height="900" />
+                  <div class="about__portrait-fallback" aria-hidden="true">
+                    <span>林知远</span>
+                  </div>
+                </div>
+                <figcaption>
+                  <span>CLAY ME / NO. 001</span>
+                  <span>MADE WITH THREE.JS</span>
+                </figcaption>
+              </figure>
+
+              <figure class="about__real">
+                <div class="about__real-frame">
+                  <img src="https://aka.doubaocdn.com/s/y3OGFqnRcJ" alt="林知远的真实照片" loading="lazy" width="720" height="900" />
+                </div>
+                <figcaption>
+                  <span>REAL ME</span>
+                  <span>2026 / HANGZHOU</span>
+                </figcaption>
+              </figure>
+
+              <div class="about__manual">
+                <div class="about__manual-head">
+                  <span>个人说明书</span>
+                  <em>USER MANUAL</em>
+                </div>
+                <dl>
+                  <div><dt>正在学</dt><dd>Python 数据分析、交互设计</dd></div>
+                  <div><dt>最近读</dt><dd>《数据之美》· 重读第 3 遍</dd></div>
+                  <div><dt>单曲循环</dt><dd>某种很吵的 City Pop</dd></div>
+                  <div><dt>咖啡因</dt><dd>每天 2 杯，美式，不加糖</dd></div>
+                </dl>
+              </div>
+            </aside>
+
+            <div class="about__content">
+              <p class="about__lead" data-profile-intro-long>
+                我是林知远，南山大学数字经济专业大二学生。白天和表格、爬虫、回归模型打交道，晚上写点关于城市、手艺和人的故事。我相信数据不是终点，它只是理解世界的一个入口。
+              </p>
+              <p class="about__text">
+                我习惯先问「为什么」，再问「怎么做」。从夜市的摊位到菜市场的价格，从非遗手艺人的口述到同学们的社交焦虑，我关心那些被平均数遮住的细节。我的作品大多从一个很小的疑问开始，最后长成一张图、一个网页，或者一个真的有人用的小工具。
+              </p>
+
+              <div class="about__stats" data-stats></div>
+
+              <div class="timeline-wrap">
+                <div class="timeline-head">
+                  <span>履历时间线</span>
+                  <em>TIMELINE / 2024 — NOW</em>
+                </div>
+                <ol class="timeline" data-timeline></ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="section skills" id="skills">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">02</span>
+              <span>TOOLKIT</span>
+              <em>能力栈</em>
+            </div>
+            <h2 class="section-head__title serif">手里的工具，<br />和它们背后的思路。</h2>
+            <p class="section-head__note">
+              还在持续学习的路上。百分比只代表熟练程度，<br />
+              不代表我停止学习的速度。
+            </p>
+          </header>
+
+          <div class="skills__grid" data-skills></div>
+
+          <div class="skills__ticker" aria-hidden="true">
+            <div class="skills__ticker-track" data-tools></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="section projects" id="projects">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">03</span>
+              <span>SELECTED WORK</span>
+              <em>项目作品</em>
+            </div>
+            <h2 class="section-head__title serif">一些把想法<br />做出来的证据。</h2>
+            <p class="section-head__note">
+              <span data-projects-count>4</span> 个项目，从数据可视化到产品设计。<br />
+              点击卡片查看完整故事。
+            </p>
+          </header>
+
+          <div class="projects__grid" data-projects></div>
+        </div>
+      </section>
+
+      <!-- NOTES -->
+      <section class="section notes" id="notes">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">04</span>
+              <span>FIELD NOTES</span>
+              <em>学习笔记</em>
+            </div>
+            <h2 class="section-head__title serif">写下来，<br />才算真的想明白。</h2>
+            <p class="section-head__note">
+              关于数据、工具和成长的不定期记录。<br />
+              没有干货焦虑，只有真实踩过的坑。
+            </p>
+          </header>
+
+          <div class="notes__list" data-notes></div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section contact" id="contact">
+        <div class="container contact__inner">
+          <div class="contact__top">
+            <div class="section-head__label section-head__label--light">
+              <span class="section-head__num">05</span>
+              <span>GET IN TOUCH</span>
+              <em>联系方式</em>
+            </div>
+            <div class="contact__availability">
+              <span class="pulse"></span>
+              <span data-profile-availability>2026 暑期实习开放中</span>
+            </div>
+          </div>
+
+          <h2 class="contact__title serif">
+            一起做点<br />
+            <em>有意思的事</em><span class="contact__dot">。</span>
+          </h2>
+
+          <div class="contact__grid">
+            <div class="contact__email-wrap">
+              <span class="contact__k">DROP ME A LINE</span>
+              <a class="contact__email" href="mailto:hello@linzhiyuan.me" data-profile-email>hello@linzhiyuan.me</a>
+              <button class="contact__copy" id="copy-email" type="button" data-copy="hello@linzhiyuan.me">
+                <span class="contact__copy-label">复制邮箱</span>
+                <span class="contact__copy-icon" aria-hidden="true">⧉</span>
+              </button>
+              <p class="contact__reply">通常在 24 小时内回复。也欢迎直接发简历或作品集给我。</p>
+            </div>
+            <div class="contact__links">
+              <span class="contact__k">ELSEWHERE</span>
+              <ul data-socials></ul>
+            </div>
+          </div>
+
+          <footer class="footer">
+            <div class="footer__row">
+              <div class="footer__brand">
+                <span class="footer__mark">知</span>
+                <div>
+                  <strong data-profile-name>林知远</strong>
+                  <em data-profile-name-en>LIN ZHIYUAN</em>
+                </div>
+              </div>
+              <p class="footer__note" data-footer-note>用一点好奇心和很多杯咖啡做成。</p>
+              <div class="footer__meta">
+                <span id="footer-clock">HANGZHOU · 00:00</span>
+                <a href="#top">回到顶部 ↑</a>
+              </div>
+            </div>
+            <div class="footer__bottom">
+              <span>© <span data-year>2026</span> LIN ZHIYUAN. ALL RIGHTS RESERVED.</span>
+              <span>DESIGNED &amp; BUILT BY MYSELF</span>
+              <a class="footer__admin" href="admin/" data-admin-link hidden>CONTENT STUDIO ↗</a>
+            </div>
+          </footer>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ================= PROJECT MODAL ================= -->
+  <div class="modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel modal__panel--project">
+      <button class="modal__close" type="button" data-close-modal>
+        <span>关闭</span>
+        <span class="modal__close-key">ESC</span>
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="modal__scroll" id="project-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ================= NOTE MODAL ================= -->
+  <div class="modal modal--note" id="note-modal" role="dialog" aria-modal="true" aria-labelledby="note-modal-title" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel modal__panel--note">
+      <button class="modal__close" type="button" data-close-modal>
+        <span>关闭</span>
+        <span class="modal__close-key">ESC</span>
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="modal__scroll" id="note-modal-body"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://aka.doubaocdn.com/s/UnTG4jEqBo"></script>
+  <script src="https://aka.doubaocdn.com/s/YlQZ9Nxw4I"></script>
+  <script src="https://aka.doubaocdn.com/s/fqd7WKCO76"></script>
+  <script src="https://aka.doubaocdn.com/s/wVxhyxVbEK"></script>
+  <script src="https://aka.doubaocdn.com/s/l4tb2kdbVq"></script>
+</body>
+</html>
