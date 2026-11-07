@@ -1,0 +1,49 @@
+name: cache-bust-character
+
+# 一次性任务：给 character.js 加上版本参数，绕开 CDN / 浏览器缓存
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cache-bust-character.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bust:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version the character script
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          p = pathlib.Path("index.html")
+          t = p.read_text(encoding="utf-8")
+          old = '<script src="assets/js/character.js"></script>'
+          new = '<script src="assets/js/character.js?v=20261107b"></script>'
+          if old in t:
+              t = t.replace(old, new)
+              p.write_text(t, encoding="utf-8")
+              print("busted")
+          else:
+              print("already versioned or pattern missing")
+          PY
+          grep -n 'character.js' index.html | head -3
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "chore: cache-bust character script"
+            git pull --rebase origin main || true
+            git push
+          fi
