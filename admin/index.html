@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>概览 · 内容工作台 · 林知远</title>
+  <meta name="description" content="林知远个人作品集的内容工作台：编辑作品、文章、个人资料与网站设置，所有改动保存在本浏览器。">
+  <meta name="theme-color" content="#f3efe6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2316170f'/%3E%3Ctext x='32' y='45' font-size='38' font-family='serif' text-anchor='middle' fill='%23f3efe6'%3E%E6%9E%97%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=20261107">
+  <link rel="stylesheet" href="./admin.css?v=20261107">
+</head>
+<body class="studio">
+  <a class="skip-link" href="#studio-main">跳到主要内容</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="studio-shell">
+    <aside class="studio-sidebar" aria-label="工作台导航">
+      <a class="studio-brand" href="#/overview">
+        <span class="studio-brand__mark" aria-hidden="true">林</span>
+        <span class="studio-brand__text">
+          <span class="studio-brand__name">林知远</span>
+          <span class="studio-brand__sub mono">CONTENT STUDIO · V1</span>
+        </span>
+        <span class="studio-brand__local mono">本地工作台<br>LOCAL STUDIO</span>
+      </a>
+
+      <nav class="studio-nav" id="studio-nav" aria-label="内容板块"></nav>
+
+      <div class="studio-sidebar__foot">
+        <p class="studio-local mono">本地工作台 / LOCAL STUDIO</p>
+        <p class="studio-local__desc">所有改动只保存在这台设备的浏览器里，不会上传到任何服务器。换设备或清缓存之前，请先导出 JSON 备份。</p>
+        <p class="studio-local__meta mono" id="storage-meta">LOCAL COPY · —</p>
+      </div>
+    </aside>
+
+    <div class="studio-main">
+      <header class="studio-topbar">
+        <div class="studio-topbar__crumb">
+          <span class="mono" id="topbar-num">01</span>
+          <h1 class="serif" id="topbar-title">概览</h1>
+        </div>
+        <div class="studio-topbar__actions">
+          <p class="studio-local-chip" title="内容保存在这台电脑浏览器的 localStorage 中，不上传服务器。">
+            <span class="studio-local-chip__dot" aria-hidden="true"></span>
+            <span class="studio-local-chip__label">本地工作台 / LOCAL STUDIO</span>
+            <span class="studio-local-chip__note">仅存于本浏览器</span>
+          </p>
+          <a class="studio-preview-link" href="../index.html" target="_blank" rel="noopener">
+            <span>预览网站</span>
+            <span class="studio-preview-link__arrow" aria-hidden="true">↗</span>
+          </a>
+          <p class="save-state" id="save-state" aria-live="polite">
+            <span class="save-state__dot" aria-hidden="true"></span>
+            <span id="save-state-text">已保存</span>
+          </p>
+          <button class="btn studio-save-btn" type="button" id="save-btn" data-action="save-now" title="保存到本浏览器（Ctrl / ⌘ + S）">
+            <span>保存</span>
+            <span class="studio-save-btn__key mono" aria-hidden="true">CTRL S</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="studio-content" id="studio-main" tabindex="-1">
+        <div id="section-root"></div>
+        <noscript>
+          <p class="empty-state">这个工作台需要 JavaScript 才能运行，请开启浏览器的 JavaScript。</p>
+        </noscript>
+      </main>
+
+      <footer class="studio-footer">
+        <span class="mono">LIN ZHIYUAN · CONTENT STUDIO</span>
+        <span class="mono" id="footer-storage">LOCAL ONLY · V1</span>
+      </footer>
+    </div>
+  </div>
+
+  <dialog id="project-dialog" class="modal" aria-labelledby="project-dialog-title"></dialog>
+  <dialog id="note-dialog" class="modal modal--note" aria-labelledby="note-dialog-title"></dialog>
+  <dialog id="confirm-dialog" class="modal modal--confirm" aria-labelledby="confirm-dialog-title"></dialog>
+  <dialog id="import-dialog" class="modal modal--confirm" aria-labelledby="import-dialog-title"></dialog>
+
+  <div class="toast-zone" id="toast-zone" role="status" aria-live="polite"></div>
+
+  <input type="file" id="import-file" class="visually-hidden" accept="application/json,.json" tabindex="-1" aria-hidden="true">
+  <input type="file" id="avatar-file" class="visually-hidden" accept="image/*" tabindex="-1" aria-hidden="true" data-file="avatar">
+
+  <script src="../assets/js/content.js?v=20261107"></script>
+  <script src="../assets/js/store.js?v=20261107"></script>
+  <script src="./admin.js?v=20261107"></script>
+</body>
+</html>
