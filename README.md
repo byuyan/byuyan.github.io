@@ -1,2 +1,2 @@
 # byuyan.github.io
-Personal portfolio site (Lin Zhiyuan demo content)
+Personal portfolio site (Zheng Yubin demo content)
