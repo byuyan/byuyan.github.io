@@ -1,5 +1,5 @@
 /* 站内就地编辑：只在开启编辑模式时生效
-   开启：网址后加 ?edit=1，或按 Ctrl / ⌘ + E
+   开启：网址后加 ?edit=1，或按 Ctrl / ⌘ + E；关闭：?edit=0 或工具条上的退出
    改动存在这台电脑的 localStorage，只有本机能看见；可导出 JSON 备份 */
 (function () {
   "use strict";
@@ -270,8 +270,13 @@
       setTimeout(applyOverrides, 700);
     });
 
-    var on = want === "1" ? true : want === "0" ? false : persisted;
-    if (on) setTimeout(function () { setMode(true); }, 900);
+    if (want === "1") {
+      setTimeout(function () { setMode(true); }, 900);
+    } else if (want === "0") {
+      setMode(false);
+    } else if (persisted) {
+      setTimeout(function () { setMode(true); }, 900);
+    }
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
