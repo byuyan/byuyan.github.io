@@ -277,9 +277,9 @@
   /* Visual direction for the real-person likeness. Toggle these if you
      want to bring back the original glasses / sticker styling. */
   var LOOK = {
-    glasses: false,
-    stickers: false,
-    blush: false
+    glasses: true,
+    stickers: true,
+    blush: true
   };
 
   var skinMat = clay(0xe6b497, 0.66);
