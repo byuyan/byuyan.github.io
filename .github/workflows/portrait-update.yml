@@ -1,0 +1,50 @@
+name: portrait-update
+
+# 一次性任务：把新的拱形人物图写入 assets/img/portrait.png
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/portrait-update.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  swap:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch new portrait
+        run: |
+          curl -fsSL --retry 3 --max-time 120 "https://aka.doubaocdn.com/s/z3jZuECvze" -o /tmp/portrait_new.png
+          ls -l /tmp/portrait_new.png
+          python3 - <<'PY'
+          import struct, sys
+          p = "/tmp/portrait_new.png"
+          data = open(p, "rb").read()
+          if not data.startswith(b"\x89PNG"):
+              sys.exit("not a png")
+          w, h = struct.unpack(">II", data[16:24])
+          print("png", w, h, len(data))
+          if len(data) < 200000 or w < 800:
+              sys.exit("unexpected file")
+          PY
+          mkdir -p assets/img
+          cp /tmp/portrait_new.png assets/img/portrait.png
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/img/portrait.png
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "content: swap hero portrait to clay 3D boy"
+            git pull --rebase origin main || true
+            git push
+          fi
