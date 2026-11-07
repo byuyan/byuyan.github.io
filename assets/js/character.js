@@ -511,7 +511,7 @@
   var eyes = [];
   [-1, 1].forEach(function (side) {
     var eye = new THREE.Group();
-    eye.position.set(side * 0.38, 0.12, 0.955);
+    eye.position.set(side * 0.38, 0.12, 0.995);
     eye.rotation.y = side * -0.12;
 
     var white = new THREE.Mesh(new THREE.ShapeGeometry(almondShape(0.18, 0.062), 24), eyeWhiteMat);
@@ -582,8 +582,8 @@
 
   if (LOOK.blush) {
     [-1, 1].forEach(function (side) {
-      var blush = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.26), blushMat);
-      blush.position.set(side * 0.55, -0.17, 0.83);
+      var blush = new THREE.Mesh(new THREE.PlaneGeometry(0.46, 0.3), blushMat);
+      blush.position.set(side * 0.53, -0.25, 0.86);
       blush.rotation.y = side * -0.42;
       blush.rotation.z = side * 0.06;
       head.add(blush);
@@ -625,7 +625,7 @@
   }
 
   var glasses = new THREE.Group();
-  glasses.position.set(0, 0.11, 1.0);
+  glasses.position.set(0, 0.1, 1.035);
   head.add(glasses);
 
   [-1, 1].forEach(function (side) {
@@ -675,7 +675,7 @@
     stickerTexture("star"),
     0.22,
     0.22,
-    new THREE.Vector3(-0.64, -0.19, 0.78),
+    new THREE.Vector3(-0.58, -0.33, 0.80),
     { x: 0, y: -0.42, z: 0.2 }
   );
 
@@ -683,7 +683,7 @@
     stickerTexture("ok"),
     0.26,
     0.2,
-    new THREE.Vector3(0.58, -0.37, 0.72),
+    new THREE.Vector3(0.56, -0.34, 0.78),
     { x: 0, y: 0.42, z: -0.06 }
   );
   }
