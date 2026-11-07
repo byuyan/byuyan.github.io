@@ -1,0 +1,80 @@
+name: content-rename
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/content-rename.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rewrite identity strings and inject editor
+        run: |
+          python3 - <<'PY'
+          import pathlib
+
+          files = [
+              "index.html",
+              "admin/index.html",
+              "assets/js/content.js",
+              "assets/js/site.js",
+              "admin/admin.js",
+              "README.md",
+          ]
+
+          pairs = [
+              ("\u6797\u77e5\u8fdc", "\u90d1\u5b87\u5f6c"),
+              ("LIN ZHIYUAN", "ZHENG YUBIN"),
+              ("Lin Zhiyuan", "Zheng Yubin"),
+              ("hello@linzhiyuan.me", "hello@example.com"),
+              ("zhiyuan-lin", "byuyan"),
+              ("\u5357\u5c71\u5927\u5b66", "\u6b66\u6c49\u7406\u5de5\u5927\u5b66"),
+              ("\u676d\u5dde", "\u6b66\u6c49"),
+              ("HANGZHOU", "WUHAN"),
+              (">\u77e5<", ">\u90d1<"),
+              (">\u6797<", ">\u90d1<"),
+          ]
+
+          for name in files:
+              p = pathlib.Path(name)
+              if not p.is_file():
+                  continue
+              text = p.read_text(encoding="utf-8")
+              for old, new in pairs:
+                  text = text.replace(old, new)
+              p.write_text(text, encoding="utf-8")
+              print("rewrote:", name)
+
+          page = pathlib.Path("index.html")
+          html = page.read_text(encoding="utf-8")
+          if "inline-edit.js" not in html:
+              tag = (
+                  '  <link rel="stylesheet" href="assets/css/inline-edit.css?v=20261107">\n'
+                  '  <script src="assets/js/inline-edit.js?v=20261107"></script>\n'
+              )
+              html = html.replace("</body>", tag + "</body>")
+              page.write_text(html, encoding="utf-8")
+              print("injected inline editor into index.html")
+          PY
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+          else
+            git commit -m "content: rename to Zheng Yubin + inline edit entry"
+            git pull --rebase origin main || true
+            git push
+          fi

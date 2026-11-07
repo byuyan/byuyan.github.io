@@ -1,0 +1,117 @@
+/* 站内编辑器样式：只在 html.pf-editmode 下出现 */
+html.pf-editmode {
+  scroll-behavior: auto;
+}
+
+#pf-bar {
+  position: fixed;
+  z-index: 2147483000;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 10px 9px 16px;
+  border-radius: 999px;
+  background: #16170f;
+  color: #f3efe6;
+  font: 500 12px/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.02em;
+  box-shadow: 0 16px 44px rgba(22, 23, 15, 0.28);
+  max-width: calc(100vw - 32px);
+}
+
+#pf-bar .pf-bar__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #cfe3b0;
+  flex: none;
+}
+
+#pf-bar .pf-bar__label {
+  white-space: nowrap;
+}
+
+#pf-bar .pf-bar__flash {
+  color: #b9c9a8;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+#pf-bar .pf-bar__flash.is-on {
+  opacity: 1;
+}
+
+#pf-bar button {
+  appearance: none;
+  border: 1px solid rgba(243, 239, 230, 0.28);
+  background: transparent;
+  color: #f3efe6;
+  font: inherit;
+  padding: 6px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+#pf-bar button:hover {
+  background: rgba(243, 239, 230, 0.14);
+  border-color: rgba(243, 239, 230, 0.5);
+}
+
+#pf-pencil {
+  position: absolute;
+  display: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #16170f;
+  color: #f3efe6;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2147482999;
+  box-shadow: 0 4px 14px rgba(22, 23, 15, 0.24);
+}
+
+html.pf-editmode .pf-hov {
+  outline: 1px dashed rgba(198, 86, 60, 0.62);
+  outline-offset: 3px;
+  border-radius: 2px;
+  cursor: text;
+}
+
+html.pf-editmode .pf-editing {
+  outline: 2px solid #16170f !important;
+  outline-offset: 3px;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 2px;
+  color: #16170f !important;
+}
+
+html.pf-editmode .contact__email.pf-hov,
+html.pf-editmode .contact__email.pf-editing {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+@media (max-width: 640px) {
+  #pf-bar {
+    gap: 8px;
+    padding: 8px 8px 8px 12px;
+    font-size: 11px;
+    bottom: 12px;
+  }
+  #pf-bar .pf-bar__flash {
+    display: none;
+  }
+  #pf-bar button {
+    padding: 6px 9px;
+  }
+}
