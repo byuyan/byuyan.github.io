@@ -11,17 +11,17 @@ window.PORTFOLIO_DEFAULT = {
     name: "郑宇彬",
     nameEn: "Zheng Yubin",
     role: "数字经济 · 大二在读",
-    school: "南山大学",
-    location: "杭州 / 中国",
+    school: "武汉理工大学",
+    location: "武汉 / 中国",
     availability: "2026 暑期实习开放中",
     status: "正在寻找数据分析 / 产品方向的实习",
     tagline: ["在数据与叙事之间，", "做一点有温度的建造。"],
     intro:
-      "我是郑宇彬，南山大学数字经济专业大二学生。白天和表格、爬虫、回归模型打交道，晚上写点关于城市、手艺和人的故事。我相信数据不是终点，它只是理解世界的一个入口。",
-    email: "hello@linzhiyuan.me",
+      "我是郑宇彬，武汉理工大学数字经济专业大二学生。白天和表格、爬虫、回归模型打交道，晚上写点关于城市、手艺和人的故事。我相信数据不是终点，它只是理解世界的一个入口。",
+    email: "hello@example.com",
     avatar: "assets/img/portrait.png",
     socials: [
-      { label: "GitHub", handle: "@zhiyuan-lin", url: "https://github.com/" },
+      { label: "GitHub", handle: "@byuyan", url: "https://github.com/" },
       { label: "小红书", handle: "@知远的数据簿", url: "https://www.xiaohongshu.com/" },
       { label: "即刻", handle: "@郑宇彬", url: "https://web.okjike.com/" },
       { label: "Bilibili", handle: "@在逃数分人", url: "https://www.bilibili.com/" }
@@ -56,7 +56,7 @@ window.PORTFOLIO_DEFAULT = {
       year: "2025",
       date: "2025.07 — 2025.09",
       title: "数据实习生",
-      org: "杭州某消费咨询公司",
+      org: "武汉某消费咨询公司",
       desc: "参与连锁品牌门店选址项目，独立完成 12 个竞品品牌的数据清洗与可视化看板。",
       tag: "实习"
     },
@@ -64,14 +64,14 @@ window.PORTFOLIO_DEFAULT = {
       year: "2025",
       date: "2025.03",
       title: "校数据分析竞赛 · 二等奖",
-      org: "南山大学",
+      org: "武汉理工大学",
       desc: "用公开数据评估城市夜间经济活力，第一次完整走完「提问—清洗—建模—叙事」的闭环。",
       tag: "竞赛"
     },
     {
       year: "2024",
       date: "2024.09",
-      title: "入学南山大学 · 数字经济",
+      title: "入学武汉理工大学 · 数字经济",
       org: "经济与管理学院",
       desc: "在通识课第一次写下 print(\"hello, world\")，发现代码可以把想法真的跑起来。",
       tag: "起点"
@@ -135,7 +135,7 @@ window.PORTFOLIO_DEFAULT = {
       cover: "assets/img/project-nocturne.svg",
       summary: "把 6 个城区的夜间灯光、客流与外卖数据叠在一张地图上，看见城市入睡的顺序。",
       description:
-        "城市是什么时候睡着的？我收集了杭州 6 个城区连续 30 天的夜间灯光遥感、地铁客流与外卖订单数据，把三种节奏叠在同一张地图上。结果发现：写字楼先熄灯，夜市最后收摊，而城中村的灯光几乎没有暗下来过。",
+        "城市是什么时候睡着的？我收集了武汉 6 个城区连续 30 天的夜间灯光遥感、地铁客流与外卖订单数据，把三种节奏叠在同一张地图上。结果发现：写字楼先熄灯，夜市最后收摊，而城中村的灯光几乎没有暗下来过。",
       role: "数据清洗 / 可视化 / 叙事",
       deliverables: ["交互地图", "数据故事长图", "3 分钟路演"],
       tags: ["Python", "Pandas", "ECharts", "地理数据"],
@@ -246,8 +246,8 @@ window.PORTFOLIO_DEFAULT = {
 
   settings: {
     siteTitle: "郑宇彬 · 数字经济与叙事",
-    siteDescription: "南山大学数字经济专业大二学生郑宇彬的个人作品集：数据可视化、产品设计与城市观察。",
-    marquee: ["OPEN TO 2026 SUMMER INTERNSHIP", "DATA · DESIGN · STORY", "BASED IN HANGZHOU"],
+    siteDescription: "武汉理工大学数字经济专业大二学生郑宇彬的个人作品集：数据可视化、产品设计与城市观察。",
+    marquee: ["OPEN TO 2026 SUMMER INTERNSHIP", "DATA · DESIGN · STORY", "BASED IN WUHAN"],
     footerNote: "用一点好奇心和很多杯咖啡做成。",
     showAdminLink: true,
     accent: "#df6249"

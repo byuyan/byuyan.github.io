@@ -402,7 +402,7 @@
     var navClock = $("#nav-clock");
     if (navClock) navClock.textContent = "CN · " + time;
     var footerClock = $("#footer-clock");
-    if (footerClock) footerClock.textContent = "HANGZHOU · " + time;
+    if (footerClock) footerClock.textContent = "WUHAN · " + time;
   }
   updateClock();
   window.setInterval(updateClock, 30000);

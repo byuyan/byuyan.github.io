@@ -1006,7 +1006,7 @@
       return (
         '<div class="repeat-row repeat-row--social">' +
         field({ label: "平台", bind: "profile.socials." + index + ".label", value: social.label, placeholder: "GitHub" }) +
-        field({ label: "账号", bind: "profile.socials." + index + ".handle", value: social.handle, placeholder: "@zhiyuan-lin" }) +
+        field({ label: "账号", bind: "profile.socials." + index + ".handle", value: social.handle, placeholder: "@byuyan" }) +
         field({ label: "链接", bind: "profile.socials." + index + ".url", value: social.url, placeholder: "https://..." }) +
         '<button class="icon-btn icon-btn--danger repeat-row__remove" type="button" data-action="remove-social" data-index="' + index + '" aria-label="删除第 ' + (index + 1) + ' 条社交链接">✕</button>' +
         "</div>"
@@ -1042,8 +1042,8 @@
       field({ label: "姓名", en: "NAME", bind: "profile.name", value: profile.name, placeholder: "郑宇彬", maxlength: 30 }) +
       field({ label: "英文名", en: "NAME EN", bind: "profile.nameEn", value: profile.nameEn, placeholder: "Zheng Yubin", maxlength: 60 }) +
       field({ label: "身份 / 专业", en: "ROLE", bind: "profile.role", value: profile.role, placeholder: "数字经济 · 大二在读", maxlength: 60 }) +
-      field({ label: "学校", en: "SCHOOL", bind: "profile.school", value: profile.school, placeholder: "南山大学" }) +
-      field({ label: "所在城市", en: "LOCATION", bind: "profile.location", value: profile.location, placeholder: "杭州 / 中国" }) +
+      field({ label: "学校", en: "SCHOOL", bind: "profile.school", value: profile.school, placeholder: "武汉理工大学" }) +
+      field({ label: "所在城市", en: "LOCATION", bind: "profile.location", value: profile.location, placeholder: "武汉 / 中国" }) +
       field({ label: "状态徽章", en: "AVAILABILITY", bind: "profile.availability", value: profile.availability, placeholder: "2026 暑期实习开放中" }) +
       field({ label: "当前状态", en: "STATUS", bind: "profile.status", value: profile.status, placeholder: "正在寻找数据分析 / 产品方向的实习", span: true }) +
       field({ label: "联系邮箱", en: "EMAIL", bind: "profile.email", type: "email", value: profile.email, placeholder: "hello@example.com", span: true }) +
