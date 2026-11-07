@@ -1,5 +1,6 @@
 name: admin-name-fix
 
+# 一次性任务：清掉仓库里残留的示例姓名（触发条件仅限本文件变更）
 on:
   push:
     branches: [main]
@@ -22,15 +23,19 @@ jobs:
           python3 - <<'PY'
           import pathlib
 
-          for name in ["admin/admin.js", "admin/index.html", "index.html", "assets/js/content.js", "assets/js/site.js"]:
+          targets = ["admin/admin.js", "admin/index.html", "index.html", "assets/js/content.js", "assets/js/site.js", "README.md"]
+
+          for name in targets:
               p = pathlib.Path(name)
               if not p.is_file():
                   continue
               text = p.read_text(encoding="utf-8")
-              before = text.count("林知远")
-              text = text.replace("林知远", "郑宇彬").replace("LIN ZHIYUAN", "ZHENG YUBIN")
+              hits = text.count("林知远")
+              text = text.replace("林知远", "郑宇彬")
+              text = text.replace("LIN ZHIYUAN", "ZHENG YUBIN")
+              text = text.replace("Lin Zhiyuan", "Zheng Yubin")
               p.write_text(text, encoding="utf-8")
-              print(f"{name}: replaced {before} name hits")
+              print(f"{name}: replaced_remaining={hits}")
           PY
 
       - name: Commit
@@ -41,7 +46,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "nothing to commit"
           else
-            git commit -m "fix: clear remaining demo name in studio"
+            git commit -m "fix: clear remaining demo name"
             git pull --rebase origin main || true
             git push
           fi
