@@ -427,7 +427,7 @@ body{
 .drawer__foot{display:flex;gap:10px;margin-top:auto}
 
 /* ---------- AI ---------- */
-.ai{position:fixed;left:24px;bottom:22px;z-index:50}
+.ai{position:fixed;right:24px;bottom:22px;z-index:50}
 .ai__fab{
   width:52px;height:52px;border-radius:50%;cursor:pointer;color:#e8eeff;font-family:inherit;
   font-size:13px;letter-spacing:.1em;
@@ -438,7 +438,7 @@ body{
 }
 .ai__fab:hover{transform:translateY(-2px) scale(1.03)}
 .ai__panel{
-  position:absolute;left:0;right:auto;bottom:66px;width:min(330px,86vw);
+  position:absolute;right:0;left:auto;bottom:66px;width:min(330px,86vw);
   border-radius:18px;overflow:hidden;display:flex;flex-direction:column;
   background:linear-gradient(180deg,rgba(12,18,31,.94),rgba(7,11,20,.96));
   border:1px solid var(--line);backdrop-filter:blur(24px);
@@ -492,19 +492,45 @@ body{
   html{scroll-behavior:auto}
 }
 
-/* ---------- 右下角液态球 ---------- */
-.orb{position:fixed;right:20px;bottom:18px;z-index:60;display:flex;flex-direction:column;align-items:center;gap:6px}
-.orb__frame{
-  width:116px;height:116px;border:0;background:transparent;border-radius:50%;
-  filter:drop-shadow(0 24px 40px rgba(3,7,16,.55));
-  transition:transform .55s cubic-bezier(.2,.8,.2,1);
-  cursor:pointer;
+/* ---------- 开场：全屏液态球 ---------- */
+.intro{
+  position:fixed;inset:0;z-index:95;background:#010208;
+  transition:opacity .85s ease, visibility .85s ease;
 }
-.orb:hover .orb__frame{transform:translateY(-4px) scale(1.04)}
-.orb__hint{
-  font-size:9px;letter-spacing:.26em;color:rgba(214,224,246,.58);
-  pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.7);
+.intro.is-out{opacity:0;visibility:hidden;pointer-events:none}
+.intro__frame{
+  position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;
+  pointer-events:none;
 }
+.intro__tap{
+  position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;
+  background:transparent;cursor:pointer;
+}
+.intro__tap:focus-visible{outline:none}
+.intro__hint{
+  position:absolute;left:0;right:0;bottom:max(48px,9vh);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-size:11px;letter-spacing:.34em;color:rgba(214,224,246,.66);
+  pointer-events:none;text-shadow:0 2px 18px rgba(0,0,0,.9);
+  animation:hintPulse 2.8s ease-in-out infinite;
+}
+.intro__hint i{
+  width:5px;height:5px;border-radius:50%;background:rgba(150,190,255,.9);
+  box-shadow:0 0 10px rgba(120,170,255,.9);
+}
+@keyframes hintPulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* 名片里的加微信按钮 */
+.id__wx{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;margin:14px 0 0;padding:10px 14px;border-radius:12px;cursor:pointer;
+  font:inherit;font-size:11.5px;letter-spacing:.18em;color:#dbe6ff;
+  background:rgba(138,168,255,.09);border:1px solid rgba(138,168,255,.26);
+  transition:.3s;
+}
+.id__wx svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;transition:transform .3s}
+.id__wx:hover{background:rgba(138,168,255,.18);border-color:rgba(150,180,255,.5);transform:translateY(-1px)}
+.id__wx:hover svg{transform:translateX(3px)}
 
 /* ---------- 加微信卡片 ---------- */
 .wxcard{position:fixed;inset:0;z-index:80;display:grid;place-items:center;pointer-events:none}

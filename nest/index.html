@@ -10,9 +10,15 @@
 <meta property="og:description" content="一间自己搭的电子小窝：蓝莓壁纸、翻页时钟、环境音、留言信箱。">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%238aa8ff' font-family='sans-serif'%3EN%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/site.css?v=20261108e">
+<link rel="stylesheet" href="assets/css/site.css?v=20261108f">
 </head>
 <body>
+<div class="intro" id="intro">
+  <iframe class="intro__frame" id="introFrame" src="assets/orb/splash.html?v=20261108f" title="小窝开场" scrolling="no" aria-hidden="true"></iframe>
+  <button class="intro__tap" id="introTap" type="button" aria-label="进入小窝"></button>
+  <div class="intro__hint"><i></i>点一下 · 进小窝</div>
+</div>
+
 <div class="walls" aria-hidden="true">
   <div class="wall on"></div>
   <div class="wall"></div>
@@ -54,6 +60,11 @@
         <div class="stat"><b id="statNotes">0</b><span>留言</span></div>
         <div class="stat"><b id="statWalls">3</b><span>壁纸</span></div>
       </div>
+
+      <button class="id__wx" id="btnWx" type="button">
+        <span>加我微信</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+      </button>
 
       <div class="player" id="player">
         <div class="player__head">
@@ -181,11 +192,6 @@
   </div>
 </div>
 
-<div class="orb" id="orbFab">
-  <iframe class="orb__frame" id="orbFrame" src="assets/orb/index.html?v=20261108e" title="Liquid orb" scrolling="no" aria-hidden="true"></iframe>
-  <span class="orb__hint">点我加微信</span>
-</div>
-
 <div class="wxcard" id="wxcard" aria-hidden="true">
   <div class="wxcard__mask" data-wxclose></div>
   <div class="wxcard__panel" role="dialog" aria-modal="true" aria-label="加我微信">
@@ -209,6 +215,6 @@
   <button class="ai__fab" id="aiFab" aria-label="打开小窝助手"><span>AI</span></button>
 </div>
 
-<script src="assets/js/site.js?v=20261108e"></script>
+<script src="assets/js/site.js?v=20261108f"></script>
 </body>
 </html>

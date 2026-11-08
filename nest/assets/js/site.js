@@ -716,12 +716,42 @@
 })();
 
 
-/* ---------- 右下角液态球 → 加我微信 ---------- */
+/* ---------- 开场液态球 → 点一下进小窝 ---------- */
+(function () {
+  const intro = document.getElementById('intro');
+  const tap = document.getElementById('introTap');
+  if (!intro) return;
+
+  const params = new URLSearchParams(location.search);
+  const skip = params.get('enter') === '1' || params.get('wx') === '1' || (location.hash && location.hash !== '#home');
+  let entered = false;
+
+  function enter(instant) {
+    if (entered) return;
+    entered = true;
+    if (instant) {
+      intro.remove();
+      return;
+    }
+    intro.classList.add('is-out');
+    window.setTimeout(function () {
+      if (intro.parentNode) intro.parentNode.removeChild(intro);
+    }, 950);
+  }
+
+  if (skip) { enter(true); return; }
+
+  if (tap) tap.addEventListener('click', function () { enter(false); });
+  document.addEventListener('keydown', function (e) {
+    if (!entered && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')) enter(false);
+  });
+})();
+
+/* ---------- 加我微信卡片 ---------- */
 (function () {
   const card = document.getElementById('wxcard');
-  const fab = document.getElementById('orbFab');
-  const frame = document.getElementById('orbFrame');
-  if (!card || !fab || !frame) return;
+  const btnOpen = document.getElementById('btnWx');
+  if (!card) return;
 
   let lastFocus = null;
 
@@ -739,19 +769,7 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
 
-  // 球跑在自己的 iframe 里，点击后用 postMessage 通知本页
-  window.addEventListener('message', function (e) {
-    if (e.data && e.data.type === 'nest-orb-click') {
-      if (card.classList.contains('open')) closeCard();
-      else openCard();
-    }
-  });
-
-  // 触屏/鼠标点到球外框（iframe 之外那一圈）也开卡片
-  fab.addEventListener('click', function (e) {
-    if (e.target === frame) return;
-    openCard();
-  });
+  if (btnOpen) btnOpen.addEventListener('click', openCard);
 
   card.addEventListener('click', function (e) {
     if (e.target.closest('[data-wxclose]')) closeCard();
@@ -761,9 +779,8 @@
     if (e.key === 'Escape' && card.classList.contains('open')) closeCard();
   });
 
-
   // ?wx=1 直开微信卡片（截图/分享用）
-  if (new URLSearchParams(location.search).get('wx') === '1' && card) {
+  if (new URLSearchParams(location.search).get('wx') === '1') {
     setTimeout(openCard, 400);
   }
   // 二维码图还没上传时，别显示碎图
