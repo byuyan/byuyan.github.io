@@ -708,3 +708,20 @@ body.lamp-on .wall.on{filter:brightness(1.17) saturate(1.08) contrast(1.01)}
   color:rgba(214,224,246,.46);font-size:11px;letter-spacing:.18em;
 }
 .wxcard__qr.is-missing img{display:none}
+
+/* 直邮留言：表单 */
+.mailform{display:flex;flex-direction:column;gap:10px}
+.mailform__row{display:flex;gap:8px}
+.mailform input,.mailform textarea{
+  width:100%;min-width:0;padding:11px 14px;border-radius:12px;font-family:inherit;font-size:12px;
+  color:var(--text);background:rgba(9,15,27,.55);border:1px solid rgba(255,255,255,.12);
+  outline:none;transition:.22s;backdrop-filter:blur(12px);letter-spacing:.04em;
+}
+.mailform input::placeholder,.mailform textarea::placeholder{color:rgba(238,242,251,.38)}
+.mailform input:focus,.mailform textarea:focus{border-color:rgba(138,168,255,.5);background:rgba(12,20,36,.72)}
+.mailform textarea{resize:vertical;min-height:104px;line-height:1.78;}
+.mailform__state{margin:0;font-size:11px;line-height:1.8;color:var(--muted)}
+.mailform__state[data-state="sending"]{color:rgba(238,242,251,.55)}
+.mailform__state[data-state="ok"]{color:#9fe3b6}
+.mailform__state[data-state="err"]{color:#ffb4b4}
+.mailform__state a{color:#b9c9ff}

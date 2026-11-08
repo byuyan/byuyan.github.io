@@ -459,21 +459,84 @@
     window.open(url, '_blank', 'noopener');
   }
 
-  $('#btnWrite').addEventListener('click', () => openWrite($('#quickInput').value));
-  $('#quickForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const v = $('#quickInput').value.trim();
-    if (!v) { $('#quickInput').focus(); return; }
-    openWrite(v);
-  });
-  $('#btnCopy').addEventListener('click', async () => {
-    const v = $('#quickInput').value.trim() || '（写你想说的话）';
-    try {
-      await navigator.clipboard.writeText(`给小窝留言：${v}`);
-      $('#btnCopy').textContent = '已复制，去 GitHub 粘贴';
-      setTimeout(() => ($('#btnCopy').textContent = '复制留言到剪贴板'), 2400);
-    } catch (e) {}
-  });
+  /* 留言直邮：FormSubmit 表单端点，寄到 byuyan@qq.com */
+  const MAIL_URL = 'https://formsubmit.co/ajax/byuyan@qq.com';
+  function mailStamp() {
+    const d = new Date();
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+  async function sendMail(payload) {
+    const res = await fetch(MAIL_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.assign({ _subject: '小窝留言 · ' + mailStamp(), _template: 'table' }, payload)),
+    });
+    if (!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json().catch(() => ({}));
+    if (String(data.success) !== 'true') throw new Error(data.message || 'failed');
+    return true;
+  }
+  function mailFallback(text) {
+    window.location.href = 'mailto:byuyan@qq.com?subject=' +
+      encodeURIComponent('小窝留言 · ' + mailStamp()) +
+      '&body=' + encodeURIComponent(text + '\n\n— 来自小窝');
+  }
+
+  const quickForm = $('#quickForm');
+  const quickInput = $('#quickInput');
+  if (quickForm) {
+    quickForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const v = quickInput.value.trim();
+      if (!v) { quickInput.focus(); return; }
+      const btn = quickForm.querySelector('button');
+      const label = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '…';
+      try {
+        await sendMail({ name: '小窝访客', email: '', message: v });
+        quickInput.value = '';
+        quickInput.placeholder = '寄出去了，谢谢你';
+        btn.textContent = '已寄出';
+        setTimeout(() => { btn.textContent = label; quickInput.placeholder = '留句话给我，会直接寄到我的邮箱'; }, 3400);
+      } catch (err) {
+        btn.textContent = label;
+        mailFallback(v);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+
+  const mailForm = $('#mailForm');
+  if (mailForm) {
+    const nameEl = $('#mailName');
+    const mailEl = $('#mailEmail');
+    const msgEl = $('#mailMsg');
+    const stateEl = $('#mailState');
+    mailForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = msgEl.value.trim();
+      if (!msg) { msgEl.focus(); return; }
+      const btn = mailForm.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      stateEl.dataset.state = 'sending';
+      stateEl.textContent = '正在寄出…';
+      try {
+        await sendMail({ name: nameEl.value.trim() || '小窝访客', email: mailEl.value.trim(), message: msg });
+        msgEl.value = '';
+        stateEl.dataset.state = 'ok';
+        stateEl.textContent = '已经寄到我的邮箱了，thanks。';
+      } catch (err) {
+        stateEl.dataset.state = 'err';
+        stateEl.innerHTML = '没寄出去，<a href="mailto:byuyan@qq.com?subject=' +
+          encodeURIComponent('小窝留言 · ' + mailStamp()) + '&body=' + encodeURIComponent(msg) +
+          '">点这里直接用邮箱发我</a>。';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
 
   /* ---------- 最近的脚印（真实提交） ---------- */
   async function loadCommits() {
