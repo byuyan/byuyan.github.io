@@ -31,8 +31,14 @@
 }
 
 /* ---------- 文章列表 ---------- */
-.plist{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.plist{
+  margin:0;padding:2px 22px;list-style:none;
+  border:1px solid rgba(255,255,255,.07);border-radius:18px;
+  background:rgba(8,11,20,.34);
+  backdrop-filter:blur(18px) saturate(1.05);
+}
 .plist__item{border-bottom:1px solid var(--line)}
+.plist__item:last-child{border-bottom:0}
 .plist__link{
   display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;
   padding:30px 6px;text-decoration:none;color:inherit;
@@ -40,7 +46,7 @@
 }
 .plist__link:hover{background:rgba(255,255,255,.028);transform:translateX(3px)}
 .plist__date{
-  font-size:10.5px;letter-spacing:.16em;color:var(--faint);
+  font-size:10.5px;letter-spacing:.16em;color:rgba(238,242,251,.52);
   font-variant-numeric:tabular-nums;padding-top:4px;
 }
 .plist__body h3{
