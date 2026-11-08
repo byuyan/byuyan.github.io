@@ -1,0 +1,37 @@
+name: nest-sync-5
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/nest-sync-5.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch site bundle
+        run: |
+          curl -sSL -o /tmp/nest.zip "https://aka.doubaocdn.com/s/FzjnPpXuH8"
+          ls -la /tmp/nest.zip
+          rm -rf nest
+          mkdir -p nest
+          unzip -o /tmp/nest.zip -d nest
+          ls -la nest
+
+      - name: Commit and push
+        run: |
+          git config user.name "nest-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A nest
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "chore: sync nest site (v20261108e)"
+            git push
+          fi
