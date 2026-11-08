@@ -28,8 +28,9 @@
 我把线上原版的 `<script type="module">` 整段抠出来，和改完之后的一起算哈希：
 
 ```
+whole file identical: True
 script identical: True
-86683 字符 · sha 6d81e38cf2aba2aa
+96214 字节 · 86692 字符 · sha f2cb8d61c9c5eaa9
 ```
 
 两个哈希一模一样。那一刻才敢说「参数一个没动」不是口号，是可以被验证的。
