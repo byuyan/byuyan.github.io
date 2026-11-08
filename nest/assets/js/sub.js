@@ -8,8 +8,6 @@
   const KEY = 'nest.prefs.v1';
   const WALLS = [
     'assets/img/wall-1.jpg',
-    'assets/img/wall-2.jpg',
-    'assets/img/wall-3.jpg',
   ];
 
   const esc = (s) => String(s === undefined || s === null ? '' : s)

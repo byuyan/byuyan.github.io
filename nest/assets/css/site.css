@@ -171,7 +171,7 @@ body{
   letter-spacing:.04em;
 }
 .id__stats{
-  display:grid;grid-template-columns:repeat(4,1fr);margin:18px 0 0;
+  display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0 0;
   border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);
   padding:12px 0;
 }

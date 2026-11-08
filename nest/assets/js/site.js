@@ -8,8 +8,6 @@
   /* ---------- 壁纸 ---------- */
   const WALLS = [
     { src: 'assets/img/wall-1.jpg', name: '蓝莓微距 · 夜', desc: '水珠 / 暗青蓝 / 侧逆光' },
-    { src: 'assets/img/wall-2.jpg', name: '蓝莓果堆 · 俯拍', desc: '层层堆叠 / 深蓝紫 / 漫射光' },
-    { src: 'assets/img/wall-3.jpg', name: '蓝莓晨露 · 逆光', desc: '雾气 / 通透叶片 / 光斑' },
   ];
 
   /* ---------- 偏好 ---------- */
@@ -447,27 +445,6 @@
     }
   }
 
-  /* ---------- 壁纸区块 ---------- */
-  function buildWallGrid() {
-    const grid = $('#wallsgrid');
-    WALLS.forEach((w, i) => {
-      const el = document.createElement('div');
-      el.className = 'wcard';
-      el.dataset.i = i;
-      el.innerHTML =
-        `<img src="${w.src}" alt="${w.name}" loading="lazy">` +
-        '<div class="wcard__info">' +
-        `<div><p class="wcard__name" style="margin:0">${w.name}</p><p class="wcard__desc" style="margin:0">${w.desc}</p></div>` +
-        '<span class="wcard__use">用这张</span></div>';
-      el.addEventListener('click', () => {
-        prefs.wall = i;
-        savePrefs();
-        paintWall(false);
-      });
-      grid.appendChild(el);
-    });
-  }
-
   /* ---------- 设置 ---------- */
   const drawer = $('#drawer');
   const openDrawer = (open) => {
@@ -478,19 +455,6 @@
   $$('[data-close]').forEach((el) => el.addEventListener('click', () => openDrawer(false)));
 
   function buildSettings() {
-    const wrap = $('#setWalls');
-    WALLS.forEach((w, i) => {
-      const img = document.createElement('img');
-      img.src = w.src;
-      img.alt = w.name;
-      img.dataset.i = i;
-      img.addEventListener('click', () => {
-        prefs.wall = i;
-        savePrefs();
-        paintWall(false);
-      });
-      wrap.appendChild(img);
-    });
 
     $('#set24').checked = prefs.hour24;
     $('#setSec').checked = prefs.sec;
@@ -557,7 +521,7 @@
     },
     {
       k: ['壁纸', '背景', '换'],
-      a: '三张蓝莓微距都是我生成的，暗调、低饱和。右上角齿轮里、或者「壁纸」那一栏点一下就能换，会记住你的选择。',
+      a: '壁纸固定用这张蓝莓微距——暗调、低饱和、右侧留了放字的地方，不再做切换了。',
     },
     {
       k: ['作品', '项目', '简历'],
@@ -618,7 +582,7 @@
 
   /* ---------- 滚动高亮 ---------- */
   const navItems = $$('.nav__item');
-  const sections = ['home', 'mail', 'walls', 'about'].map((id) => $('#' + id));
+  const sections = ['home', 'mail', 'about'].map((id) => $('#' + id));
   const onScroll = () => {
     const y = window.scrollY + window.innerHeight * 0.35;
     let active = 'home';
@@ -682,7 +646,6 @@
   buildClock();
   buildMotes();
   buildPlaylist();
-  buildWallGrid();
   buildSettings();
   buildQuick();
   applySec();
@@ -696,7 +659,6 @@
   }, 1000);
   loadGuest();
   loadCommits();
-  document.getElementById('statWalls').textContent = WALLS.length;
 
   // 页面可见时暂停计时器，回来继续
   document.addEventListener('visibilitychange', () => {
@@ -875,4 +837,33 @@
       )).join('');
     }).catch(() => note(worksBox, '作品没读出来，去作品页看看。'));
   }
+})();
+
+/* ---------- 从介绍页回来：回到离开前的位置 ---------- */
+(function () {
+  var KEY = 'nest.return.y.v1';
+  // 去介绍页之前，先把当前位置记下来
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="me.html"]') : null;
+    if (!a) return;
+    try { sessionStorage.setItem(KEY, String(Math.round(window.scrollY || 0))); } catch (err) {}
+  }, true);
+
+  var params = new URLSearchParams(location.search);
+  if (params.get('enter') !== '1') return;
+
+  var y = 0;
+  try { y = parseInt(sessionStorage.getItem(KEY) || '0', 10) || 0; } catch (err) {}
+  if (y <= 0) return;
+
+  function restore() {
+    var root = document.documentElement;
+    var prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, y);
+    root.style.scrollBehavior = prev || '';
+  }
+  requestAnimationFrame(restore);
+  requestAnimationFrame(restore);
+  window.addEventListener('load', restore);
 })();

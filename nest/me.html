@@ -40,12 +40,12 @@ html,body{margin:0;height:100%;background:#05070c;overflow:hidden}
 
 <iframe class="me-frame" id="me-frame" src="about-site/index.html" title="郑宇彬的个人介绍" allow="fullscreen"></iframe>
 
-<a class="me-chip" href="index.html"><i></i>回小窝</a>
+<a class="me-chip" href="index.html?enter=1"><i></i>回小窝</a>
 
 <script>
   // 内嵌整页时补两处矮视口布局修正：
-  // 1) 首屏给一个高度下限，底部状态块不再压住按钮；
-  // 2) 左下「向下滚动 / SCROLL」与状态块在矮窗口会叠字，整块收掉。
+  // 1) 首屏给一个高度下限，底部的状态块不再压住按钮；
+  // 2) 左下「向下滚动 / SCROLL」在矮窗口会叠字，收掉。
   (function () {
     var frame = document.getElementById("me-frame");
     if (!frame) return;
