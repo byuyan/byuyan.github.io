@@ -185,7 +185,10 @@
   }
 
   /* ---------- 播放器（浏览器实时合成，不加载任何音频文件） ---------- */
+  /* ---------- 播放器（公共版权真录音 + 实时合成环境音） ---------- */
   const TRACKS = [
+    { name: '萨蒂 · 第一号玄秘曲', artist: 'Satie · 钢琴独奏 / CC0 公共版权', src: 'assets/audio/satie-gnossienne-no1.mp3' },
+    { name: '巴赫 · 哥德堡咏叹调', artist: 'J.S. Bach · 钢琴独奏 / CC0 公共版权', src: 'assets/audio/bach-goldberg-aria.mp3' },
     { name: '蓝莓之夜', artist: 'NEST · 环境音 / 实时合成', kind: 'pad' },
     { name: '雾中清晨', artist: 'NEST · 环境音 / 实时合成', kind: 'air' },
   ];
@@ -197,27 +200,9 @@
   let ctx = null;
   let nodes = null;
   let timer = null;
+  let audioEl = null;
 
-  const waveEl = $('#wave');
-  const barCount = 22;
-  for (let i = 0; i < barCount; i++) {
-    const b = document.createElement('span');
-    b.style.height = '12%';
-    waveEl.appendChild(b);
-  }
-  const bars = $$('#wave span');
-  let barPhase = 0;
-
-  function animateBars() {
-    if (!playing) return;
-    barPhase += 0.09;
-    bars.forEach((b, i) => {
-      const v = 18 + Math.abs(Math.sin(barPhase + i * 0.42)) * 62 + Math.random() * 12;
-      b.style.height = Math.min(96, v) + '%';
-    });
-    requestAnimationFrame(animateBars);
-  }
-
+  // --- 实时合成的两块原料：噪声与三条正弦垫音 ---
   function makeNoise(seconds = 3) {
     const buf = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate);
     const data = buf.getChannelData(0);
@@ -294,7 +279,18 @@
     return { out, stops };
   }
 
-  function startAudio() {
+  function getAudio() {
+    if (audioEl) return audioEl;
+    audioEl = new Audio();
+    audioEl.preload = 'metadata';
+    audioEl.addEventListener('loadedmetadata', () => { if (!TRACKS[track].kind) paintPlayer(); });
+    audioEl.addEventListener('timeupdate', () => { if (playing && !TRACKS[track].kind) paintPlayer(); });
+    audioEl.addEventListener('ended', () => { selectTrack(track + 1, true); });
+    audioEl.addEventListener('error', () => { $('#trkArtist').textContent = '音频没加载出来，检查一下网络'; });
+    return audioEl;
+  }
+
+  function startSynth() {
     if (!ctx) {
       const AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return;
@@ -306,7 +302,7 @@
     else nodes.out.gain.linearRampToValueAtTime(0.55, ctx.currentTime + 1.2);
   }
 
-  function stopAudio() {
+  function stopSynth() {
     if (!nodes) return;
     const n = nodes;
     nodes = null;
@@ -320,14 +316,28 @@
     }, 600);
   }
 
+  function fmtTime(sec) {
+    const v = Math.max(0, Math.floor(Number.isFinite(sec) ? sec : 0));
+    return Math.floor(v / 60) + ':' + pad(v % 60);
+  }
+
   function paintPlayer() {
-    $('#trkTitle').textContent = TRACKS[track].name;
-    $('#trkArtist').textContent = TRACKS[track].artist;
+    const t = TRACKS[track];
+    $('#trkTitle').textContent = t.name;
+    $('#trkArtist').textContent = t.artist;
+    const tagEl = $('#trkTagText');
+    if (tagEl) tagEl.textContent = t.kind ? '实时合成' : '真录音 · CC0';
     document.querySelector('.i-play').style.display = playing ? 'none' : 'block';
     document.querySelector('.i-pause').style.display = playing ? 'block' : 'none';
     $('#btnPlay').setAttribute('aria-label', playing ? '暂停' : '播放');
-    $('#time').textContent = '0' + Math.floor(elapsed / 60) + ':' + pad(elapsed % 60);
-    $('#progress').style.width = (elapsed / LOOP) * 100 + '%';
+    let cur = elapsed;
+    let total = LOOP;
+    if (!t.kind && audioEl && Number.isFinite(audioEl.duration) && audioEl.duration > 0) {
+      cur = audioEl.currentTime;
+      total = audioEl.duration;
+    }
+    $('#time').textContent = fmtTime(cur) + ' / ' + fmtTime(total);
+    $('#progress').style.width = Math.min(100, (cur / (total || 1)) * 100) + '%';
     $$('#playlist .trk').forEach((el, i) => el.classList.toggle('on', i === track));
   }
 
@@ -340,41 +350,73 @@
       el.innerHTML =
         `<span class="trk__i">${pad(i + 1)}</span>` +
         `<span class="trk__n">${t.name}</span>` +
-        `<span class="trk__e">实时合成</span>`;
+        `<span class="trk__e">${t.kind ? '实时合成' : 'CC0 录音'}</span>`;
       el.addEventListener('click', () => selectTrack(i, true));
       list.appendChild(el);
     });
   }
 
+  function startPlay() {
+    const t = TRACKS[track];
+    if (t.kind) {
+      if (audioEl) audioEl.pause();
+      startSynth();
+      return;
+    }
+    stopSynth();
+    const a = getAudio();
+    if (a.dataset.src !== t.src) {
+      a.dataset.src = t.src;
+      a.src = t.src;
+      a.currentTime = 0;
+    }
+    a.muted = muted;
+    const p = a.play();
+    if (p && p.catch) p.catch(() => {
+      playing = false;
+      paintPlayer();
+      $('#trkArtist').textContent = '浏览器拦了自动播放，再点一次播放试试';
+    });
+  }
+
+  function stopPlay() {
+    stopSynth();
+    if (audioEl) audioEl.pause();
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      if (TRACKS[track].kind) {
+        elapsed = (elapsed + 1) % LOOP;
+      }
+      paintPlayer();
+    }, 1000);
+  }
+
   function selectTrack(i, play) {
     const wasPlaying = playing;
+    playing = false;
+    stopPlay();
     track = (i + TRACKS.length) % TRACKS.length;
     elapsed = 0;
-    if (playing) {
-      stopAudio();
-      startAudio();
-      playing = true;
-    } else if (play) {
-      togglePlay(true);
-    }
     paintPlayer();
-    if (wasPlaying) requestAnimationFrame(animateBars);
+    if (play || wasPlaying) togglePlay(true);
   }
 
   function togglePlay(force) {
     const next = typeof force === 'boolean' ? force : !playing;
-    if (next === playing) return;
+    if (next === playing) {
+      if (!next) paintPlayer();
+      return;
+    }
     playing = next;
     if (playing) {
-      startAudio();
+      startPlay();
+      startTimer();
       requestAnimationFrame(animateBars);
-      clearInterval(timer);
-      timer = setInterval(() => {
-        elapsed = (elapsed + 1) % LOOP;
-        paintPlayer();
-      }, 1000);
     } else {
-      stopAudio();
+      stopPlay();
       clearInterval(timer);
       bars.forEach((b) => (b.style.height = '12%'));
     }
@@ -382,16 +424,32 @@
   }
 
   $('#btnPlay').addEventListener('click', () => togglePlay());
-  $('#btnPrev').addEventListener('click', () => selectTrack(track - 1, playing));
-  $('#btnNext').addEventListener('click', () => selectTrack(track + 1, playing));
+  $('#btnPrev').addEventListener('click', () => selectTrack(track - 1, true));
+  $('#btnNext').addEventListener('click', () => selectTrack(track + 1, true));
   $('#btnMute').addEventListener('click', () => {
     muted = !muted;
+    if (audioEl) audioEl.muted = muted;
     if (nodes) {
       nodes.out.gain.cancelScheduledValues(ctx.currentTime);
       nodes.out.gain.linearRampToValueAtTime(muted ? 0 : 0.55, ctx.currentTime + 0.3);
     }
     $('#btnMute').style.opacity = muted ? '.45' : '1';
   });
+
+  const progEl = document.querySelector('.player__progress');
+  if (progEl) {
+    progEl.addEventListener('pointerdown', (e) => {
+      const rect = progEl.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / (rect.width || 1)));
+      if (TRACKS[track].kind) {
+        elapsed = Math.floor(ratio * LOOP);
+      } else {
+        const a = getAudio();
+        if (Number.isFinite(a.duration) && a.duration > 0) a.currentTime = ratio * a.duration;
+      }
+      paintPlayer();
+    });
+  }
 
   /* ---------- 信箱（GitHub Issues 当数据库） ---------- */
   const REPO = 'byuyan/nest';
@@ -661,7 +719,7 @@
     },
     {
       k: ['怎么搭', '用的什么', '技术', '框架', '实现', '原理', '网站', '做站'],
-      a: '没用任何框架，HTML/CSS/JS 全是手写的：时钟是一位一位往下滚的机械数字轮，唱片机里的声音是浏览器实时合成的（所以没有一个音频文件），留言直接存在 GitHub Issues 里。',
+      a: '没用任何框架，HTML/CSS/JS 全是手写的：时钟是一位一位往下滚的机械数字轮，唱片机里有两首真录音（萨蒂、巴赫，公共版权 CC0）和两条实时合成的环境音，留言会直接寄到我的邮箱。',
     },
     {
       k: ['时钟', '时间', '几点', '滚轮', '钟'],
@@ -677,7 +735,7 @@
     },
     {
       k: ['音乐', '唱片', '歌', '声音', '播放', 'bgm'],
-      a: '左下角那台唱片机里是两条实时合成的环境音：一条夜里的低频垫音，一条清晨的雾气声。想在浏览器里听，点一下播放就行，没有音频文件也就没有版权问题。',
+      a: '左下角那台唱片机里有四件东西：萨蒂的第一号玄秘曲、巴赫的哥德堡咏叹调，都是公共版权（CC0）的真录音；另外两条是浏览器实时合成的环境音，一条夜里的低频垫音，一条清晨的雾气声。点播放就能听，进度条可以拖着跳。',
     },
     {
       k: ['信箱', '留言', '写信', '评论'],
