@@ -714,3 +714,69 @@
     }
   }
 })();
+
+
+/* ---------- 右下角液态球 → 加我微信 ---------- */
+(function () {
+  const card = document.getElementById('wxcard');
+  const fab = document.getElementById('orbFab');
+  const frame = document.getElementById('orbFrame');
+  if (!card || !fab || !frame) return;
+
+  let lastFocus = null;
+
+  function openCard() {
+    lastFocus = document.activeElement;
+    card.classList.add('open');
+    card.setAttribute('aria-hidden', 'false');
+    const x = card.querySelector('.wxcard__x');
+    if (x) x.focus({ preventScroll: true });
+  }
+
+  function closeCard() {
+    card.classList.remove('open');
+    card.setAttribute('aria-hidden', 'true');
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+
+  // 球跑在自己的 iframe 里，点击后用 postMessage 通知本页
+  window.addEventListener('message', function (e) {
+    if (e.data && e.data.type === 'nest-orb-click') {
+      if (card.classList.contains('open')) closeCard();
+      else openCard();
+    }
+  });
+
+  // 触屏/鼠标点到球外框（iframe 之外那一圈）也开卡片
+  fab.addEventListener('click', function (e) {
+    if (e.target === frame) return;
+    openCard();
+  });
+
+  card.addEventListener('click', function (e) {
+    if (e.target.closest('[data-wxclose]')) closeCard();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && card.classList.contains('open')) closeCard();
+  });
+
+
+  // ?wx=1 直开微信卡片（截图/分享用）
+  if (new URLSearchParams(location.search).get('wx') === '1' && card) {
+    setTimeout(openCard, 400);
+  }
+  // 二维码图还没上传时，别显示碎图
+  const qr = document.getElementById('wxQr');
+  const box = document.getElementById('wxQrBox');
+  if (qr) {
+    const markMissing = function () {
+      if (!box) return;
+      qr.remove();
+      box.classList.add('is-missing');
+      box.textContent = '二维码待补';
+    };
+    qr.addEventListener('error', markMissing);
+    if (qr.complete && qr.naturalWidth === 0) setTimeout(markMissing, 0);
+  }
+})();

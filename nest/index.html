@@ -10,7 +10,7 @@
 <meta property="og:description" content="一间自己搭的电子小窝：蓝莓壁纸、翻页时钟、环境音、留言信箱。">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%238aa8ff' font-family='sans-serif'%3EN%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/site.css?v=20261108d">
+<link rel="stylesheet" href="assets/css/site.css?v=20261108e">
 </head>
 <body>
 <div class="walls" aria-hidden="true">
@@ -181,6 +181,24 @@
   </div>
 </div>
 
+<div class="orb" id="orbFab">
+  <iframe class="orb__frame" id="orbFrame" src="assets/orb/index.html?v=20261108e" title="Liquid orb" scrolling="no" aria-hidden="true"></iframe>
+  <span class="orb__hint">点我加微信</span>
+</div>
+
+<div class="wxcard" id="wxcard" aria-hidden="true">
+  <div class="wxcard__mask" data-wxclose></div>
+  <div class="wxcard__panel" role="dialog" aria-modal="true" aria-label="加我微信">
+    <button class="wxcard__x" data-wxclose aria-label="关闭"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <span class="wxcard__eyebrow">WE CHAT</span>
+    <h3 class="wxcard__title">加我微信</h3>
+    <p class="wxcard__sub">扫码或长按识别，加的时候说一句从哪看到的小窝。</p>
+    <div class="wxcard__qr" id="wxQrBox">
+      <img id="wxQr" alt="微信二维码" src="assets/img/wechat-qr.png">
+    </div>
+  </div>
+</div>
+
 <div class="ai" id="ai">
   <div class="ai__panel" id="aiPanel" aria-hidden="true">
     <div class="ai__head"><img src="assets/img/avatar.png" alt=""><div><p>小窝助手</p><em>关于这间屋子和屋主</em></div></div>
@@ -191,6 +209,6 @@
   <button class="ai__fab" id="aiFab" aria-label="打开小窝助手"><span>AI</span></button>
 </div>
 
-<script src="assets/js/site.js?v=20261108d"></script>
+<script src="assets/js/site.js?v=20261108e"></script>
 </body>
 </html>
