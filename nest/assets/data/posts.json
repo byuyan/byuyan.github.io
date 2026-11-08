@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "orb-intro",
+    "title": "把一颗 WebGPU 玻璃球接进来，一个字都没有改",
+    "date": "2026-11-07",
+    "tag": "建站笔记",
+    "minutes": 5,
+    "summary": "开场那颗会流动的玻璃球不是我的代码。我做的事情只有一件：让它原封不动地住进小窝，并且证明它真的没被碰过。",
+    "file": "posts/orb-intro.md"
+  },
+  {
+    "slug": "ambient-backdrop",
+    "title": "黑底太空了，所以给球加了一层背景",
+    "date": "2026-11-08",
+    "tag": "建站笔记",
+    "minutes": 4,
+    "summary": "球外面那片星空、两圈刻度环和球底的反光，全部是 CSS。加这些东西最难的不是写，而是确认自己真的没碰到球。",
+    "file": "posts/ambient-backdrop.md"
+  },
+  {
+    "slug": "how-it-deploys",
+    "title": "这个站没有构建步骤，我是怎么把它推上公网的",
+    "date": "2026-11-08",
+    "tag": "建站笔记",
+    "minutes": 4,
+    "summary": "没有 Node、没有打包、没有 npm install。一条一次性 workflow，把压缩包解开、提交、推送，然后自毁。",
+    "file": "posts/how-it-deploys.md"
+  }
+]

@@ -171,13 +171,13 @@ body{
   letter-spacing:.04em;
 }
 .id__stats{
-  display:grid;grid-template-columns:repeat(3,1fr);margin:18px 0 0;
+  display:grid;grid-template-columns:repeat(4,1fr);margin:18px 0 0;
   border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);
   padding:12px 0;
 }
 .stat{text-align:center}
-.stat b{display:block;font-size:20px;font-weight:400;letter-spacing:.04em;font-variant-numeric:tabular-nums}
-.stat span{display:block;font-size:10px;letter-spacing:.22em;color:var(--faint);margin-top:3px}
+.stat b{display:block;font-size:18px;font-weight:400;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:10px;letter-spacing:.16em;color:var(--faint);margin-top:3px}
 
 /* 播放器 */
 .player{margin-top:18px}

@@ -797,3 +797,71 @@
     if (qr.complete && qr.naturalWidth === 0) setTimeout(markMissing, 0);
   }
 })();
+
+/* ===== 文章 / 作品：主页预览 + 统计数字 ===== */
+(() => {
+  'use strict';
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (v) => String(v === undefined || v === null ? '' : v)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+  const setText = (id, v) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = String(v);
+  };
+  const getJSON = (url) => fetch(url, { cache: 'no-store' }).then((r) => {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  });
+  const note = (el, text) => {
+    if (el) el.innerHTML = '<div class="subnote">' + esc(text) + '</div>';
+  };
+
+  const postsBox = $('#homePosts');
+  const worksBox = $('#homeWorks');
+
+  if (postsBox) {
+    getJSON('assets/data/posts.json').then((posts) => {
+      setText('statPosts', posts.length);
+      posts.sort((a, b) => (b.date > a.date ? 1 : -1));
+      const list = posts.slice(0, 3);
+      postsBox.innerHTML = list.map((p) => (
+        '<li class="plist__item">' +
+          '<a class="plist__link" href="post.html?p=' + encodeURIComponent(p.slug) + '">' +
+            '<span class="plist__date">' + esc(p.date) + '</span>' +
+            '<div class="plist__body">' +
+              '<h3>' + esc(p.title) + '</h3>' +
+              '<p>' + esc(p.summary) + '</p>' +
+              '<div class="plist__meta">' +
+                '<span>' + esc(p.tag) + '</span>' +
+                '<span class="dot"></span>' +
+                '<span>' + esc(p.minutes) + ' 分钟</span>' +
+              '</div>' +
+            '</div>' +
+          '</a>' +
+        '</li>'
+      )).join('');
+    }).catch(() => note(postsBox, '文章没读出来，去文章页看看。'));
+  }
+
+  if (worksBox) {
+    getJSON('assets/data/works.json').then((works) => {
+      const filled = works.filter((w) => !w.placeholder);
+      setText('statWorks', filled.length);
+      worksBox.innerHTML = filled.slice(0, 4).map((w) => (
+        '<a class="work" href="works.html">' +
+          '<img class="work__cover" src="' + esc(w.cover) + '" alt="' + esc(w.title) + '" loading="lazy">' +
+          '<div class="work__body">' +
+            '<div class="work__caption">' + esc(w.title) +
+              '<small>' + esc(w.category) + ' · ' + esc(w.year) + '</small>' +
+            '</div>' +
+            '<p class="work__summary">' + esc(w.summary) + '</p>' +
+          '</div>' +
+        '</a>'
+      )).join('');
+    }).catch(() => note(worksBox, '作品没读出来，去作品页看看。'));
+  }
+})();

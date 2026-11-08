@@ -1,0 +1,270 @@
+/* ===== 小窝 · 子页面（文章 / 作品） =====
+   叠在 site.css 之上，只加排版，不动主页那套。 */
+
+.subwrap{
+  max-width:1060px;margin:0 auto;
+  padding:132px clamp(20px,4vw,48px) 88px;
+}
+
+/* ---------- 页头 ---------- */
+.subhead{margin-bottom:44px}
+.subhead__eyebrow{
+  font-size:9.5px;letter-spacing:.34em;color:var(--faint);
+  text-transform:uppercase;
+}
+.subhead__title{
+  margin:14px 0 0;font-size:clamp(28px,4.2vw,44px);font-weight:400;
+  letter-spacing:.02em;line-height:1.25;
+}
+.subhead__sub{
+  margin:16px 0 0;max-width:560px;font-size:13px;line-height:1.95;
+  color:var(--muted);
+}
+.backlink{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-bottom:26px;font-size:11px;letter-spacing:.16em;
+  color:var(--faint);text-decoration:none;transition:color .25s ease;
+}
+.backlink:hover{color:#fff}
+.backlink i{
+  width:16px;height:1px;background:currentColor;display:block;
+}
+
+/* ---------- 文章列表 ---------- */
+.plist{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.plist__item{border-bottom:1px solid var(--line)}
+.plist__link{
+  display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;
+  padding:30px 6px;text-decoration:none;color:inherit;
+  transition:background .3s ease,transform .3s ease;
+}
+.plist__link:hover{background:rgba(255,255,255,.028);transform:translateX(3px)}
+.plist__date{
+  font-size:10.5px;letter-spacing:.16em;color:var(--faint);
+  font-variant-numeric:tabular-nums;padding-top:4px;
+}
+.plist__body h3{
+  margin:0;font-size:clamp(17px,2vw,21px);font-weight:400;letter-spacing:.01em;
+  line-height:1.5;
+}
+.plist__body p{
+  margin:10px 0 0;font-size:12.5px;line-height:1.9;color:var(--muted);
+  max-width:640px;
+}
+.plist__meta{
+  display:flex;align-items:center;gap:12px;margin-top:14px;
+  font-size:10px;letter-spacing:.2em;color:var(--faint);
+}
+.plist__meta span.dot{width:2px;height:2px;border-radius:50%;background:currentColor}
+
+/* ---------- 阅读页 ---------- */
+.article{
+  max-width:760px;
+  padding:46px clamp(22px,4vw,54px) 52px;
+  border:1px solid rgba(255,255,255,.07);border-radius:20px;
+  background:rgba(8,11,20,.52);
+  backdrop-filter:blur(26px) saturate(1.05);
+  box-shadow:0 30px 70px -50px #000;
+}
+.article__head{padding-bottom:34px;margin-bottom:38px;border-bottom:1px solid var(--line)}
+.article__meta{
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:.2em;color:var(--faint);
+}
+.article__title{
+  margin:16px 0 0;font-size:clamp(26px,3.6vw,38px);font-weight:400;
+  line-height:1.32;letter-spacing:.01em;
+}
+.article__body{font-size:15px;line-height:2.02;color:rgba(238,242,251,.86)}
+.article__body > *{margin:0}
+.article__body > * + *{margin-top:1.15em}
+.article__body h2{
+  margin:2.1em 0 .2em;font-size:20px;font-weight:400;letter-spacing:.02em;
+  color:var(--text);
+}
+.article__body h3{
+  margin:1.9em 0 .1em;font-size:16px;font-weight:400;color:var(--text);
+  letter-spacing:.04em;
+}
+.article__body a{
+  color:#a9c0ff;text-decoration:none;
+  border-bottom:1px solid rgba(169,192,255,.34);
+  transition:border-color .25s ease,color .25s ease;
+}
+.article__body a:hover{color:#fff;border-color:rgba(255,255,255,.7)}
+.article__body strong{color:#fff;font-weight:600}
+.article__body em{font-style:italic;color:rgba(238,242,251,.76)}
+.article__body ul,.article__body ol{
+  margin:1.15em 0;padding-left:1.25em;
+}
+.article__body li{margin:.42em 0}
+.article__body blockquote{
+  margin:1.6em 0;padding:14px 0 14px 20px;
+  border-left:1px solid rgba(138,168,255,.42);
+  color:rgba(238,242,251,.72);font-style:normal;
+}
+.article__body blockquote p{margin:0}
+.article__body pre{
+  margin:1.6em 0;padding:18px 20px;overflow-x:auto;
+  background:rgba(8,12,22,.66);border:1px solid var(--line);border-radius:12px;
+  font-size:12.5px;line-height:1.8;
+}
+.article__body pre code{
+  font-family:ui-monospace,"Cascadia Code","JetBrains Mono",Consolas,monospace;
+  background:none;padding:0;color:rgba(226,236,255,.86);
+}
+.article__body code{
+  font-family:ui-monospace,"Cascadia Code","JetBrains Mono",Consolas,monospace;
+  font-size:.9em;padding:2px 6px;border-radius:5px;
+  background:rgba(138,168,255,.13);color:#cfdaff;
+}
+.article__body img{
+  display:block;max-width:100%;margin:1.8em auto;border-radius:12px;
+  border:1px solid var(--line);
+}
+.article__body hr{
+  margin:2.4em 0;border:0;height:1px;background:var(--line);
+}
+
+.pager{
+  display:flex;gap:14px;margin-top:56px;padding-top:28px;
+  border-top:1px solid var(--line);
+}
+.pager__link{
+  flex:1;padding:18px 20px;border:1px solid var(--line);border-radius:14px;
+  text-decoration:none;color:inherit;background:rgba(255,255,255,.022);
+  transition:border-color .3s ease,background .3s ease;
+}
+.pager__link:hover{border-color:rgba(138,168,255,.36);background:rgba(138,168,255,.06)}
+.pager__link span{
+  display:block;font-size:9.5px;letter-spacing:.26em;color:var(--faint);
+}
+.pager__link b{
+  display:block;margin-top:8px;font-weight:400;font-size:13.5px;line-height:1.6;
+}
+.pager__link--empty{opacity:.34;pointer-events:none}
+
+/* ---------- 作品 ---------- */
+.wgrid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;
+}
+.work{
+  display:flex;flex-direction:column;overflow:hidden;
+  border:1px solid var(--line);border-radius:18px;
+  background:rgba(10,14,24,.42);
+  backdrop-filter:blur(14px) saturate(1.1);
+  transition:border-color .35s ease,transform .35s ease,box-shadow .35s ease;
+  text-decoration:none;color:inherit;
+}
+.work:hover{
+  border-color:rgba(138,168,255,.32);transform:translateY(-2px);
+  box-shadow:0 26px 54px -34px #000;
+}
+.work__top{
+  display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;
+  text-align:left;color:inherit;font:inherit;
+}
+.work__cover{
+  display:block;width:100%;aspect-ratio:4/3;object-fit:cover;
+  background:rgba(255,255,255,.03);
+}
+.work__body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+.work__caption{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;
+  font-size:13px;letter-spacing:.03em;color:rgba(238,242,251,.9);
+}
+.work__caption small{
+  font-size:9.5px;letter-spacing:.2em;color:var(--faint);
+}
+.work__summary{
+  margin:9px 0 16px;font-size:12.5px;line-height:1.88;color:var(--muted);
+}
+.work__foot{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:auto;padding-top:13px;border-top:1px solid rgba(255,255,255,.06);
+}
+.work__hi{
+  font-size:10px;letter-spacing:.14em;color:rgba(238,242,251,.46);
+}
+.work__more{
+  display:inline-flex;align-items:center;gap:7px;flex:none;
+  font-size:10px;letter-spacing:.18em;color:rgba(169,192,255,.82);
+}
+.work__more svg{width:11px;height:11px;transition:transform .3s ease}
+.work.is-open .work__more svg{transform:rotate(180deg)}
+.work.is-open .work__more span{color:#fff}
+
+.work__detail{
+  display:none;padding:0 20px 22px;
+  border-top:1px solid var(--line);margin-top:1px;
+}
+.work.is-open .work__detail{display:block}
+.work__detail p{
+  margin:16px 0 0;font-size:12.8px;line-height:1.95;color:rgba(238,242,251,.78);
+}
+.work__rows{margin:16px 0 0;font-size:12px;color:var(--muted)}
+.work__rows dt{
+  font-size:9.5px;letter-spacing:.22em;color:var(--faint);margin-top:13px;
+}
+.work__rows dd{margin:5px 0 0;line-height:1.78}
+.work__tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.work__tags span{
+  padding:5px 10px;border-radius:99px;font-size:10.5px;
+  color:rgba(238,242,251,.7);background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.06);
+}
+.work__link{
+  display:inline-flex;align-items:center;gap:7px;margin-top:18px;
+  font-size:11px;letter-spacing:.14em;color:#a9c0ff;text-decoration:none;
+}
+.work__link:hover{color:#fff}
+
+/* 空位 */
+.work--empty{
+  border-style:dashed;border-color:rgba(138,168,255,.16);
+  background:rgba(10,14,24,.24);backdrop-filter:blur(6px);
+}
+.work--empty:hover{transform:none;border-color:rgba(138,168,255,.2);box-shadow:none}
+.work__slotcover{
+  display:grid;place-items:center;aspect-ratio:4/3;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(138,168,255,.07), transparent 62%),
+    rgba(255,255,255,.012);
+}
+.work__slotcover span{
+  font-size:26px;letter-spacing:.24em;color:rgba(169,192,255,.26);
+  font-variant-numeric:tabular-nums;
+}
+.work--empty .work__caption{color:rgba(238,242,251,.5)}
+.work--empty .work__summary{color:rgba(238,242,251,.36)}
+.work--empty .work__foot{border-top-color:rgba(255,255,255,.04)}
+.work--empty code{
+  font-family:ui-monospace,"Cascadia Code",Consolas,monospace;
+  font-size:11px;padding:1px 5px;border-radius:4px;
+  background:rgba(138,168,255,.10);color:rgba(207,218,255,.68);
+}
+
+/* ---------- 空 / 错 ---------- */
+.subnote{
+  padding:26px 24px;border:1px dashed rgba(255,255,255,.14);border-radius:14px;
+  font-size:12.5px;line-height:1.9;color:var(--muted);
+}
+
+/* 主页里那两块「更多」 */
+.band__more{margin:26px 0 0}
+.band__more a{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:.16em;color:rgba(169,192,255,.82);
+  text-decoration:none;transition:color .25s ease;
+}
+.band__more a:hover{color:#fff}
+
+/* ---------- 窄屏 ---------- */
+@media (max-width:860px){
+  .subwrap{padding:104px 20px 64px}
+  .plist__link{grid-template-columns:1fr;gap:8px;padding:24px 2px}
+  .plist__date{padding-top:0}
+  .wgrid{grid-template-columns:1fr}
+  .article__body{font-size:14.5px;line-height:1.98}
+  .pager{flex-direction:column}
+}

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.1"/></feComponentTransfer>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#3a2a05" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="#f0c75e"/>
+  <g stroke="#20211a" stroke-opacity="0.16">
+    <path d="M0 150H1200M0 300H1200M0 450H1200M0 600H1200M0 750H1200"/>
+    <path d="M150 0V900M300 0V900M450 0V900M600 0V900M750 0V900M900 0V900M1050 0V900"/>
+  </g>
+
+  <g transform="translate(120 120)" filter="url(#shadow)">
+    <rect x="0" y="0" width="410" height="660" fill="#fbf9f4"/>
+    <g fill="#20211a" font-family="Cascadia Code, Consolas, monospace" font-size="15" letter-spacing="1">
+      <text x="34" y="54">菜价雷达 / DAILY</text>
+      <text x="34" y="78" opacity="0.5">2026-03-18  07:00</text>
+      <path d="M34 100H376" stroke="#20211a" stroke-opacity="0.3" stroke-dasharray="4 5"/>
+      <text x="34" y="140">01  番茄      ¥3.8</text>
+      <text x="34" y="176">02  青菜      ¥2.2</text>
+      <text x="34" y="212">03  土豆      ¥2.6</text>
+      <text x="34" y="248">04  鸡蛋      ¥5.1</text>
+      <text x="34" y="284">05  猪肉      ¥16.4</text>
+      <text x="34" y="320">06  鲫鱼      ¥11.8</text>
+      <path d="M34 344H376" stroke="#20211a" stroke-opacity="0.3" stroke-dasharray="4 5"/>
+      <text x="34" y="382" opacity="0.55">TOTAL / 40 ITEMS</text>
+      <text x="34" y="440" font-size="20" font-family="Noto Serif SC, Songti SC, serif">今日最省</text>
+      <text x="34" y="500" font-size="66" font-family="Noto Serif SC, Songti SC, serif" font-weight="600">-18%</text>
+      <text x="34" y="540" opacity="0.55">三号门菜市场</text>
+      <text x="34" y="610" opacity="0.4">THANKS FOR SHOPPING</text>
+    </g>
+  </g>
+
+  <g transform="translate(640 560)" fill="#20211a">
+    <rect x="0" y="0" width="70" height="210" rx="4"/>
+    <rect x="100" y="60" width="70" height="150" rx="4"/>
+    <rect x="200" y="20" width="70" height="190" rx="4"/>
+    <rect x="300" y="110" width="70" height="100" rx="4"/>
+    <rect x="400" y="145" width="70" height="65" rx="4" fill="#df6249"/>
+  </g>
+
+  <text x="640" y="200" fill="#20211a" font-family="Cascadia Code, Consolas, monospace" font-size="19" letter-spacing="4">PRICE RADAR / 2026</text>
+  <text x="640" y="300" fill="#20211a" font-family="Noto Serif SC, Songti SC, serif" font-size="88" font-weight="600">菜价雷达</text>
+  <text x="640" y="352" fill="#4a3a0c" font-family="Noto Sans SC, Microsoft YaHei, sans-serif" font-size="22" letter-spacing="2">8 个菜场 · 40 种菜 · 每天 7:00 更新</text>
+
+  <g transform="translate(1010 118)">
+    <circle r="76" fill="none" stroke="#20211a" stroke-width="2"/>
+    <text y="24" text-anchor="middle" fill="#20211a" font-family="Noto Serif SC, Songti SC, serif" font-size="72" font-weight="600">¥</text>
+  </g>
+
+  <rect width="1200" height="900" filter="url(#grain)" opacity="0.55"/>
+</svg>
