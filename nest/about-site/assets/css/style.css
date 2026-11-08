@@ -5077,3 +5077,12 @@ html.is-embed {
   object-fit:cover;object-position:50% 18%;
   display:block;
 }
+
+/* 矮视口（笔记本 / iframe 内嵌）里首屏底部文字会压住滚动提示，给个体面下限 */
+/* hero-short-viewport-guard */
+.hero{
+  min-height: max(100svh, 900px);
+}
+
+/* 首屏左下「向下滚动 / SCROLL」在矮视口会压住按钮，直接收掉 */
+.hero__scroll{display:none}
