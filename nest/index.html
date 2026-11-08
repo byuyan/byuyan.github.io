@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>郑宇彬的小窝 · NEST</title>
-<meta name="description" content="一间自己搭的电子小窝：蓝莓壁纸、翻页时钟、实时合成的环境音，和一个能留言的信箱。郑宇彬 / 武汉理工大学 数字经济。">
+<meta name="description" content="一间自己搭的电子小窝：蓝莓壁纸、机械滚轮时钟、实时合成的环境音，和一个能留言的信箱。郑宇彬 / 武汉理工大学 数字经济。">
 <meta name="theme-color" content="#05070c">
 <meta property="og:title" content="郑宇彬的小窝 · NEST">
-<meta property="og:description" content="一间自己搭的电子小窝：蓝莓壁纸、翻页时钟、环境音、留言信箱。">
+<meta property="og:description" content="一间自己搭的电子小窝：蓝莓壁纸、机械滚轮时钟、环境音、留言信箱。">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%238aa8ff' font-family='sans-serif'%3EN%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/site.css?v=20261108n">
-<link rel="stylesheet" href="assets/css/sub.css?v=20261108n">
+<link rel="stylesheet" href="assets/css/site.css?v=20261108o">
+<link rel="stylesheet" href="assets/css/sub.css?v=20261108o">
 </head>
 <body>
 <div class="intro" id="intro">
-  <iframe class="intro__frame" id="introFrame" src="assets/orb/splash.html?v=20261108n" title="小窝开场" scrolling="no" aria-hidden="true"></iframe>
+  <iframe class="intro__frame" id="introFrame" src="assets/orb/splash.html?v=20261108o" title="小窝开场" scrolling="no" aria-hidden="true"></iframe>
   <button class="intro__tap" id="introTap" type="button" aria-label="进入小窝"></button>
   <div class="intro__hint"><i></i>点一下 · 进小窝</div>
 </div>
@@ -27,6 +27,7 @@
   <div class="dust"><div class="motes" id="motes"></div></div>
   <div class="grain"></div>
 </div>
+<div class="lampglow" id="lampGlow" aria-hidden="true"></div>
 
 <header class="topbar">
   <nav class="nav" id="nav">
@@ -49,6 +50,29 @@
 
 <main>
   <section class="hero" id="home">
+    <div class="lamp" id="lamp" data-on="0">
+      <div class="lamp__head">
+        <span class="lamp__tag">灯光</span>
+        <button class="lamp__sw" id="lampSw" type="button" role="switch" aria-checked="false" aria-label="小窝的灯">
+          <span class="lamp__track"></span>
+          <i class="lamp__knob"></i>
+        </button>
+      </div>
+      <div class="lamp__body">
+        <span class="lamp__bulb" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path class="lamp__glass" d="M12 3.5a6 6 0 0 0-3.4 10.9c.5.4.8 1 .8 1.6v.5h5.2v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3.5z"/>
+            <path class="lamp__fil" d="M10 9.6c1.3-.7 2.2-.2 2.2 1.2s-1.2 1.9-1 2.9"/>
+            <path class="lamp__fil" d="M9.5 19.4h5M10.5 21.1h3"/>
+          </svg>
+        </span>
+        <div class="lamp__txt">
+          <p class="lamp__state" id="lampState">灯关着</p>
+          <p class="lamp__hint">拨一下 · 开灯</p>
+        </div>
+        <span class="lamp__led" aria-hidden="true"></span>
+      </div>
+    </div>
     <aside class="card card--id">
       <div class="id__top">
         <img class="id__avatar" src="assets/img/avatar.png" alt="郑宇彬的头像" width="72" height="72">
@@ -163,7 +187,7 @@
       <div class="about__left">
         <h2 class="band__title">关于<span class="band__tag">ABOUT</span></h2>
         <p class="about__text">2006 年生于安徽黄山，现在在武汉理工大学读数字经济。喜欢把抽象的东西做成看得见的样子：表格、图表、一段能滚动的叙事，或者这间小窝。</p>
-        <p class="about__text">这间小窝没有用任何框架，一行行手写：翻页时钟是 CSS 3D 转出来的，唱片机里的声音是浏览器实时合成的，留言则存在 GitHub 上。</p>
+        <p class="about__text">这间小窝没有用任何框架，一行行手写：时钟是一位一位滚的机械数字轮，唱片机里的声音是浏览器实时合成的，留言则存在 GitHub 上。</p>
         <div class="tags">
           <span>数字经济</span><span>SQL / Python</span><span>Vibe Coding</span><span>信息可视化</span><span>排版与字体</span>
         </div>
@@ -228,6 +252,6 @@
   <button class="ai__fab" id="aiFab" aria-label="打开小窝助手"><span>AI</span></button>
 </div>
 
-<script src="assets/js/site.js?v=20261108n"></script>
+<script src="assets/js/site.js?v=20261108o"></script>
 </body>
 </html>

@@ -46,7 +46,7 @@
     $$('#setWalls img').forEach((c) => c.classList.toggle('on', +c.dataset.i === idx));
   }
 
-  /* ---------- 翻页时钟 ---------- */
+  /* ---------- 机械滚轮时钟 ---------- */
   const clockEl = $('#clock');
   const digits = [];
   const seps = [];
@@ -566,7 +566,7 @@
     },
     {
       k: ['怎么搭', '怎么做', '技术', '原理', '实现'],
-      a: '没用任何框架：翻页时钟是 CSS 3D 一片片转出来的，唱片机里的声音是浏览器实时合成的（所以没有音频文件），留言存在 GitHub Issues 里。',
+      a: '没用任何框架：时钟是一位一位往下滚的机械数字轮，唱片机里的声音是浏览器实时合成的（所以没有音频文件），留言存在 GitHub Issues 里。',
     },
     {
       k: ['留言', '信箱', '写信'],
@@ -575,6 +575,10 @@
     {
       k: ['壁纸', '背景', '换'],
       a: '壁纸固定用这张蓝莓微距——暗调、低饱和、右侧留了放字的地方，不再做切换了。',
+    },
+    {
+      k: ['灯', '灯光', '开关'],
+      a: '首屏右上角那盏灯。拨一下开关，滑块会自己吸到那一头、轻轻回弹；灯亮了，指示灯会亮，灯泡从灰慢慢变暖，整间屋子也跟着亮一层。关掉就回到夜里。',
     },
     {
       k: ['作品', '项目', '简历'],
@@ -606,7 +610,7 @@
 
   function buildQuick() {
     const quick = $('#aiQuick');
-    ['你是谁', '怎么搭的', '留言在哪看', '壁纸能换吗'].forEach((q) => {
+    ['你是谁', '怎么搭的', '留言在哪看', '灯怎么开'].forEach((q) => {
       const b = document.createElement('button');
       b.textContent = q;
       b.addEventListener('click', () => {
@@ -938,4 +942,99 @@
   }
   requestAnimationFrame(restore);
   window.addEventListener('load', restore);
+})();
+
+
+/* ---------- 灯光开关：拨一下，整间屋子亮一层 ---------- */
+(function () {
+  var lamp = document.getElementById('lamp');
+  if (!lamp) return;
+
+  var sw = document.getElementById('lampSw');
+  var knob = lamp.querySelector('.lamp__knob');
+  var stateEl = document.getElementById('lampState');
+  var hintEl = lamp.querySelector('.lamp__hint');
+  var KEY = 'nest.lamp.v1';
+  var TRAVEL = 26;                  // 滑块行程（px），和 CSS 里的 26px 对齐
+  var on = false;
+
+  try { on = localStorage.getItem(KEY) === '1'; } catch (e) {}
+
+  function paint() {
+    lamp.dataset.on = on ? '1' : '0';
+    if (sw) sw.setAttribute('aria-checked', on ? 'true' : 'false');
+    document.body.classList.toggle('lamp-on', on);
+    if (stateEl) stateEl.textContent = on ? '灯亮着' : '灯关着';
+    if (hintEl) hintEl.textContent = on ? '拨一下 · 关灯' : '拨一下 · 开灯';
+  }
+
+  function setOn(v, save) {
+    on = !!v;
+    paint();
+    if (save) { try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {} }
+  }
+
+  paint();
+
+  if (sw && knob) {
+    var dragging = false;
+    var startX = 0;
+    var base = 0;
+    var moved = 0;
+
+    sw.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      moved = 0;
+      startX = e.clientX;
+      base = on ? TRAVEL : 0;
+      knob.style.transition = 'none';                 // 拖动时别跟手打架
+      knob.style.transform = 'translate3d(' + base + 'px,0,0)';
+      try { sw.setPointerCapture(e.pointerId); } catch (err) {}
+      e.preventDefault();
+    });
+
+    sw.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      var k = base + dx;
+      // 拖过头一点会有橡皮筋的阻力，像真的被卡住
+      if (k < 0) k = k * 0.32;
+      else if (k > TRAVEL) k = TRAVEL + (k - TRAVEL) * 0.32;
+      knob.style.transform = 'translate3d(' + k.toFixed(2) + 'px,0,0)';
+    });
+
+    function release(e) {
+      if (!dragging) return;
+      dragging = false;
+      var m = /translate3d\(([-\d.]+)px/.exec(knob.style.transform);
+      var k = m ? parseFloat(m[1]) : base;
+      var next;
+      if (moved < 4) next = !on;          // 只是轻点一下也当拨
+      else next = k > TRAVEL / 2;         // 过了一半就吸附到那一头
+      knob.style.transform = '';          // 交回 CSS：带回弹的吸附
+      knob.style.transition = '';
+      setOn(next, true);
+      if (e && e.pointerId !== undefined) {
+        try { sw.releasePointerCapture(e.pointerId); } catch (err) {}
+      }
+    }
+
+    sw.addEventListener('pointerup', release);
+    sw.addEventListener('pointercancel', release);
+    sw.addEventListener('lostpointercapture', function () { if (dragging) release(null); });
+    sw.addEventListener('click', function (e) { e.preventDefault(); });   // 交给 pointer 处理，免双击
+
+    sw.addEventListener('keydown', function (e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        setOn(!on, true);
+      }
+    });
+  }
+
+  // ?lamp=1 / ?lamp=0 可以先定住状态，方便截图
+  var q = new URLSearchParams(location.search).get('lamp');
+  if (q === '1') setOn(true, false);
+  if (q === '0') setOn(false, false);
 })();
