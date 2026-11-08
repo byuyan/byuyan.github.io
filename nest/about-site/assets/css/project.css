@@ -1,0 +1,445 @@
+/* ============================================================
+   作品详情页（project.html?p=<id>）
+   排版直接复用 .project-modal__*，只是把它从弹层挪进一张纸上，
+   这样列表页和详情页的视觉语言不会分叉。
+   ============================================================ */
+
+.project-page {
+  padding-top: clamp(104px, 14vh, 156px);
+  padding-bottom: clamp(32px, 5vw, 56px);
+}
+
+/* ---------- 顶部：返回 + 序号 ---------- */
+.project-page__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(22px, 3.2vw, 38px);
+}
+
+.project-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 6px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+.project-page__back:hover {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.project-page__back i {
+  font-style: normal;
+  transition: transform 0.3s var(--ease-out);
+}
+.project-page__back:hover i {
+  transform: translateX(-4px);
+}
+
+.project-page__index {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  color: var(--faint);
+}
+
+/* ---------- 详情主体：装进一张纸 ---------- */
+.project-sheet {
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: 0 44px 90px -70px rgba(24, 30, 20, 0.55);
+}
+
+/* 弹层里靠 max-height 撑高度，页面上交给内容自己决定 */
+.project-sheet .project-modal__grid {
+  min-height: 0;
+}
+.project-sheet .project-modal__visual {
+  min-height: clamp(260px, 36vw, 520px);
+}
+
+/* ---------- 上一件 / 下一件 ---------- */
+.project-page__pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 2vw, 24px);
+  margin-top: clamp(28px, 4vw, 52px);
+}
+
+.project-pager-link {
+  display: block;
+  padding: clamp(18px, 2.4vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper-soft);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.3s, transform 0.4s var(--ease-out), background 0.3s;
+}
+.project-pager-link:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-3px);
+}
+.project-pager-link span {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--faint);
+}
+.project-pager-link strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 1.7vw, 22px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+.project-pager-link--next {
+  text-align: right;
+}
+
+/* ---------- 找不到这一件 ---------- */
+.project-page__missing {
+  padding: clamp(48px, 9vw, 110px) 0;
+  text-align: center;
+}
+.project-page__missing h1 {
+  margin-bottom: 16px;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+.project-page__missing p {
+  margin-bottom: 30px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.project-page__missing code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--paper-deep);
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------
+   案例五段：问题 / 做法 / 结果 / 没有做的 / 学到
+   hero 两栏负责「这是什么」，这一整幅负责「怎么来的」。
+   整幅铺满纸宽，正文宽度自己收窄到约 60 字，读起来不累。
+   ------------------------------------------------------------ */
+
+.case-list {
+  padding: clamp(34px, 5vw, 64px) clamp(26px, 5vw, 68px) clamp(38px, 5.5vw, 70px);
+  border-top: 1px solid var(--line);
+}
+
+.case-list__head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(22px, 3vw, 34px);
+}
+.case-list__head > span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  color: var(--coral-deep);
+}
+.case-list__head > em {
+  font-style: normal;
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.case-block {
+  display: grid;
+  grid-template-columns: minmax(0, 13ch) minmax(0, 1fr);
+  gap: clamp(14px, 3vw, 46px);
+  padding: clamp(16px, 2.2vw, 24px) 0;
+  border-top: 1px solid var(--line-soft, var(--line));
+}
+.case-block:first-of-type {
+  border-top: 0;
+}
+
+.case-block__head {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.case-block__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.case-block__en {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--faint);
+}
+
+.case-block__body {
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+/* 浏览器给 p 的默认上下 margin 会把这栏整体压低一行，
+   和左边的小标题错开，所以先清零再自己加段间距。 */
+.case-block__body p {
+  margin: 0;
+}
+.case-block__body p + p {
+  margin-top: 1em;
+}
+
+/* 结果：整页只记住一句话，就记这句 */
+.case-block--lead {
+  padding: clamp(22px, 3vw, 32px) 0;
+}
+.case-block--lead .case-block__title {
+  color: var(--coral-deep);
+}
+.case-block--lead .case-block__body {
+  max-width: 30em;
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2vw, 22px);
+  line-height: 1.72;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+/* 没有做的：主动放弃的部分。用虚线框起来，当成一段诚实的脚注 */
+.case-block--muted {
+  margin: clamp(10px, 1.6vw, 18px) 0;
+  padding: clamp(18px, 2.4vw, 26px) clamp(16px, 2.4vw, 26px);
+  border: 1px dashed var(--line-strong, var(--line));
+  border-radius: var(--radius-md);
+  background: var(--paper-soft, transparent);
+}
+.case-block--muted .case-block__title {
+  color: var(--ink-soft);
+}
+.case-block--muted .case-block__en {
+  color: var(--coral-deep);
+}
+.case-block--muted .case-block__body {
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   截图证据
+   ------------------------------------------------------------ */
+
+.case-shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 20px);
+  padding: 0 clamp(26px, 5vw, 68px) clamp(34px, 5vw, 60px);
+}
+
+.case-shot {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--paper-soft, var(--paper));
+}
+.case-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------------
+   底部相关作品
+   ------------------------------------------------------------ */
+
+.project-related {
+  margin-top: clamp(44px, 6vw, 84px);
+  padding-top: clamp(24px, 3.4vw, 40px);
+  border-top: 1px solid var(--line);
+}
+
+.project-related__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(18px, 2.6vw, 30px);
+}
+
+.project-related__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.project-related__all {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+.project-related__all:hover {
+  color: var(--coral-deep);
+  border-color: currentColor;
+}
+
+.project-related__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 2.2vw, 24px);
+}
+
+.related-card {
+  display: grid;
+  grid-template-columns: clamp(84px, 12vw, 132px) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.4s var(--ease-out);
+}
+.related-card:hover {
+  border-color: var(--line-strong, var(--line));
+  transform: translateY(-3px);
+}
+
+.related-card__cover {
+  display: block;
+  position: relative;
+  background: var(--project-accent, var(--sage));
+  overflow: hidden;
+}
+.related-card__cover img {
+  position: absolute;
+  inset: 12%;
+  width: 76%;
+  height: 76%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(8, 12, 8, 0.22));
+}
+
+.related-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(14px, 1.8vw, 20px);
+  min-width: 0;
+}
+
+.related-card__meta {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.related-card__title {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.7vw, 20px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.related-card__summary {
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 860px) {
+  .case-block {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .case-block__head {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .case-shots,
+  .project-related__grid {
+    grid-template-columns: 1fr;
+  }
+  .related-card {
+    grid-template-columns: clamp(72px, 22vw, 110px) minmax(0, 1fr);
+  }
+}
+
+/* ---------- 页脚沿用首页那套 ---------- */
+/* 首页页脚是给深色联系区收尾的：奶油色字 + 奶油色分隔线。
+   放到浅底页面上会几乎看不见，这里整组换成浅底配色。 */
+.page-footer .footer {
+  margin-top: clamp(28px, 4vw, 52px);
+  border-top-color: var(--line);
+}
+.page-footer .footer__brand em {
+  color: var(--muted);
+}
+.page-footer .footer__note {
+  color: var(--ink-soft);
+}
+.page-footer .footer__meta {
+  color: var(--muted);
+}
+.page-footer .footer__meta a {
+  color: var(--ink-soft);
+}
+.page-footer .footer__meta a:hover {
+  color: var(--coral-deep);
+}
+.page-footer .footer__bottom {
+  border-top-color: var(--line-soft);
+  color: var(--faint);
+}
+
+@media (max-width: 860px) {
+  .project-page__pager {
+    grid-template-columns: 1fr;
+  }
+  .project-pager-link--next {
+    text-align: left;
+  }
+}

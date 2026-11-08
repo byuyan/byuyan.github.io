@@ -1,0 +1,171 @@
+/* ============================================================
+   笔记详情页（note.html?n=<id>）
+   正文排版直接复用首页 .note-reader__* 那套（首字下沉、引文块、
+   标签行），所以同一篇文章从弹层挪到独立页面，观感不会变。
+   这个文件只补「页面」这一层：纸、宽度、阅读进度、再读两篇。
+   ============================================================ */
+
+.note-page {
+  padding-top: clamp(96px, 12vh, 148px);
+  padding-bottom: clamp(32px, 5vw, 56px);
+}
+
+/* ---------- 纸 ----------
+   正文、返回条、翻页、推荐都收在同一条 720px 竖带上，
+   否则纸上居中、外面全宽，视线会来回跳。 */
+.note-sheet {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(26px, 4.6vw, 62px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: 0 44px 90px -70px rgba(24, 30, 20, 0.5);
+}
+
+.note-page .project-page__bar,
+.note-page .project-page__pager,
+.note-page .project-related {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* .note-reader 原本是弹层里的内容块，自带一圈内边距；
+   放到页面上由 .note-sheet 负责留白，这里清零，免得双份。 */
+.note-page .note-reader {
+  padding: 0;
+}
+
+/* 独立页比弹层宽松，正文比列表页多一号 */
+.note-page .note-reader__content p {
+  font-size: 15.5px;
+  line-height: 2.1;
+}
+
+/* ---------- 阅读进度 ---------- */
+.read-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--z-nav) + 1);
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.read-progress > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--coral);
+  transition: width 0.12s linear;
+}
+
+/* 只有一侧有邻居时（最新或最旧的那篇），别留半张空卡 */
+.project-page__pager--single {
+  grid-template-columns: 1fr;
+}
+
+/* ---------- 再读两篇 ---------- */
+.note-more {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 2.2vw, 22px);
+}
+
+.note-more__card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(16px, 2.2vw, 24px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.3s, transform 0.4s var(--ease-out);
+}
+
+.note-more__card:hover {
+  border-color: var(--line-strong, var(--line));
+  transform: translateY(-3px);
+}
+
+.note-more__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+}
+
+.note-more__meta em {
+  font-style: normal;
+  color: var(--coral);
+}
+
+.note-more__title {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.7vw, 20px);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.note-more__excerpt {
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- 找不到 ---------- */
+.note-page__missing {
+  max-width: 60ch;
+  margin: 0 auto;
+  padding: clamp(48px, 9vw, 110px) 0;
+  text-align: center;
+}
+
+.note-page__missing h1 {
+  margin-bottom: 16px;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.note-page__missing p {
+  margin-bottom: 30px;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+.note-page__missing code {
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--paper-deep, rgba(0, 0, 0, 0.05));
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 860px) {
+  .note-sheet {
+    padding: clamp(20px, 5.5vw, 28px);
+    border-radius: var(--radius-md);
+  }
+  .note-more {
+    grid-template-columns: 1fr;
+  }
+  .note-page .note-reader__content p {
+    font-size: 15px;
+  }
+}

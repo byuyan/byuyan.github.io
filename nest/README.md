@@ -8,9 +8,10 @@
 
 ```
 index.html             主页（首屏 / 文章预览 / 作品预览 / 信箱 / 壁纸 / 关于）
+me.html                介绍页：把 about-site 整页 iframe 进来（米白纸张风格，左下角一枚「回小窝」）
 posts.html             文章列表
 post.html              单篇阅读页（?p=<slug>）
-works.html             作品页（7 个位置，4 个已放，3 个空位）
+works.html             作品页（7 个位置，目前全空，做好一个填一个）
 assets/css/site.css    主页样式（无框架）
 assets/css/sub.css     子页样式（文章 / 作品，叠在 site.css 之上）
 assets/js/site.js      主页逻辑（无依赖）
@@ -21,7 +22,14 @@ assets/data/works.json 作品元数据
 posts/*.md             文章正文
 assets/img/            壁纸、圆头像、微信二维码、4 张作品封面 + 空位占位图
 assets/orb/splash.html 开场那颗球（WebGPU wgsl 实时渲染，独立页面，被 index.html 的 iframe 载入）
+about-site/            介绍页本体（米白纸张风格的八分区个人主页，自成一页，被 me.html 整页 iframe）
+  index.html           关于 / 成绩 / 能力 / 成果 / 经历 / 随笔 / 爱好 / 联系
+  project.html         成果详情（?p=<id>）
+  note.html            随笔详情（?n=<id>）
+  assets/js/content.js 全部文案与数据都在这里（window.PORTFOLIO_DEFAULT）
 ```
+
+介绍页的文字改动**只改** `about-site/assets/js/content.js` 一个文件就行，页面上的姓名、学校、位置、英文名等静态占位在 `about-site/index.html` 里（搜「郑宇彬」）。这个副本没有搬后台（原模板的 `/admin/`），所以内容不走 localStorage，改完直接改文件。
 
 没有构建步骤，没有 npm，双击 `start-preview.bat` 或在目录下跑 `python -m http.server 4175` 就能本地预览。
 
@@ -36,6 +44,7 @@ assets/orb/splash.html 开场那颗球（WebGPU wgsl 实时渲染，独立页面
 - **微信卡片**：点按钮弹出，里面是二维码图，X 或 Esc 关掉。
 - **文章**：主页露三篇最新的，`posts.html` 是全部，`post.html?p=<slug>` 是正文。正文是本地 markdown，由 `md.js` 现渲染。
 - **作品**：主页在作品为空时显示一条提示，填进第一个作品后自动变成卡片；`works.html` 是 7 个位置的全貌；点卡片展开「我做的 / 交付物 / 技术栈」。
+- **介绍页**（`me.html`）：导航第 4 项「介绍」。整页 iframe 的是 `about-site/`，米白纸张风格和八分区一点没改，只把文案换成了本人的真实信息；页面左下角浮着一枚「回小窝」。想改介绍里的字，去 `about-site/assets/js/content.js`。
 - **唱片机**：两条实时合成的环境音（夜晚垫音、清晨雾气声），用 Web Audio 现场生成，没有音频文件，也就没有版权问题。
 - **信箱**：留言真实存在本仓库的 GitHub Issues 里，读留言不需要登录，写留言会跳到 GitHub 的新建 issue 页。
 - **最近的脚印**：拉取 `byuyan/byuyan.github.io` 的真实提交记录。
@@ -61,5 +70,5 @@ assets/orb/splash.html 开场那颗球（WebGPU wgsl 实时渲染，独立页面
 ## 已知边界
 
 - 留言需要 GitHub 账号登录一次才能发（GitHub 的公开接口不允许匿名写）。想让人人免登录留言，需要接一个后端，比如 Supabase、Cloudflare Workers 或 Firebase，代码里换掉 `loadGuest()` 与 `openWrite()` 两处即可。
-- 作品页的三个空位是**占位卡片**，不是网页端上传口——要补内容得改 `works.json` + 放图，再走一次上面的部署流程。
-- 页面内容里的邮箱 `hello@example.com` 是占位，换成你自己的。
+- 作品页的七个位置是**占位卡片**，不是网页端上传口——要补内容得改 `works.json` + 放图，再走一次上面的部署流程。
+- 介绍页里写死的邮箱是 `byuyan@qq.com`；成绩、奖项、经历用的是本人已确认的信息，其余细则（CET、具体竞赛名次等）暂标为「备赛中 / 待补」，要改去 `about-site/assets/js/content.js`。

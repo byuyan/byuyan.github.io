@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer></filter>
+  </defs>
+  <rect width="1200" height="900" fill="#b7c7a8"/>
+  <rect x="0" y="0" width="1200" height="900" fill="#1b2417" opacity="0.04"/>
+
+  <rect x="150" y="160" width="520" height="580" rx="14" fill="#f4f1e6"/>
+  <rect x="196" y="214" width="300" height="26" rx="13" fill="#1b2417" opacity="0.85"/>
+  <rect x="196" y="270" width="428" height="6" rx="3" fill="#1b2417" opacity="0.28"/>
+  <rect x="196" y="300" width="380" height="6" rx="3" fill="#1b2417" opacity="0.28"/>
+  <rect x="196" y="330" width="410" height="6" rx="3" fill="#1b2417" opacity="0.28"/>
+  <rect x="196" y="392" width="240" height="6" rx="3" fill="#1b2417" opacity="0.18"/>
+  <rect x="196" y="422" width="330" height="6" rx="3" fill="#1b2417" opacity="0.18"/>
+  <rect x="196" y="452" width="290" height="6" rx="3" fill="#1b2417" opacity="0.18"/>
+
+  <g stroke="#1b2417" stroke-opacity="0.35" stroke-width="3" fill="none">
+    <rect x="740" y="200" width="310" height="150" rx="10"/>
+    <rect x="740" y="390" width="310" height="150" rx="10" stroke-dasharray="10 12"/>
+    <rect x="740" y="580" width="310" height="120" rx="10"/>
+  </g>
+  <circle cx="812" cy="240" r="7" fill="#1b2417" opacity="0.55"/>
+  <circle cx="812" cy="430" r="7" fill="#1b2417" opacity="0.3"/>
+  <circle cx="812" cy="620" r="7" fill="#1b2417" opacity="0.55"/>
+
+  <text x="150" y="812" font-family="Georgia, serif" font-size="52" fill="#1b2417" letter-spacing="2">BLOG</text>
+  <text x="150" y="852" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#1b2417" opacity="0.6" letter-spacing="4">NODE.JS / EXPRESS / 2026</text>
+  <rect width="1200" height="900" filter="url(#grain)" opacity="0.5"/>
+</svg>

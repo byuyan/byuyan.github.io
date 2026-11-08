@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f3efe6" />
+  <title>郑宇彬 · 数字经济与叙事</title>
+  <meta name="description" content="武汉理工大学数字经济专业 2025 级本科生的个人主页：成绩、能力、成果、学习经历与爱好。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="郑宇彬 · 数字经济与叙事" />
+  <meta property="og:description" content="在数据与叙事之间，搭一间有温度的小窝。" />
+  <meta property="og:image" content="assets/img/portrait.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="郑宇彬 · 数字经济与叙事" />
+  <meta name="twitter:description" content="武汉理工大学数字经济专业 2025 级本科生的个人主页：成绩、能力、成果、学习经历与爱好。" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/tokens.css?v=20261114" />
+  <link rel="stylesheet" href="assets/css/style.css?v=20261114" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "郑宇彬",
+      "alternateName": "Zheng Yubin",
+      "jobTitle": "数字经济专业学生",
+      "description": "武汉理工大学数字经济专业 2025 级本科生，关注数据可视化、产品设计与城市观察。",
+      "email": "mailto:byuyan@qq.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "武汉", "addressCountry": "CN" }
+    }
+  </script>
+</head>
+<body class="is-loading">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="loader__name">郑宇彬</span>
+      <span class="loader__meta">PORTFOLIO / 2026</span>
+    </div>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
+
+  <button class="to-top" id="to-top" type="button" aria-label="回到顶部">
+    <span class="to-top__ring" aria-hidden="true"></span>
+    <span class="to-top__arrow" aria-hidden="true">↑</span>
+  </button>
+
+  <noscript>
+    <style>
+      body.is-loading { overflow: auto; }
+      .loader { display: none; }
+      [data-reveal] { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top" aria-label="回到首页">
+      <span class="nav__mark">知</span>
+      <span class="nav__brand-text">
+        <strong>郑宇彬</strong>
+        <em>ZHENG YUBIN</em>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="主导航">
+      <a href="#about" data-nav="about"><span>01</span>关于</a>
+      <a href="#achievements" data-nav="achievements"><span>02</span>成绩</a>
+      <a href="#skills" data-nav="skills"><span>03</span>能力</a>
+      <a href="#projects" data-nav="projects"><span>04</span>成果</a>
+      <a href="#timeline" data-nav="timeline"><span>05</span>经历</a>
+      <a href="#notes" data-nav="notes"><span>06</span>随笔</a>
+      <a href="#hobbies" data-nav="hobbies"><span>07</span>爱好</a>
+      <a href="#contact" data-nav="contact"><span>08</span>联系</a>
+    </nav>
+
+    <div class="nav__meta">
+      <span class="nav__clock" id="nav-clock">CN · 00:00</span>
+      <a class="nav__cta" href="#contact">聊聊 <span aria-hidden="true">↗</span></a>
+      <button class="nav__toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span>
+        <span class="visually-hidden">打开菜单</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="移动端导航">
+      <a href="#about"><span>01</span>关于</a>
+      <a href="#achievements"><span>02</span>成绩</a>
+      <a href="#skills"><span>03</span>能力</a>
+      <a href="#projects"><span>04</span>成果</a>
+      <a href="#timeline"><span>05</span>经历</a>
+      <a href="#notes"><span>06</span>随笔</a>
+      <a href="#hobbies"><span>07</span>爱好</a>
+      <a href="#contact"><span>08</span>联系</a>
+    </nav>
+    <div class="mobile-menu__foot">
+      <span data-profile-email>byuyan@qq.com</span>
+      <span data-profile-location>武汉 / 中国</span>
+    </div>
+  </div>
+
+  <!-- ================= FIXED 3D WORLD ================= -->
+  <div class="world" id="world" aria-hidden="true">
+    <div class="world__grid"></div>
+    <div class="world__arch" id="world-arch">
+      <div class="world__arch-glow"></div>
+      <div class="world__arch-inner">
+        <div class="world__ring world__ring--one"></div>
+        <div class="world__ring world__ring--two"></div>
+        <img class="world__portrait" src="assets/img/portrait.webp" alt="郑宇彬的黏土形象" width="760" height="1217" />
+      </div>
+      <div class="world__badge">
+        <span>CLAY ME</span>
+        <span>NO. 001</span>
+      </div>
+      <div class="world__dot world__dot--a"></div>
+      <div class="world__dot world__dot--b"></div>
+      <div class="world__dot world__dot--c"></div>
+    </div>
+
+    <div class="world__note world__note--hello">
+      <span class="world__note-k">HELLO,</span>
+      <span class="world__note-v">WORLD<span class="world__note-dot">.</span></span>
+    </div>
+    <div class="world__note world__note--data">
+      <span class="world__note-k">STATUS</span>
+      <span class="world__note-v">LEARNING<br />&amp; BUILDING</span>
+    </div>
+    <div class="world__side">SCROLL TO EXPLORE — 向下滚动</div>
+  </div>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <div class="hero__inner container">
+        <div class="hero__copy">
+          <div class="hero__eyebrow">
+            <span class="dot"></span>
+            <span>PORTFOLIO — 2026</span>
+            <span class="slash">/</span>
+            <span data-profile-location>WUHAN, CN</span>
+          </div>
+
+          <h1 class="hero__title">
+            <span class="hero__title-cn" data-profile-name>郑宇彬</span>
+            <span class="hero__title-en" data-profile-name-en>ZHENG YUBIN</span>
+          </h1>
+
+          <p class="hero__role" data-profile-role-short>数据 / 前端 / 网页动效</p>
+
+          <p class="hero__statement serif">
+            <span data-tagline-1>在数据与叙事之间，</span><br />
+            <em data-tagline-2>搭一间有温度的小窝。</em>
+          </p>
+
+          <p class="hero__intro" data-profile-intro>
+            我是郑宇彬，武汉理工大学数字经济专业 2025 级本科生。白天和表格、爬虫、回归模型打交道，晚上鼓捣网页——给一颗玻璃球搭背景，给一间小窝装一扇窗。
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">
+              看看我的成果
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a class="btn btn--ghost" href="#about">关于我 <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <div class="hero__aside">
+          <div class="hero__aside-top">
+            <span class="hero__aside-k">NOW</span>
+            <p data-profile-status>在准备保研，也在找能真正上手做的项目</p>
+          </div>
+          <div class="hero__aside-list">
+            <div>
+              <span class="hero__aside-k">BASED IN</span>
+              <strong data-profile-location>武汉 · 中国</strong>
+            </div>
+            <div>
+              <span class="hero__aside-k">STUDYING</span>
+              <strong data-profile-role>数字经济 · 大二在读</strong>
+            </div>
+            <div>
+              <span class="hero__aside-k">SCHOOL</span>
+              <strong data-profile-school>武汉理工大学</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__foot container">
+        <div class="hero__scroll">
+          <span class="hero__scroll-line"></span>
+          <span>向下滚动</span>
+          <em>SCROLL</em>
+        </div>
+        <div class="hero__status">
+          <span class="pulse"></span>
+          <span data-profile-availability>开放实习与交流</span>
+        </div>
+        <div class="hero__index">01 <span>/</span> 05</div>
+      </div>
+
+      <div class="marquee hero__marquee" aria-hidden="true">
+        <div class="marquee__track" data-marquee></div>
+      </div>
+    </section>
+
+    <!-- ================= SCROLL STORY ================= -->
+    <section class="story" id="story" aria-labelledby="story-title">
+      <h2 class="visually-hidden" id="story-title">滚动故事</h2>
+      <div class="story__sticky">
+        <div class="container story__grid">
+          <div class="story__main">
+            <div class="story__eyebrow eyebrow">
+              <span class="story__live"><i></i> SCROLL STORY</span>
+              <span>00 — 02</span>
+            </div>
+
+            <div class="story__acts">
+              <article class="act is-active" data-act="0">
+                <span class="act__index">01 / 03</span>
+                <p class="act__kicker">关于开始</p>
+                <h3 class="act__title serif">数据会说谎，<br />但故事不会。</h3>
+                <p class="act__body">
+                  我在数字经济的课堂上学会的第一件事：先怀疑数字，再相信数字背后的那个人。每一张表格里都藏着没有说出口的生活。
+                </p>
+                <span class="act__meta">QUESTION → DATA → STORY</span>
+              </article>
+
+              <article class="act" data-act="1">
+                <span class="act__index">02 / 03</span>
+                <p class="act__kicker">关于方法</p>
+                <h3 class="act__title serif">把抽象的东西，<br />变成能看见的东西。</h3>
+                <p class="act__body">
+                  从 Excel 到 Python，从问卷到可视化，我着迷于把复杂问题拆成一张清晰的图。让不懂代码的人，也能一眼看懂。
+                </p>
+                <span class="act__meta">MESSY → CLEAR → USEFUL</span>
+              </article>
+
+              <article class="act" data-act="2">
+                <span class="act__index">03 / 03</span>
+                <p class="act__kicker">关于以后</p>
+                <h3 class="act__title serif">还在长大，<br />也还在路上。</h3>
+                <p class="act__body">
+                  大二只是开头。我想做一些真正被人使用、被人记住的小产品，也想认识更多认真做事的人。
+                </p>
+                <span class="act__meta">KEEP CURIOUS · KEEP BUILDING</span>
+              </article>
+            </div>
+
+            <div class="story__hint">
+              <span class="story__hint-line"></span>
+              继续滚动，人物会跟着你的节奏转动
+            </div>
+          </div>
+
+          <aside class="story__rail" aria-hidden="true">
+            <span class="story__rail-label">SCROLL</span>
+            <div class="story__rail-track">
+              <span class="story__rail-fill" id="story-fill"></span>
+            </div>
+            <ol class="story__rail-dots">
+              <li class="is-active" data-rail="0"><span>01</span></li>
+              <li data-rail="1"><span>02</span></li>
+              <li data-rail="2"><span>03</span></li>
+            </ol>
+            <span class="story__rail-pct" id="story-pct">00</span>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE BODY ================= -->
+    <div class="page-body">
+      <!-- ABOUT -->
+      <section class="section about" id="about">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">01</span>
+              <span>ABOUT</span>
+              <em>关于我</em>
+            </div>
+            <h2 class="section-head__title serif">一个喜欢把问题<br />画出来的人。</h2>
+            <p class="section-head__note">
+              比起标准答案，我更好奇问题是怎么被问出来的。<br />
+              这是我的一些背景、方法和正在做的事。
+            </p>
+          </header>
+
+          <div class="about__identity-note">
+            <span class="eyebrow">THREE WAYS OF BEING ME</span>
+            <span>同一个人，三种存在方式。</span>
+          </div>
+
+          <div class="about__identities">
+            <figure class="identity identity--real" data-reveal>
+              <div class="identity__media">
+                <img src="../assets/img/wall-1.jpg" alt="郑宇彬的真实照片" loading="lazy" width="720" height="861" />
+              </div>
+              <figcaption class="identity__caption">
+                <span class="identity__num">01</span>
+                <span class="identity__title">REAL ME<small>我拍的一张</small></span>
+                <span class="identity__meta">PHOTO · 2026</span>
+              </figcaption>
+            </figure>
+
+            <figure class="identity identity--clay" data-reveal style="--reveal-delay: 80ms">
+              <div class="identity__media">
+                <img src="assets/img/portrait.webp" alt="郑宇彬的黏土 3D 形象" loading="lazy" width="760" height="1217" data-profile-avatar />
+              </div>
+              <figcaption class="identity__caption">
+                <span class="identity__num">02</span>
+                <span class="identity__title">CLAY ME<small>被捏出来的我</small></span>
+                <span class="identity__meta">THREE.JS · WEBGL</span>
+              </figcaption>
+            </figure>
+
+            <figure class="identity identity--data" data-reveal data-orb-hover="about" style="--reveal-delay: 160ms">
+              <div class="identity__media identity__media--orb">
+                <div class="orb-glow" aria-hidden="true"></div>
+                <canvas data-orb="about" aria-hidden="true"></canvas>
+                <div class="orb-fallback" aria-hidden="true"></div>
+                <span class="identity__orb-state" data-orb-state="about">IDLE</span>
+                <button class="identity__orb-button" type="button" data-jump-contact aria-label="前往联系方式，和数据分身聊聊">
+                  <span class="identity__orb-cta" aria-hidden="true">联系我 ↗</span>
+                </button>
+              </div>
+              <figcaption class="identity__caption">
+                <span class="identity__num">03</span>
+                <span class="identity__title">DATA ME<small>每天打交道的我</small></span>
+                <span class="identity__meta">LIQUID GLASS · CLICK TO CONTACT</span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="about__swipe" aria-hidden="true">
+            <span>横向滑动</span>
+            <span>3 种自我 →</span>
+          </div>
+
+          <div class="about__grid">
+            <aside class="about__aside">
+              <div class="about__manual">
+                <div class="about__manual-head">
+                  <span>个人说明书</span>
+                  <em>USER MANUAL</em>
+                </div>
+                <dl>
+                  <div><dt>正在学</dt><dd>Python 数据分析、交互设计</dd></div>
+                  <div><dt>最近读</dt><dd>《数据之美》· 重读第 3 遍</dd></div>
+                  <div><dt>单曲循环</dt><dd>某种很吵的 City Pop</dd></div>
+                  <div><dt>咖啡因</dt><dd>每天 2 杯，美式，不加糖</dd></div>
+                </dl>
+              </div>
+            </aside>
+
+            <div class="about__content">
+              <p class="about__lead" data-profile-intro-long>
+                我是郑宇彬，武汉理工大学数字经济专业 2025 级本科生。白天和表格、爬虫、回归模型打交道，晚上鼓捣网页——给一颗玻璃球搭背景，给一间小窝装一扇窗。我相信数据不是终点，它只是理解世界的一个入口。
+              </p>
+              <p class="about__text">
+                我习惯先问「为什么」，再问「怎么做」。从夜市的摊位到菜市场的价格，从非遗手艺人的口述到同学们的社交焦虑，我关心那些被平均数遮住的细节。我的成果大多从一个很小的疑问开始，最后长成一张图、一个网页，或者一个真的有人用的小工具。
+              </p>
+
+              <div class="about__stats" data-stats></div>
+
+              <div class="sitelog">
+                <div class="timeline-head">
+                  <span>这个站本身</span>
+                  <em>SITE CHANGELOG / v1 — NOW</em>
+                </div>
+                <p class="sitelog__note">
+                  这个站本身也算一件作品。这里记它怎么一步步变成现在这样——包括那些改坏了又改回来的地方。
+                </p>
+                <ol class="sitelog__list" data-sitelog></ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACHIEVEMENTS -->
+      <section class="section achievements" id="achievements">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">02</span>
+              <span>ACHIEVEMENTS</span>
+              <em>成绩</em>
+            </div>
+            <h2 class="section-head__title serif">分数与奖项，<br />摆在这里。</h2>
+            <p class="section-head__note">
+              成绩是某一段时间的截面，<br />
+              它能说明一些事，也说明不了全部。
+            </p>
+          </header>
+
+          <div class="achievements__grid" data-achievements></div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="section skills" id="skills">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">03</span>
+              <span>TOOLKIT</span>
+              <em>能力</em>
+            </div>
+            <h2 class="section-head__title serif">手里的工具，<br />和它们背后的思路。</h2>
+            <p class="section-head__note">
+              还在持续学习的路上。百分比只代表熟练程度，<br />
+              不代表我停止学习的速度。
+            </p>
+          </header>
+
+          <div class="skills__grid" data-skills></div>
+
+          <div class="skills__ticker" aria-hidden="true">
+            <div class="skills__ticker-track" data-tools></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="section projects" id="projects">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">04</span>
+              <span>SELECTED WORK</span>
+              <em>成果</em>
+            </div>
+            <h2 class="section-head__title serif">一些把想法<br />做出来的证据。</h2>
+            <p class="section-head__note">
+              <span data-projects-count>4</span> 件成果，从数据可视化到产品设计。<br />
+              点开卡片能看到完整的过程，包括做错的地方。
+            </p>
+          </header>
+
+          <div class="projects__browse browse" data-project-browse>
+            <label class="browse__search">
+              <span class="browse__search-icon" aria-hidden="true">⌕</span>
+              <input type="search" placeholder="搜索成果、工具或关键词" aria-label="搜索成果" data-project-search autocomplete="off" />
+              <kbd aria-hidden="true">/</kbd>
+            </label>
+            <div class="browse__chips" data-project-chips role="group" aria-label="按成果分类筛选"></div>
+            <div class="browse__meta">
+              <span data-project-result aria-live="polite">4 件成果</span>
+              <label class="browse__sort">
+                <span>排序</span>
+                <select data-project-sort>
+                  <option value="featured">精选优先</option>
+                  <option value="newest">最新发布</option>
+                  <option value="title">标题 A–Z</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="projects__grid" data-projects></div>
+          <div class="browse-empty" data-project-empty hidden>
+            <span class="browse-empty__mark">⌕</span>
+            <p>没有找到匹配的成果。换个关键词，或看看全部。</p>
+            <button class="btn btn--ghost" type="button" data-reset-projects>查看全部成果</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="section journey" id="timeline">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">05</span>
+              <span>JOURNEY</span>
+              <em>学习经历</em>
+            </div>
+            <h2 class="section-head__title serif">怎么走到<br />现在这一步。</h2>
+            <p class="section-head__note">
+              课程、实习、竞赛，以及那些没写进简历的弯路。<br />
+              按时间从近到远。
+            </p>
+          </header>
+
+          <div class="timeline-wrap">
+            <div class="timeline-head">
+              <span>履历时间线</span>
+              <em>TIMELINE / 2024 — NOW</em>
+            </div>
+            <ol class="timeline" data-timeline></ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTES -->
+      <section class="section notes" id="notes">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">06</span>
+              <span>FIELD NOTES</span>
+              <em>随笔</em>
+            </div>
+            <h2 class="section-head__title serif">写下来，<br />才算真的想明白。</h2>
+            <p class="section-head__note">
+              关于数据、工具和成长的不定期记录。<br />
+              没有干货焦虑，只有真实踩过的坑。
+            </p>
+          </header>
+
+          <div class="notes__browse browse" data-note-browse>
+            <label class="browse__search">
+              <span class="browse__search-icon" aria-hidden="true">⌕</span>
+              <input type="search" placeholder="搜索标题、标签或正文" aria-label="搜索随笔" data-note-search autocomplete="off" />
+              <kbd aria-hidden="true">/</kbd>
+            </label>
+            <div class="browse__chips" data-note-chips role="group" aria-label="按随笔标签筛选"></div>
+            <div class="browse__meta">
+              <span data-note-result aria-live="polite">4 篇随笔</span>
+              <label class="browse__sort">
+                <span>排序</span>
+                <select data-note-sort>
+                  <option value="newest">最新发布</option>
+                  <option value="oldest">最早发布</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="notes__list" data-notes></div>
+          <div class="browse-empty" data-note-empty hidden>
+            <span class="browse-empty__mark">⌕</span>
+            <p>没有找到匹配的随笔。换个关键词，或者清空筛选。</p>
+            <button class="btn btn--ghost" type="button" data-reset-notes>查看全部随笔</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOBBIES -->
+      <section class="section hobbies" id="hobbies">
+        <div class="container">
+          <header class="section-head">
+            <div class="section-head__label">
+              <span class="section-head__num">07</span>
+              <span>OFF THE CLOCK</span>
+              <em>爱好</em>
+            </div>
+            <h2 class="section-head__title serif">不上班的时候，<br />我在做什么。</h2>
+            <p class="section-head__note">
+              这些事情不产出成果，也不写进简历，<br />
+              但它们决定了我看世界的方式。
+            </p>
+          </header>
+
+          <div class="hobbies__list" data-hobbies></div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section contact" id="contact">
+        <div class="container contact__inner">
+          <div class="contact__top">
+            <div class="section-head__label section-head__label--light">
+              <span class="section-head__num">08</span>
+              <span>GET IN TOUCH</span>
+              <em>联系方式</em>
+            </div>
+            <div class="contact__availability">
+              <span class="pulse"></span>
+              <span data-profile-availability>开放实习与交流</span>
+            </div>
+          </div>
+
+          <div class="contact__hero">
+            <div class="contact__hero-main">
+              <h2 class="contact__title serif">
+                一起做点<br />
+                <em>有意思的事</em><span class="contact__dot">。</span>
+              </h2>
+
+              <div class="contact__email-wrap">
+                <span class="contact__k">DROP ME A LINE</span>
+                <a class="contact__email" href="mailto:byuyan@qq.com" data-profile-email>byuyan@qq.com</a>
+                <div class="contact__email-actions">
+                  <button class="contact__copy" id="copy-email" type="button" data-copy="byuyan@qq.com">
+                    <span class="contact__copy-label">复制邮箱</span>
+                    <span class="contact__copy-icon" aria-hidden="true">⧉</span>
+                  </button>
+                  <button class="contact__form-trigger" type="button" data-open-contact aria-haspopup="dialog" aria-controls="contact-modal">
+                    <span>写一封信 / 约 20 分钟</span>
+                    <span aria-hidden="true">↗</span>
+                  </button>
+                </div>
+                <p class="contact__reply">通常在 24 小时内回复。也欢迎直接发简历或作品过来。</p>
+              </div>
+            </div>
+
+            <button class="contact__orb-stage" type="button" data-reveal data-orb-hover="contact" aria-label="复制邮箱，联系郑宇彬" title="点击复制邮箱，联系郑宇彬">
+              <span class="contact__orb-glow" aria-hidden="true"></span>
+              <span class="contact__orb-wrap">
+                <canvas data-orb="contact" aria-hidden="true"></canvas>
+                <span class="orb-fallback" aria-hidden="true"></span>
+              </span>
+              <span class="contact__orb-meta">
+                <span>DATA SELF / 03</span>
+                <span data-orb-state="contact" aria-live="polite">IDLE</span>
+              </span>
+              <span class="contact__orb-hint" data-orb-hint>复制邮箱 · 联系我 ↗</span>
+            </button>
+          </div>
+
+          <div class="contact__elsewhere">
+            <div class="contact__elsewhere-copy">
+              <span class="contact__k">ELSEWHERE</span>
+              <p class="contact__elsewhere-note">平时的碎片、不成篇的想法，也会先发在这些地方。</p>
+            </div>
+            <ul data-socials></ul>
+          </div>
+
+          <footer class="footer">
+            <div class="footer__row">
+              <div class="footer__brand">
+                <span class="footer__mark">知</span>
+                <div>
+                  <strong data-profile-name>郑宇彬</strong>
+                  <em data-profile-name-en>ZHENG YUBIN</em>
+                </div>
+              </div>
+              <p class="footer__note" data-footer-note>用一点好奇心和很多杯咖啡做成。</p>
+              <div class="footer__meta">
+                <span id="footer-clock">WUHAN · 00:00</span>
+                <a href="#top">回到顶部 ↑</a>
+              </div>
+            </div>
+            <div class="footer__bottom">
+              <span>© <span data-year>2026</span> ZHENG YUBIN. ALL RIGHTS RESERVED.</span>
+              <span>DESIGNED &amp; BUILT BY MYSELF</span>
+              <a class="footer__admin" href="#" data-admin-link hidden>CONTENT STUDIO ↗</a>
+            </div>
+          </footer>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ================= CONTACT FORM MODAL ================= -->
+  <div class="modal modal--contact" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel modal__panel--contact">
+      <button class="modal__close" type="button" data-close-modal>
+        <span>关闭</span>
+        <span class="modal__close-key">ESC</span>
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="modal__scroll">
+        <div class="contact-form">
+          <div class="contact-form__head">
+            <span class="eyebrow">WRITE TO ME / 05</span>
+            <h2 class="contact-form__title serif" id="contact-modal-title">把想法<br /><em>写成一句话。</em></h2>
+            <p class="contact-form__intro">实习、项目合作、或者只是想聊聊数据与城市，都欢迎。留下你想说的话，我会在 24 小时内回复。</p>
+          </div>
+
+          <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="contact-form__hp" aria-hidden="true">
+              <label>不要填写这一项<input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
+
+            <label class="field field--full">
+              <span class="field__label">想说的话 <em>*</em></span>
+              <textarea name="message" rows="6" placeholder="留下想说的话就好。方便的话，末尾带一句怎么称呼你、邮箱或微信，我好回你。" data-field="message"></textarea>
+              <span class="field__error" data-error-for="message"></span>
+            </label>
+
+            <div class="form-actions">
+              <button class="btn btn--primary contact-form__submit" type="submit">
+                <span>发送 / 生成邮件草稿</span>
+                <span aria-hidden="true">↗</span>
+              </button>
+              <span class="contact-form__note">或直接发到 <a data-form-email href="mailto:byuyan@qq.com">byuyan@qq.com</a></span>
+            </div>
+            <p class="contact-form__status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="contact-form__success" data-form-success hidden>
+            <span class="contact-form__success-mark">✓</span>
+            <h3 class="serif" data-form-success-title>已经收到你的消息。</h3>
+            <p data-form-success-text>我会在 24 小时内回复你。</p>
+            <div class="contact-form__success-actions">
+              <a class="btn btn--primary" data-form-mailto href="mailto:byuyan@qq.com" hidden>打开邮件客户端 <span aria-hidden="true">↗</span></a>
+              <button class="btn btn--ghost" type="button" data-form-again>再写一封</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script defer src="assets/vendor/three.min.js?v=20261114"></script>
+  <script defer src="assets/js/content.js?v=20261114"></script>
+  <script defer src="assets/js/store.js?v=20261114"></script>
+  <script defer src="assets/js/character.js?v=20261114"></script>
+  <script defer src="assets/js/orb-webgpu.js?v=20261114"></script>
+  <script defer src="assets/js/orb.js?v=20261114"></script>
+  <script defer src="assets/js/site.js?v=20261114"></script>
+</body>
+</html>
