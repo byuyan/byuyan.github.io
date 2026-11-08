@@ -1,0 +1,31 @@
+name: nest sync 19
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/nest-sync-19.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: fetch zip
+        run: curl -fL -o /tmp/nest.zip "https://aka.doubaocdn.com/s/JI40vD3GQm"
+      - name: unzip
+        run: unzip -o /tmp/nest.zip -d nest
+      - name: commit
+        run: |
+          git config user.name "nest-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A nest
+          if ! git diff --cached --quiet; then
+            git commit -m "nest: smarter nest assistant (20261108p)"
+            git push
+          else
+            echo "no changes"
+          fi
