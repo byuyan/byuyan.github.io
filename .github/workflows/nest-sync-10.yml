@@ -1,0 +1,31 @@
+name: nest sync 10
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/nest-sync-10.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: pull zip and unpack
+        run: |
+          curl -fL "https://aka.doubaocdn.com/s/tQtkvmTrDn" -o /tmp/nest.zip
+          unzip -o /tmp/nest.zip -d nest
+      - name: commit and push
+        run: |
+          git config user.name "nest-bot"
+          git config user.email "nest-bot@users.noreply.github.com"
+          git add -A nest
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore: nest sync j (list plate + version bump)"
+            git push origin HEAD:main
+          fi
