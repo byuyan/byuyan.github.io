@@ -1,0 +1,25 @@
+name: nest prune old orb
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: remove retired floating-orb page
+        run: |
+          git config user.name "byuyan"
+          git config user.email "byuyan@users.noreply.github.com"
+          git rm -f --ignore-unmatch nest/assets/orb/index.html
+          if git diff --cached --quiet; then
+            echo "nothing to prune"
+          else
+            git commit -m "chore: drop retired floating orb page"
+            git push
+          fi
