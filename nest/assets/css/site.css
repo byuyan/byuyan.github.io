@@ -564,8 +564,8 @@ body.lamp-on .wall.on{filter:brightness(1.17) saturate(1.08) contrast(1.01)}
   filter:blur(2px);
 }
 .ai__orb-frame{
-  position:absolute;left:0;top:0;width:168px;height:168px;border:0;display:block;
-  transform:scale(.5);transform-origin:0 0;pointer-events:none;background:#030409;
+  position:absolute;left:50%;top:50%;width:252px;height:252px;border:0;display:block;
+  transform:translate(-50%,-50%) scale(.4167);pointer-events:none;background:#030409;
 }
 .ai__orb::after{
   content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
