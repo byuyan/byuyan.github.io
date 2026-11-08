@@ -51,6 +51,75 @@
   const digits = [];
   const seps = [];
 
+  /* 每一位是一根 30 格的数字轮（0-9 重复三圈），只往前滚，滚完挑一帧偷偷归位 */
+  function makeDigit() {
+    const d = document.createElement('div');
+    d.className = 'digit';
+    const reel = document.createElement('div');
+    reel.className = 'digit__reel';
+    for (let c = 0; c < 3; c++) {
+      for (let n = 0; n < 10; n++) {
+        const i = document.createElement('i');
+        i.textContent = n;
+        reel.appendChild(i);
+      }
+    }
+    const glass = document.createElement('div');
+    glass.className = 'digit__glass';
+    d.appendChild(reel);
+    d.appendChild(glass);
+    d._reel = reel;
+    d._idx = 10;
+    d._val = 0;
+    d._cur = -10 * 108;
+    return d;
+  }
+
+  function unitH() {
+    const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--dh'));
+    return v > 10 ? v : 108;
+  }
+
+  function setY(d, y) {
+    d._cur = y;
+    d._reel.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0)';
+  }
+
+  /* 先顺着方向冲过一点点，再用更短的一段弹回来 —— 就是机械表的过冲回弹
+     两段都用 transition，环境不支持动画时最后那次赋值就是正确落点，不会错位 */
+  function rollTo(d, idx, instant) {
+    const dh = unitH();
+    const to = -idx * dh;
+    clearTimeout(d._t);
+    if (instant) {
+      d._reel.style.transition = 'none';
+      setY(d, to);
+      void d._reel.offsetWidth;
+      d._reel.style.transition = '';
+      return;
+    }
+    const from = d._cur;
+    const dir = to < from ? -1 : 1;
+    const over = to + dir * dh * 0.065;
+    d._reel.style.transition = 'transform 400ms cubic-bezier(.22,.72,.3,1)';
+    requestAnimationFrame(function () { setY(d, over); });
+    d._t = setTimeout(function () {
+      d._reel.style.transition = 'transform 150ms cubic-bezier(.34,.06,.3,1)';
+      setY(d, to);
+      d._t = setTimeout(function () {
+        d._reel.style.transition = '';
+        if (d._idx >= 20) {          // 滚到第三圈就悄悄退回第二圈，画面上完全相同
+          d._idx -= 10;
+          const y = -d._idx * dh;
+          d._reel.style.transition = 'none';
+          setY(d, y);
+          void d._reel.offsetWidth;
+          d._reel.style.transition = '';
+        }
+      }, 170);
+    }, 400);
+  }
+
   function buildClock() {
     clockEl.innerHTML = '';
     for (let u = 0; u < 3; u++) {
@@ -58,13 +127,7 @@
       unit.className = 'clock__unit';
       unit.dataset.unit = u;
       for (let k = 0; k < 2; k++) {
-        const d = document.createElement('div');
-        d.className = 'digit';
-        d.innerHTML =
-          '<div class="top"><span></span></div>' +
-          '<div class="bottom"><span></span></div>' +
-          '<div class="flap flap--top"><span></span></div>' +
-          '<div class="flap flap--bot"><span></span></div>';
+        const d = makeDigit();
         unit.appendChild(d);
         digits.push(d);
       }
@@ -80,28 +143,18 @@
   }
 
   function setDigit(d, v, first) {
-    const top = d.querySelector('.top span');
-    const bottom = d.querySelector('.bottom span');
-    const ftop = d.querySelector('.flap--top span');
-    const fbot = d.querySelector('.flap--bot span');
-    if (first || d.dataset.v === v) {
-      top.textContent = v;
-      bottom.textContent = v;
-      d.dataset.v = v;
+    const target = +v;
+    if (first) {
+      d._val = target;
+      d._idx = 10 + target;
+      rollTo(d, d._idx, true);
       return;
     }
-    const prev = d.dataset.v;
-    d.dataset.v = v;
-    top.textContent = v;
-    bottom.textContent = prev;
-    ftop.textContent = prev;
-    fbot.textContent = v;
-    d.classList.add('go');
-    clearTimeout(d._t);
-    d._t = setTimeout(() => {
-      d.classList.remove('go');
-      bottom.textContent = v;
-    }, 700);
+    if (target === d._val) return;
+    const step = (target - d._val + 10) % 10; // 一秒钟最多滚一格
+    d._val = target;
+    d._idx += step;
+    rollTo(d, d._idx, false);
   }
 
   const pad = (n) => String(n).padStart(2, '0');
@@ -856,14 +909,33 @@
   try { y = parseInt(sessionStorage.getItem(KEY) || '0', 10) || 0; } catch (err) {}
   if (y <= 0) return;
 
+  var done = false;
   function restore() {
+    if (done) return;
+    done = true;
     var root = document.documentElement;
-    var prev = root.style.scrollBehavior;
     root.style.scrollBehavior = 'auto';
-    window.scrollTo(0, y);
-    root.style.scrollBehavior = prev || '';
+    var from = window.scrollY || 0;
+    var dist = y - from;
+    if (Math.abs(dist) < 24) { window.scrollTo(0, y); root.style.scrollBehavior = ''; return; }
+    var dur = Math.min(1150, Math.max(560, Math.abs(dist) * 0.36));
+    var t0 = Date.now();
+    function ease(p) { return p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; }
+    var iv = setInterval(function () {
+      var p = Math.min(1, (Date.now() - t0) / dur);
+      window.scrollTo(0, Math.round(from + dist * ease(p)));
+      if (p >= 1) {
+        clearInterval(iv);
+        window.scrollTo(0, y);
+        root.style.scrollBehavior = '';
+      }
+    }, 16);
+    setTimeout(function () {               // 兜底：定时器被掐掉也要落到原位
+      clearInterval(iv);
+      if (Math.abs(window.scrollY - y) > 1) window.scrollTo(0, y);
+      root.style.scrollBehavior = '';
+    }, dur + 200);
   }
-  requestAnimationFrame(restore);
   requestAnimationFrame(restore);
   window.addEventListener('load', restore);
 })();
