@@ -38,9 +38,36 @@ html,body{margin:0;height:100%;background:#05070c;overflow:hidden}
 </head>
 <body>
 
-<iframe class="me-frame" src="about-site/index.html" title="郑宇彬的个人介绍" allow="fullscreen"></iframe>
+<iframe class="me-frame" id="me-frame" src="about-site/index.html" title="郑宇彬的个人介绍" allow="fullscreen"></iframe>
 
 <a class="me-chip" href="index.html"><i></i>回小窝</a>
+
+<script>
+  // 内嵌整页时补两处矮视口布局修正：
+  // 1) 首屏给一个高度下限，底部状态块不再压住按钮；
+  // 2) 左下「向下滚动 / SCROLL」与状态块在矮窗口会叠字，整块收掉。
+  (function () {
+    var frame = document.getElementById("me-frame");
+    if (!frame) return;
+    var PATCH = [
+      ".hero{min-height:max(100svh,900px)}",
+      ".hero__foot{display:none}"
+    ].join("\n");
+    function apply() {
+      try {
+        var doc = frame.contentDocument;
+        if (!doc || !doc.head) return;
+        if (doc.getElementById("me-viewport-patch")) return;
+        var style = doc.createElement("style");
+        style.id = "me-viewport-patch";
+        style.textContent = PATCH;
+        doc.head.appendChild(style);
+      } catch (e) { /* 跨域或未加载完，忽略 */ }
+    }
+    frame.addEventListener("load", apply);
+    apply();
+  })();
+</script>
 
 </body>
 </html>
