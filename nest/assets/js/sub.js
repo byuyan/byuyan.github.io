@@ -162,9 +162,7 @@
               '<div class="work__slotcover"><span>' + no + '</span></div>' +
               '<div class="work__body">' +
                 '<div class="work__caption">空位 ' + no + '<small>待补</small></div>' +
-                '<p class="work__summary">这里还空着，之后会放进一个还没写完的作品。' +
-                '补的办法：封面图丢进 <code>assets/img</code>，再在 <code>assets/data/works.json</code> ' +
-                '里把这一条的 <code>placeholder</code> 去掉，填上标题、摘要和细节。</p>' +
+                '<p class="work__summary">这里留着一个位置，等一个还没做完的作品。</p>' +
               '</div>' +
             '</article>';
           }

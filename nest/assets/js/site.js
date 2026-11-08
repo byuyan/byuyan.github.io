@@ -851,6 +851,17 @@
     getJSON('assets/data/works.json').then((works) => {
       const filled = works.filter((w) => !w.placeholder);
       setText('statWorks', filled.length);
+      if (!filled.length) {
+        worksBox.innerHTML =
+          '<div class="work work--empty work--say">' +
+            '<div class="work__body">' +
+              '<div class="work__caption">七个位置，先空着<small>一个一个填</small></div>' +
+              '<p class="work__summary">作品正在整理。做好一个，就把封面和故事放进作品页的那一格。</p>' +
+              '<div class="work__foot"><a class="work__link" href="works.html">去作品页看这七格 ↗</a></div>' +
+            '</div>' +
+          '</div>';
+        return;
+      }
       worksBox.innerHTML = filled.slice(0, 4).map((w) => (
         '<a class="work" href="works.html">' +
           '<img class="work__cover" src="' + esc(w.cover) + '" alt="' + esc(w.title) + '" loading="lazy">' +

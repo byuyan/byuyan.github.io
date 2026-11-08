@@ -232,7 +232,7 @@
 }
 .work--empty:hover{transform:none;border-color:rgba(138,168,255,.2);box-shadow:none}
 .work__slotcover{
-  display:grid;place-items:center;aspect-ratio:4/3;
+  display:grid;place-items:center;aspect-ratio:16/9;
   background:
     radial-gradient(circle at 50% 46%, rgba(138,168,255,.07), transparent 62%),
     rgba(255,255,255,.012);
@@ -249,6 +249,16 @@
   font-size:11px;padding:1px 5px;border-radius:4px;
   background:rgba(138,168,255,.10);color:rgba(207,218,255,.68);
 }
+
+/* 主页作品区空态：一条横躺的提示，不撑成大空卡片 */
+.work--say{
+  grid-column:1 / -1;
+}
+.work--say .work__body{padding:26px 26px 22px}
+.work--say .work__caption{color:rgba(238,242,251,.66)}
+.work--say .work__summary{color:rgba(238,242,251,.46);max-width:56ch;margin-top:10px}
+.work--say .work__foot{margin-top:18px;padding-top:16px}
+
 
 /* ---------- 空 / 错 ---------- */
 .subnote{

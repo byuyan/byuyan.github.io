@@ -35,7 +35,7 @@ assets/orb/splash.html 开场那颗球（WebGPU wgsl 实时渲染，独立页面
 - **名片**：头像、名字、一句话签名、文章 / 作品 / 留言 / 壁纸四个数字，底下一个「加我微信」按钮。
 - **微信卡片**：点按钮弹出，里面是二维码图，X 或 Esc 关掉。
 - **文章**：主页露三篇最新的，`posts.html` 是全部，`post.html?p=<slug>` 是正文。正文是本地 markdown，由 `md.js` 现渲染。
-- **作品**：主页露四个，`works.html` 是完整 7 个位置；点卡片展开「我做的 / 交付物 / 技术栈」。
+- **作品**：主页在作品为空时显示一条提示，填进第一个作品后自动变成卡片；`works.html` 是 7 个位置的全貌；点卡片展开「我做的 / 交付物 / 技术栈」。
 - **唱片机**：两条实时合成的环境音（夜晚垫音、清晨雾气声），用 Web Audio 现场生成，没有音频文件，也就没有版权问题。
 - **信箱**：留言真实存在本仓库的 GitHub Issues 里，读留言不需要登录，写留言会跳到 GitHub 的新建 issue 页。
 - **最近的脚印**：拉取 `byuyan/byuyan.github.io` 的真实提交记录。
@@ -45,7 +45,7 @@ assets/orb/splash.html 开场那颗球（WebGPU wgsl 实时渲染，独立页面
 ## 怎么改
 
 - **写新文章**：正文写成 `posts/xxx.md`（支持标题、列表、引用、代码块、粗体、链接），再在 `assets/data/posts.json` 里加一条 `{slug,title,date,tag,minutes,summary,file}`。`date` 用 `YYYY-MM-DD`。
-- **补一个作品**：封面图放进 `assets/img/`，在 `assets/data/works.json` 里找到 `slot-05`（或 06 / 07），把 `placeholder` 删掉，填 `title / category / year / cover / summary / desc / role / deliverables / tags / highlight`。空位卡片会自动变成真卡片。
+- **补一个作品**：封面图放进 `assets/img/`，在 `assets/data/works.json` 里找到 `slot-01`（或 02 … 07 任意一格），把 `placeholder` 删掉，填 `title / category / year / cover / summary / desc / role / deliverables / tags / highlight`。空位卡片会自动变成真卡片，页头的「已放 N 个」和主页统计也会跟着变。
 - **多留几个空位**：在 `works.json` 末尾照样加 `{ "id": "slot-08", "slot": 8, "placeholder": true, "cover": "assets/img/slot-empty.svg" }`。
 - **换壁纸**：把图片放进 `assets/img/`，改 `site.js` 与 `sub.js` 顶部的 `WALLS` 数组（两处都要改，子页才跟着变）。
 - **换名字、签名、数字**：直接改 `index.html`，搜“郑宇彬 / 在数据与叙事之间”。
