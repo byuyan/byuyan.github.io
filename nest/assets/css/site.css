@@ -27,11 +27,46 @@ body{
 .wall{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
-  opacity:0;transform:scale(1.04);
-  transition:opacity 1.1s ease, transform 1.6s ease;
+  opacity:0;transform:scale(1.06);
+  transition:opacity 1.1s ease, transform 1.4s ease;
   filter:saturate(.92) contrast(1.02);
+  will-change:transform,opacity;
 }
-.wall.on{opacity:1;transform:scale(1)}
+.wall.on{opacity:1;animation:wallDrift 30s ease-in-out infinite alternate}
+@keyframes wallDrift{
+  0%{transform:scale(1.08) translate3d(0,0,0)}
+  50%{transform:scale(1.15) translate3d(-2.4%,-1.8%,0)}
+  100%{transform:scale(1.21) translate3d(2.4%,2.1%,0)}
+}
+/* 漂浮微粒：两层不同速度，做出景深 */
+.dust{position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:screen}
+.dust::before,.dust::after{
+  content:"";position:absolute;inset:-22%;
+  background-repeat:repeat;
+  animation:dustDrift 70s linear infinite;
+}
+.dust::before{
+  background-image:
+    radial-gradient(circle at 24% 34%, rgba(216,230,255,.60) 0 1.5px, transparent 2.8px),
+    radial-gradient(circle at 68% 16%, rgba(188,208,255,.42) 0 1px, transparent 2.1px),
+    radial-gradient(circle at 47% 74%, rgba(222,234,255,.50) 0 1.2px, transparent 2.4px),
+    radial-gradient(circle at 86% 58%, rgba(188,208,255,.34) 0 1px, transparent 2px);
+  background-size:300px 300px;
+}
+.dust::after{
+  background-image:
+    radial-gradient(circle at 78% 62%, rgba(255,255,255,.45) 0 2.8px, transparent 5.4px),
+    radial-gradient(circle at 14% 82%, rgba(198,218,255,.32) 0 2.2px, transparent 4.6px),
+    radial-gradient(circle at 36% 22%, rgba(226,236,255,.30) 0 2px, transparent 4.2px);
+  background-size:540px 540px;
+  filter:blur(.7px);
+  animation-duration:105s;
+  animation-direction:reverse;
+}
+@keyframes dustDrift{
+  0%{transform:translate3d(0,7%,0)}
+  100%{transform:translate3d(-4%,-10%,0)}
+}
 .veil{
   position:absolute;inset:0;
   background:
