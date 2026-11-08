@@ -38,34 +38,60 @@ body{
   50%{transform:scale(1.15) translate3d(-2.4%,-1.8%,0)}
   100%{transform:scale(1.21) translate3d(2.4%,2.1%,0)}
 }
-/* 漂浮微粒：两层不同速度，做出景深 */
-.dust{position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:screen}
-.dust::before,.dust::after{
-  content:"";position:absolute;inset:-22%;
-  background-repeat:repeat;
-  animation:dustDrift 70s linear infinite;
-}
+/* 漂浮微粒：细尘横向漫游 + 每颗独立方向的光尘，做出空气感与景深 */
+.dust{position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:screen}
 .dust::before{
+  content:"";position:absolute;inset:-25%;
+  background-repeat:repeat;
+  opacity:.34;
   background-image:
     radial-gradient(circle at 24% 34%, rgba(216,230,255,.60) 0 1.5px, transparent 2.8px),
     radial-gradient(circle at 68% 16%, rgba(188,208,255,.42) 0 1px, transparent 2.1px),
     radial-gradient(circle at 47% 74%, rgba(222,234,255,.50) 0 1.2px, transparent 2.4px),
     radial-gradient(circle at 86% 58%, rgba(188,208,255,.34) 0 1px, transparent 2px);
   background-size:300px 300px;
+  animation:dustSideways 145s ease-in-out infinite alternate;
 }
-.dust::after{
-  background-image:
-    radial-gradient(circle at 78% 62%, rgba(255,255,255,.45) 0 2.8px, transparent 5.4px),
-    radial-gradient(circle at 14% 82%, rgba(198,218,255,.32) 0 2.2px, transparent 4.6px),
-    radial-gradient(circle at 36% 22%, rgba(226,236,255,.30) 0 2px, transparent 4.2px);
-  background-size:540px 540px;
-  filter:blur(.7px);
-  animation-duration:105s;
-  animation-direction:reverse;
+@keyframes dustSideways{
+  0%{transform:translate3d(-3.5%,2.5%,0)}
+  100%{transform:translate3d(3.5%,-2.5%,0)}
 }
-@keyframes dustDrift{
-  0%{transform:translate3d(0,7%,0)}
-  100%{transform:translate3d(-4%,-10%,0)}
+.motes{position:absolute;inset:0;overflow:hidden}
+.mote{
+  position:absolute;border-radius:50%;
+  background:radial-gradient(circle, rgba(230,240,255,.92) 0%, rgba(186,210,255,.42) 45%, rgba(186,210,255,0) 72%);
+  will-change:transform,opacity;opacity:0;
+  animation-fill-mode:both;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
+}
+.mote--bokeh{
+  background:radial-gradient(circle, rgba(214,230,255,.55) 0%, rgba(170,200,255,.22) 42%, rgba(170,200,255,0) 74%);
+}
+/* 四种路径：上飘右偏 / 上飘左偏 / 横移微浮 / 弧线摇荡，让粒子方向各不相同 */
+@keyframes moteUpRight{
+  0%{transform:translate3d(0,6vh,0) scale(.85);opacity:0}
+  12%{opacity:.55}
+  70%{opacity:.45}
+  100%{transform:translate3d(7vw,-105vh,0) scale(1.12);opacity:0}
+}
+@keyframes moteUpLeft{
+  0%{transform:translate3d(0,4vh,0) scale(1.05);opacity:0}
+  15%{opacity:.5}
+  65%{transform:translate3d(-6vw,-56vh,0) scale(.95);opacity:.5}
+  100%{transform:translate3d(-12vw,-100vh,0) scale(.82);opacity:0}
+}
+@keyframes moteLateral{
+  0%{transform:translate3d(-22vw,3vh,0) scale(.9);opacity:0}
+  20%{opacity:.45}
+  50%{transform:translate3d(0,-6vh,0) scale(1.08)}
+  80%{opacity:.4}
+  100%{transform:translate3d(24vw,-2vh,0) scale(.92);opacity:0}
+}
+@keyframes moteSway{
+  0%{transform:translate3d(-4vw,8vh,0) scale(.95);opacity:0}
+  18%{opacity:.55}
+  40%{transform:translate3d(5vw,-10vh,0) scale(1.06)}
+  68%{transform:translate3d(-4vw,-34vh,0) scale(1)}
+  100%{transform:translate3d(3vw,-72vh,0) scale(1.14);opacity:0}
 }
 .veil{
   position:absolute;inset:0;

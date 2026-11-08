@@ -638,8 +638,49 @@
     }
   });
 
+  /* ---------- 漂浮光尘：每颗走各自方向 ---------- */
+  function buildMotes() {
+    const box = document.getElementById('motes');
+    if (!box) return;
+    const paths = ['moteUpRight', 'moteUpLeft', 'moteLateral', 'moteSway'];
+    const N = 20;
+    const rows = [];
+    for (let i = 0; i < N; i++) {
+      const path = paths[i % paths.length];
+      const size = 2 + Math.random() * 5;
+      const dur = 26 + Math.random() * 36;
+      const delay = -Math.random() * dur;
+      const left = Math.random() * 100;
+      const top = 4 + Math.random() * 88;
+      const blur = Math.random() > 0.65 ? '0.7px' : '0px';
+      rows.push(
+        `<span class="mote" style="left:${left.toFixed(2)}%;top:${top.toFixed(2)}%;` +
+          `width:${size.toFixed(1)}px;height:${size.toFixed(1)}px;` +
+          `animation-name:${path};animation-duration:${dur.toFixed(1)}s;` +
+          `animation-delay:${delay.toFixed(1)}s;filter:blur(${blur})"></span>`
+      );
+    }
+    // 几颗虚化的大光斑，拉开景深
+    for (let i = 0; i < 5; i++) {
+      const path = i % 2 ? 'moteSway' : 'moteLateral';
+      const size = 10 + Math.random() * 9;
+      const dur = 44 + Math.random() * 40;
+      const delay = -Math.random() * dur;
+      const left = Math.random() * 100;
+      const top = 10 + Math.random() * 80;
+      rows.push(
+        `<span class="mote mote--bokeh" style="left:${left.toFixed(2)}%;top:${top.toFixed(2)}%;` +
+          `width:${size.toFixed(1)}px;height:${size.toFixed(1)}px;` +
+          `animation-name:${path};animation-duration:${dur.toFixed(1)}s;` +
+          `animation-delay:${delay.toFixed(1)}s;filter:blur(2.4px)"></span>`
+      );
+    }
+    box.innerHTML = rows.join('');
+  }
+
   /* ---------- 启动 ---------- */
   buildClock();
+  buildMotes();
   buildPlaylist();
   buildWallGrid();
   buildSettings();
