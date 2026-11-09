@@ -152,9 +152,9 @@ window.PORTFOLIO_DEFAULT = {
       featured: true,
       accent: "#c9a86a",
       ink: "#221d12",
-      cover: "",
+      cover: "assets/img/cover-bloom.jpg",
       summary: "握拳是花苞，展掌就开花——摄像头只在你自己的设备上算，一粒种子从指尖长成一整片花园。",
-      description: "页面中心是一片 32,000 颗粒子的花。握拳收成苞，展掌炸开，指尖移动就是风；没人操作的时候它自己呼吸。影像全部在本机处理，不上传也不保存，所以敢让人一直开着摄像头看它。",
+      description: "页面中心是一整片粒子的花。握拳收成苞，展掌炸开，指尖移动就是风；没人操作的时候它自己呼吸，花开的程度也在自己变。影像全部在本机处理，不上传也不保存，所以敢让人一直开着摄像头看它。",
       problem: "",
       approach: "",
       outcome: "",
@@ -165,7 +165,7 @@ window.PORTFOLIO_DEFAULT = {
       deliverables: ["网页交互原型"],
       tags: ["手势交互", "粒子", "生成图形"],
       link: "https://transcendent-yeot-8b2520.netlify.app/",
-      highlight: "32,000 颗粒子 · 手势即开合"
+      highlight: "手势即开合 · 实时粒子"
     },
     {
       id: "teardown",
@@ -176,7 +176,7 @@ window.PORTFOLIO_DEFAULT = {
       featured: true,
       accent: "#4b5a6e",
       ink: "#e8ecf2",
-      cover: "",
+      cover: "assets/img/cover-teardown.jpg",
       summary: "把一台七厘米宽的 Action 4 拆成十个部件：拖动旋转、滚轮缩放、点哪块整机就沿装配方向散开。",
       description: "机身 70.5 × 44.2 × 32.8 mm，里面塞着 1/1.3″ 传感器、155° 镜头、两块屏、1770 mAh 电池和一套磁吸快拆。点任意部件，被点中的那块发光，右侧面板同时给出规格；「合并」送所有部件回原位，「重置视角」只动镜头。",
       problem: "",
@@ -200,9 +200,9 @@ window.PORTFOLIO_DEFAULT = {
       featured: true,
       accent: "#6b7a5a",
       ink: "#f2efe6",
-      cover: "",
+      cover: "assets/img/cover-village.jpg",
       summary: "按徽州村落的营造规矩长出一座村子：河路正交、门户朝街、田必近水，十一条校验全过才算「造好」。",
-      description: "以黟县西递为样本。每次生成都跑一遍营造校验：河与路正交、临水道路锁直、宅间留白 ≥ 1 格、128 户门户全部朝街、217 格田不越界、跨河 6 座桥、主路两端立牌坊。生成的村子可以换种子、换时辰（晨昼暮夜）、换视角（巡游俯瞰近观）。",
+      description: "以徽州村落为样本，每次生成都跑一遍营造校验：河与路正交、临水道路锁直、宅间留白不小于一格、每户门户朝街、田亩不越界、跨河必架桥、主路两端立牌坊。生成的村子可以换种子、换时辰（晨昼暮夜）、换视角（巡游俯瞰近观），每换一次就重新校验一遍。",
       problem: "",
       approach: "",
       outcome: "",
@@ -213,7 +213,31 @@ window.PORTFOLIO_DEFAULT = {
       deliverables: ["生成式三维场景", "营造校验规则"],
       tags: ["生成设计", "村落形态", "规则校验"],
       link: "https://jiangnan-village-67109.app.workbuddy.host/?sharecode=TJW4FQ4FSN",
-      highlight: "11 条校验 · 128 户"
+      highlight: "11 条校验 · 换种子重跑"
+    },
+    {
+      id: "riverboat",
+      title: "雨夜归舟 · 烟雨江南",
+      en: "RIVER NIGHT",
+      category: "三维场景",
+      year: "2026",
+      featured: false,
+      accent: "#31505a",
+      ink: "#eaf0ef",
+      cover: "assets/img/cover-riverboat.jpg",
+      summary: "一条乌篷船夜里过徽州水乡：雨能从细雨调到大雨，天能换成清晨或黄昏，镜头能从船尾跟到桥上。",
+      description: "实时 Three.js 场景。天气六档（细雨 / 大雨 / 暴雨 / 晴天 / 薄雾 / 浓雾），时辰五档（清晨薄雾 / 午后阴天 / 黄昏暖雾 / 夜航听雨），机位六种（船尾跟随 / 船上第一视角 / 河面低机位 / 桥上观景 / 高空全景环绕 / 电影镜头）。船能开能停，W / S 加减速、A / D 转舵，手动驾驶优先。",
+      problem: "",
+      approach: "",
+      outcome: "",
+      cut: "",
+      learned: "",
+      shots: [],
+      role: "个人项目 · 独立完成",
+      deliverables: ["网页实时场景"],
+      tags: ["Three.js", "实时水面", "天气与时辰"],
+      link: "https://mcp.edgeone.site/share/uln2ygc8iiNwN8EvEfVm9",
+      highlight: "6 种天气 · 6 个机位"
     },
     {
       id: "launge",
@@ -224,7 +248,7 @@ window.PORTFOLIO_DEFAULT = {
       featured: false,
       accent: "#8a6a4f",
       ink: "#f7efe4",
-      cover: "",
+      cover: "assets/img/cover-launge.jpg",
       summary: "一间咖啡店从菜单到取餐的整站：选规格、加订单、填取餐信息，订单真的写进云端库，凭单号和取单码查进度。",
       description: "九款饮品与豆子烘焙分成五类，冷热可切；下单后店员后台立即收到。第二屏是「Already ordered」，输入订单号与取单码读云端状态。页面末尾注明这是课程作品演示，门店信息与支付通道还没接。",
       problem: "",
@@ -248,7 +272,7 @@ window.PORTFOLIO_DEFAULT = {
       featured: false,
       accent: "#3f7d8c",
       ink: "#0f1a1f",
-      cover: "",
+      cover: "assets/img/cover-dot-motion.jpg",
       summary: "在网格上画点、套动效预设、排序列帧，最后把作品导出成网页文件或 SwiftUI 组件。",
       description: "点阵是最省的美术，也是最难自己做的一种。这个编辑器把三件事合在一起：画、给动效、排节奏，然后直接产出能用的文件——不用再手工抄一遍参数。",
       problem: "",
@@ -272,9 +296,9 @@ window.PORTFOLIO_DEFAULT = {
       featured: false,
       accent: "#8f7bd4",
       ink: "#f2eefc",
-      cover: "",
-      summary: "六组玻璃球预设——Siri 波、声膜、粒子丝带、晶体水珠、紫色余烬、折射凝胶，换个参数就换个样子。",
-      description: "给小窝那颗球做的一个外观试验台：在同一个球体上换材质、换动态、换光，实时看效果，再决定要哪一种。",
+      cover: "assets/img/cover-orb-editor.jpg",
+      summary: "十几组玻璃球外观——Siri 波澜、声纹薄膜、量子丝带、蓝晶液滴、紫焰流核……调折射、色散、高光，实时就变。",
+      description: "给小窝那颗球做的一个外观试验台：左边挑预设，中间那颗球实时换材质、换动态、换光，右边一串滑杆管折射强度、边缘高光、色散和折射宽度。它还能吃麦克风和音频文件，让声音驱动球面的流动。",
       problem: "",
       approach: "",
       outcome: "",
@@ -285,7 +309,7 @@ window.PORTFOLIO_DEFAULT = {
       deliverables: ["网页预览工具"],
       tags: ["液态玻璃", "材质实验", "实时预览"],
       link: "https://liquid-orb-editor.app.workbuddy.host/?sharecode=IIZKHYWB77",
-      highlight: "6 组预设 · 实时切换"
+      highlight: "多组预设 · 参数实时可调"
     },
     {
       id: "jianlai",
@@ -296,7 +320,7 @@ window.PORTFOLIO_DEFAULT = {
       featured: false,
       accent: "#5f6f86",
       ink: "#12161d",
-      cover: "",
+      cover: "assets/img/cover-jianlai.jpg",
       summary: "给「放寒假」这种非过不可的日子做的一块倒计时屏：天、时、分、秒一直跳，顺手把国庆、中秋也挂上去。",
       description: "目标是 2027 年 1 月 17 日。下面一行写着从哪天起算、已经走过几天、走了百分之几——所以它不只倒数，也在提醒日子正在往前走。底色和那句「你只管执剑前行，莫问前程」是《剑来》的调子。",
       problem: "",
@@ -313,8 +337,8 @@ window.PORTFOLIO_DEFAULT = {
     },
   ],
 
-  /* 成果区一共 7 个位置，做好一个填一个 */
-  projectSlots: 7,
+  /* 成果区一共 8 个位置，做好一个填一个 */
+  projectSlots: 8,
 
   notes: [
     {
