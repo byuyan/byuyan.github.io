@@ -284,3 +284,51 @@
   .article__body{font-size:14.5px;line-height:1.98}
   .pager{flex-direction:column}
 }
+
+/* ---------- 交互作品卡（液态玻璃球） ---------- */
+.work--feature{
+  display:grid;grid-template-columns:150px minmax(0,1fr);align-items:center;gap:24px;
+  margin-bottom:24px;padding:22px;text-decoration:none;color:inherit;
+  border:1px solid rgba(138,168,255,.22);border-radius:20px;
+  background:linear-gradient(135deg,rgba(90,130,255,.10),rgba(255,255,255,.02));
+  transition:transform .45s cubic-bezier(.22,.8,.28,1),box-shadow .45s ease,border-color .45s ease;
+}
+.work--feature:hover{
+  transform:translateY(-3px);border-color:rgba(138,168,255,.42);
+  box-shadow:0 30px 62px -36px rgba(80,120,255,.6);
+}
+.wfeat__orb{
+  position:relative;width:150px;height:150px;border-radius:50%;overflow:hidden;flex:none;
+  background:radial-gradient(circle at 50% 50%,rgba(120,160,255,.18),rgba(5,7,12,0) 66%);
+  box-shadow:0 0 44px rgba(120,160,255,.30);
+}
+.wfeat__orb i{
+  position:absolute;inset:-46%;display:block;
+  background:conic-gradient(from 0deg,#6fe6ff,#8aa8ff,#ff9ae0,#59e3c8,#6fe6ff);
+  filter:blur(24px) saturate(1.15);opacity:.46;animation:wfeatSpin 18s linear infinite;
+  -webkit-mask-image:radial-gradient(circle,#000 34%,rgba(0,0,0,.55) 58%,transparent 78%);
+  mask-image:radial-gradient(circle,#000 34%,rgba(0,0,0,.55) 58%,transparent 78%);
+}
+.wfeat__orb::after{
+  content:"";position:absolute;inset:16px;border-radius:50%;
+  background:radial-gradient(circle at 38% 30%,rgba(255,255,255,.62) 0 5%,rgba(170,200,255,.28) 24%,rgba(9,13,24,.96) 66%);
+  box-shadow:inset 0 0 26px rgba(120,160,255,.42),inset 0 -14px 22px rgba(255,150,220,.18);
+  border:1px solid rgba(255,255,255,.12);
+}
+@keyframes wfeatSpin{to{transform:rotate(360deg)}}
+.wfeat__body{display:flex;flex-direction:column;gap:10px;min-width:0}
+.wfeat__cap{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;font-size:14.5px;letter-spacing:.04em}
+.wfeat__cap small{font-size:9.5px;letter-spacing:.22em;color:rgba(169,192,255,.72)}
+.wfeat__sub{margin:0;font-size:12.5px;line-height:1.9;color:var(--muted)}
+.wfeat__go{align-self:flex-start;margin-top:4px;font-size:10.5px;letter-spacing:.18em;color:rgba(169,192,255,.9);
+  display:inline-flex;align-items:center;gap:8px}
+.wfeat__go em{font-style:normal;transition:transform .35s ease}
+.work--feature:hover .wfeat__go em{transform:translateX(4px)}
+@media (max-width:640px){
+  .work--feature{grid-template-columns:96px minmax(0,1fr);gap:16px;padding:16px}
+  .wfeat__orb{width:96px;height:96px}
+  .wfeat__orb::after{inset:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  .wfeat__orb i{animation:none}
+}

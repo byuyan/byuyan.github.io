@@ -970,6 +970,10 @@
       a: 'Chrome、Edge、Safari 新版都行。IE 不行——开场的球要 WebGPU，老浏览器会自动退成一张静态球。',
     },
     {
+      k: ['交互作品', 'work-orb', '会动的介绍', '点开球', '作品里的球'],
+      a: '作品区顶上那张卡片就是：一颗 WebGPU 实时算的液态玻璃球，点开是 work-orb.html，里面用这颗球当封面，把我的学校和专业、在做什么、会什么写成了三块。',
+    },
+    {
       k: ['彩蛋', '藏了什么', '好玩的地方', '细节'],
       a: '有几处：灯、唱片机、时钟的过冲回弹、还有每颗光尘各走各的方向。慢慢点，会发现。',
     },
@@ -1088,7 +1092,7 @@
   /* ---------- 滚动浮现 ---------- */
   (function revealOnScroll() {
     if (!('IntersectionObserver' in window)) return;
-    const els = $$('.card, .player, .wcard');
+    const els = $$('.card, .player, .wcard, .work--feature');
     if (!els.length) return;
     els.forEach((el) => el.classList.add('reveal'));
     const io = new IntersectionObserver((entries) => {
