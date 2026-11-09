@@ -1045,16 +1045,23 @@
 
   /* ---------- 滚动高亮 ---------- */
   const navItems = $$('.nav__item');
-  const sections = ['home', 'mail', 'about'].map((id) => $('#' + id));
+  const sections = ['home', 'writing', 'works', 'mail', 'about'].map((id) => $('#' + id));
+  // 文章 / 作品在导航里指向独立页面，滑到对应区块时也要亮
+  const NAV_FOR = { writing: 'posts.html', works: 'works.html' };
   const onScroll = () => {
     const y = window.scrollY + window.innerHeight * 0.35;
     let active = 'home';
     sections.forEach((s) => {
       if (s && s.offsetTop <= y) active = s.id;
     });
-    navItems.forEach((n) => n.classList.toggle('on', n.getAttribute('href') === '#' + active));
+    navItems.forEach((n) => {
+      const href = n.getAttribute('href');
+      n.classList.toggle('on', href === '#' + active || href === NAV_FOR[active]);
+    });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  window.addEventListener('load', onScroll);
 
   /* ---------- 键盘 ---------- */
   document.addEventListener('keydown', (e) => {
