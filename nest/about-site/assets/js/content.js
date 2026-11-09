@@ -29,48 +29,11 @@ window.PORTFOLIO_DEFAULT = {
   },
 
   stats: [
-    { value: "3.41", label: "GPA", note: "5 分制 · 已修 53 / 175 学分" },
-    { value: "02", label: "班级排名", note: "必修绩点 · 24 人里第 2" },
     { value: "02", label: "在做的站", note: "小窝 · 博客" },
     { value: "2029", label: "预计毕业", note: "本科四年制" }
   ],
 
   /* ── 成绩 ──────────────────────────────────────────────── */
-  achievements: [
-    {
-      id: "gpa",
-      year: "2026",
-      tag: "学业",
-      value: "3.408",
-      title: "GPA / 5 分制",
-      note: "已修 53 / 175 学分，专业核心课均分在 80 以上"
-    },
-    {
-      id: "rank",
-      year: "2026",
-      tag: "排名",
-      value: "2 / 24",
-      title: "必修绩点班级第二",
-      note: "数字经济 2503 班 · 按必修课绩点排名"
-    },
-    {
-      id: "contest",
-      year: "2026",
-      tag: "竞赛",
-      value: "备赛",
-      title: "正大杯市场调查与分析大赛",
-      note: "负责数据整理与可视化部分，选题在做预调研"
-    },
-    {
-      id: "courses",
-      year: "2026",
-      tag: "课程",
-      value: "03",
-      title: "专业课设计项目",
-      note: "数据库原理实验、区块链共识机制、汽车供应链金融风控"
-    }
-  ],
-
   timeline: [
     {
       year: "2026",

@@ -5128,3 +5128,48 @@ html.is-embed {
 @media (max-width: 720px) {
   .about__bio p:first-child { font-size: 17px; line-height: 1.9; }
 }
+
+/* ---------- 联系区 · 直接账号 ---------- */
+.contact__accounts {
+  margin-top: clamp(34px, 4vw, 54px);
+  padding-top: clamp(26px, 3vw, 38px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: grid;
+  gap: clamp(20px, 2.4vw, 30px);
+}
+.accounts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.accounts li {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.accounts__k {
+  font: 600 11px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.45);
+}
+.accounts__v {
+  font-size: 15px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  user-select: all;
+  word-break: break-all;
+}
+.accounts__v:hover { text-decoration: underline; }
+@media (max-width: 720px) {
+  .accounts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- 关于区数字：只剩两个 ---------- */
+.about__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
