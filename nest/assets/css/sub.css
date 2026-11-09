@@ -298,24 +298,15 @@
   box-shadow:0 30px 62px -36px rgba(80,120,255,.6);
 }
 .wfeat__orb{
-  position:relative;width:150px;height:150px;border-radius:50%;overflow:hidden;flex:none;
-  background:radial-gradient(circle at 50% 50%,rgba(120,160,255,.18),rgba(5,7,12,0) 66%);
-  box-shadow:0 0 44px rgba(120,160,255,.30);
+  position:relative;width:150px;height:150px;border-radius:50%;flex:none;display:grid;place-items:center;
 }
-.wfeat__orb i{
-  position:absolute;inset:-46%;display:block;
-  background:conic-gradient(from 0deg,#6fe6ff,#8aa8ff,#ff9ae0,#59e3c8,#6fe6ff);
-  filter:blur(24px) saturate(1.15);opacity:.46;animation:wfeatSpin 18s linear infinite;
-  -webkit-mask-image:radial-gradient(circle,#000 34%,rgba(0,0,0,.55) 58%,transparent 78%);
-  mask-image:radial-gradient(circle,#000 34%,rgba(0,0,0,.55) 58%,transparent 78%);
+.wfeat__orb::before{
+  content:"";position:absolute;inset:4%;border-radius:50%;
+  background:radial-gradient(circle,rgba(120,160,255,.22),rgba(5,7,12,0) 68%);
+  box-shadow:0 0 46px rgba(120,160,255,.26);
 }
-.wfeat__orb::after{
-  content:"";position:absolute;inset:16px;border-radius:50%;
-  background:radial-gradient(circle at 38% 30%,rgba(255,255,255,.62) 0 5%,rgba(170,200,255,.28) 24%,rgba(9,13,24,.96) 66%);
-  box-shadow:inset 0 0 26px rgba(120,160,255,.42),inset 0 -14px 22px rgba(255,150,220,.18);
-  border:1px solid rgba(255,255,255,.12);
-}
-@keyframes wfeatSpin{to{transform:rotate(360deg)}}
+.wfeat__orb img{position:relative;width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;
+  filter:contrast(1.05) saturate(1.06)}
 .wfeat__body{display:flex;flex-direction:column;gap:10px;min-width:0}
 .wfeat__cap{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;font-size:14.5px;letter-spacing:.04em}
 .wfeat__cap small{font-size:9.5px;letter-spacing:.22em;color:rgba(169,192,255,.72)}
@@ -327,8 +318,4 @@
 @media (max-width:640px){
   .work--feature{grid-template-columns:96px minmax(0,1fr);gap:16px;padding:16px}
   .wfeat__orb{width:96px;height:96px}
-  .wfeat__orb::after{inset:10px}
-}
-@media (prefers-reduced-motion:reduce){
-  .wfeat__orb i{animation:none}
 }
