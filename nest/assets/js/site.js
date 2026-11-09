@@ -599,6 +599,7 @@
   /* ---------- 最近的脚印（真实提交） ---------- */
   async function loadCommits() {
     const el = $('#commits');
+    if (!el) return;
     try {
       const res = await fetch('https://api.github.com/repos/byuyan/byuyan.github.io/commits?per_page=3', {
         headers: { Accept: 'application/vnd.github+json' },
@@ -1495,4 +1496,310 @@
   var q = new URLSearchParams(location.search).get('lamp');
   if (q === '1') setOn(true, false);
   if (q === '0') setOn(false, false);
+})();
+
+/* ---------- 天气（Open-Meteo · 全国实时） ---------- */
+(function () {
+  var card = document.getElementById('wxCard');
+  if (!card) return;
+
+  var form = document.getElementById('wxForm');
+  var input = document.getElementById('wxInput');
+  var elTemp = document.getElementById('wxTemp');
+  var elCond = document.getElementById('wxCond');
+  var elName = document.getElementById('wxName');
+  var elRegion = document.getElementById('wxRegion');
+  var elFeels = document.getElementById('wxFeels');
+  var elHumid = document.getElementById('wxHumid');
+  var elWind = document.getElementById('wxWind');
+  var elTime = document.getElementById('wxTime');
+  var elGlyph = document.getElementById('wxGlyph');
+  var elChips = document.getElementById('wxChips');
+  var elLive = card.querySelector('.wx__live');
+  var KEY = 'nest.weather.city.v1';
+  var busy = false;
+
+  var PRESET = [
+    { name: '北京', region: '北京市', lat: 39.9042, lon: 116.4074 },
+    { name: '上海', region: '上海市', lat: 31.2304, lon: 121.4737 },
+    { name: '广州', region: '广东', lat: 23.1291, lon: 113.2644 },
+    { name: '深圳', region: '广东', lat: 22.5431, lon: 114.0579 },
+    { name: '杭州', region: '浙江', lat: 30.2741, lon: 120.1551 },
+    { name: '南京', region: '江苏', lat: 32.0603, lon: 118.7969 },
+    { name: '武汉', region: '湖北', lat: 30.5928, lon: 114.3055 },
+    { name: '成都', region: '四川', lat: 30.5728, lon: 104.0668 },
+    { name: '重庆', region: '重庆', lat: 29.5630, lon: 106.5516 },
+    { name: '西安', region: '陕西', lat: 34.3416, lon: 108.9398 },
+    { name: '长沙', region: '湖南', lat: 28.2282, lon: 112.9388 },
+    { name: '合肥', region: '安徽', lat: 31.8206, lon: 117.2272 },
+    { name: '黄山', region: '安徽', lat: 29.7147, lon: 118.3376 },
+    { name: '歙县', region: '安徽 · 黄山', lat: 29.8675, lon: 118.4363 },
+    { name: '南昌', region: '江西', lat: 28.6820, lon: 115.8579 },
+    { name: '郑州', region: '河南', lat: 34.7466, lon: 113.6254 },
+    { name: '济南', region: '山东', lat: 36.6512, lon: 117.1201 },
+    { name: '青岛', region: '山东', lat: 36.0671, lon: 120.3826 },
+    { name: '天津', region: '天津', lat: 39.3434, lon: 117.3616 },
+    { name: '沈阳', region: '辽宁', lat: 41.8057, lon: 123.4315 },
+    { name: '大连', region: '辽宁', lat: 38.9140, lon: 121.6147 },
+    { name: '哈尔滨', region: '黑龙江', lat: 45.8038, lon: 126.5350 },
+    { name: '长春', region: '吉林', lat: 43.8171, lon: 125.3235 },
+    { name: '石家庄', region: '河北', lat: 38.0428, lon: 114.5149 },
+    { name: '太原', region: '山西', lat: 37.8706, lon: 112.5489 },
+    { name: '呼和浩特', region: '内蒙古', lat: 40.8424, lon: 111.7500 },
+    { name: '银川', region: '宁夏', lat: 38.4872, lon: 106.2309 },
+    { name: '兰州', region: '甘肃', lat: 36.0611, lon: 103.8343 },
+    { name: '西宁', region: '青海', lat: 36.6171, lon: 101.7782 },
+    { name: '乌鲁木齐', region: '新疆', lat: 43.8256, lon: 87.6168 },
+    { name: '拉萨', region: '西藏', lat: 29.6520, lon: 91.1721 },
+    { name: '昆明', region: '云南', lat: 25.0389, lon: 102.7183 },
+    { name: '贵阳', region: '贵州', lat: 26.6470, lon: 106.6302 },
+    { name: '南宁', region: '广西', lat: 22.8170, lon: 108.3665 },
+    { name: '海口', region: '海南', lat: 20.0440, lon: 110.1999 },
+    { name: '福州', region: '福建', lat: 26.0745, lon: 119.2965 },
+    { name: '厦门', region: '福建', lat: 24.4798, lon: 118.0894 },
+    { name: '台北', region: '台湾', lat: 25.0330, lon: 121.5654 },
+    { name: '香港', region: '香港', lat: 22.3193, lon: 114.1694 },
+    { name: '澳门', region: '澳门', lat: 22.1987, lon: 113.5439 },
+    { name: '苏州', region: '江苏', lat: 31.2989, lon: 120.5853 },
+    { name: '无锡', region: '江苏', lat: 31.4912, lon: 120.3119 },
+    { name: '宁波', region: '浙江', lat: 29.8683, lon: 121.5440 },
+    { name: '温州', region: '浙江', lat: 27.9944, lon: 120.6994 },
+    { name: '东莞', region: '广东', lat: 23.0207, lon: 113.7518 },
+    { name: '佛山', region: '广东', lat: 23.0215, lon: 113.1214 },
+    { name: '珠海', region: '广东', lat: 22.2707, lon: 113.5767 },
+    { name: '三亚', region: '海南', lat: 18.2528, lon: 109.5119 },
+    { name: '洛阳', region: '河南', lat: 34.6197, lon: 112.4540 },
+    { name: '徐州', region: '江苏', lat: 34.2058, lon: 117.2840 }
+  ];
+
+  var CHIPS = ['武汉', '北京', '上海', '深圳', '成都', '黄山'];
+
+  var WMO = {
+    0: ['晴', 'clear'],
+    1: ['大体晴朗', 'clear'],
+    2: ['多云', 'partly'],
+    3: ['阴', 'cloud'],
+    45: ['有雾', 'fog'],
+    48: ['雾凇', 'fog'],
+    51: ['毛毛雨', 'rain'],
+    53: ['毛毛雨', 'rain'],
+    55: ['毛毛雨', 'rain'],
+    56: ['冻毛毛雨', 'rain'],
+    57: ['冻毛毛雨', 'rain'],
+    61: ['小雨', 'rain'],
+    63: ['中雨', 'rain'],
+    65: ['大雨', 'rain'],
+    66: ['冻雨', 'rain'],
+    67: ['冻雨', 'rain'],
+    71: ['小雪', 'snow'],
+    73: ['中雪', 'snow'],
+    75: ['大雪', 'snow'],
+    77: ['米雪', 'snow'],
+    80: ['阵雨', 'rain'],
+    81: ['阵雨', 'rain'],
+    82: ['强阵雨', 'rain'],
+    85: ['阵雪', 'snow'],
+    86: ['强阵雪', 'snow'],
+    95: ['雷阵雨', 'thunder'],
+    96: ['雷阵雨伴冰雹', 'thunder'],
+    99: ['雷暴伴冰雹', 'thunder']
+  };
+
+  var CLOUD =
+    '<g fill="#e4ecfa">' +
+    '<circle cx="10" cy="17.4" r="3.4"/><circle cx="15.2" cy="16.4" r="4.5"/>' +
+    '<circle cx="20.2" cy="18.6" r="3.1"/>' +
+    '<rect x="7.4" y="17.4" width="14.2" height="3.4" rx="1.7"/></g>';
+
+  var SUNRAY =
+    '<g stroke="#ffcf76" stroke-width="1.5" stroke-linecap="round" opacity=".85">' +
+    '<path d="M14 3.2v2.6M14 22.2v2.6M3.2 14h2.6M22.2 14h2.6"/>' +
+    '<path d="M6.6 6.6 8.4 8.4M19.6 19.6 21.4 21.4M21.4 6.6 19.6 8.4M8.4 19.6 6.6 21.4"/></g>';
+
+  function icon(kind, isDay) {
+    var sun = '<circle cx="14" cy="14" r="6.3" fill="#ffcf76"/>' + SUNRAY;
+    var moon = '<path d="M16.6 6.8a7.2 7.2 0 1 0 3.2 12.6 6 6 0 0 1-3.2-12.6Z" fill="#cfe0ff"/>';
+    var body = '';
+    if (kind === 'clear') body = isDay ? sun : moon;
+    else if (kind === 'partly') {
+      body = '<g transform="translate(3.4 -3.2) scale(.8)">' + (isDay ? sun : moon) + '</g>' +
+        '<g transform="translate(-2.4 3.4) scale(.98)">' + CLOUD + '</g>';
+    } else if (kind === 'cloud') body = CLOUD;
+    else if (kind === 'fog') {
+      body = '<g fill="#dfe9fb" opacity=".92">' +
+        '<rect x="5" y="12.4" width="17" height="2.4" rx="1.2"/>' +
+        '<rect x="7.4" y="16.4" width="13.6" height="2.4" rx="1.2"/>' +
+        '<rect x="4.4" y="20.4" width="18.4" height="2.4" rx="1.2"/></g>';
+    } else if (kind === 'rain') {
+      body = CLOUD +
+        '<g stroke="#8fc4ff" stroke-width="1.7" stroke-linecap="round">' +
+        '<path d="M10.4 21.6 9.4 24.6M14.4 21.6 13.4 24.6M18.4 21.6 17.4 24.6"/></g>';
+    } else if (kind === 'snow') {
+      body = CLOUD +
+        '<g fill="#ffffff">' +
+        '<circle cx="10.2" cy="23" r="1.5"/><circle cx="14" cy="24.6" r="1.5"/><circle cx="17.8" cy="23" r="1.5"/></g>';
+    } else if (kind === 'thunder') {
+      body = CLOUD +
+        '<path d="M15.6 19.4 12.2 24.2 15.2 24.2 13.8 27.6 18 22.6 15 22.6 16.8 19.4Z" fill="#ffd97a"/>';
+    } else {
+      body = (isDay ? sun : moon);
+    }
+    return '<svg viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' + body + '</svg>';
+  }
+
+  function getJSON(url, ms) {
+    return new Promise(function (resolve, reject) {
+      var settled = false;
+      var timer = setTimeout(function () {
+        if (!settled) { settled = true; reject(new Error('timeout')); }
+      }, ms || 9000);
+      fetch(url, { cors: 'cors' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('http ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          if (settled) return;
+          settled = true; clearTimeout(timer); resolve(data);
+        })
+        .catch(function (err) {
+          if (settled) return;
+          settled = true; clearTimeout(timer); reject(err);
+        });
+    });
+  }
+
+  function setBusy(on) {
+    busy = on;
+    card.dataset.busy = on ? '1' : '0';
+    if (on) {
+      elCond.textContent = '正在取天气…';
+    }
+  }
+
+  function fail(msg) {
+    elCond.textContent = msg || '没取到天气';
+    elLive.dataset.off = '1';
+    elTime.textContent = '点「刷新」再试一次';
+  }
+
+  function placeOf(p) {
+    return { name: p.name, region: p.region, lat: p.lat, lon: p.lon };
+  }
+
+  var lastPlace = null;
+
+  function paint(d, place) {
+    var code = d.current.weather_code;
+    var isDay = d.current.is_day === 1;
+    var pack = WMO[code] || ['多云', 'cloud'];
+    elTemp.textContent = Math.round(d.current.temperature_2m);
+    elCond.textContent = pack[0];
+    elGlyph.innerHTML = icon(pack[1], isDay);
+    elName.textContent = place.name;
+    elRegion.textContent = place.region || '';
+    elFeels.textContent = Math.round(d.current.apparent_temperature) + '°';
+    elHumid.textContent = Math.round(d.current.relative_humidity_2m) + '%';
+    elWind.textContent = Math.round(d.current.wind_speed_10m) + ' km/h';
+    var t = (d.current.time || '').slice(11, 16);
+    elTime.textContent = (t ? t + ' 更新' : '刚刚更新') + ' · Open-Meteo';
+    elLive.dataset.off = '0';
+    Array.prototype.forEach.call(elChips.children, function (b) {
+      b.dataset.active = b.dataset.city === place.name ? '1' : '0';
+    });
+  }
+
+  function load(place) {
+    if (busy) return;
+    lastPlace = place;
+    setBusy(true);
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + place.lat +
+      '&longitude=' + place.lon +
+      '&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,is_day' +
+      '&timezone=auto&wind_speed_unit=kmh';
+    getJSON(url).then(function (d) {
+      setBusy(false);
+      paint(d, place);
+      try { localStorage.setItem(KEY, JSON.stringify(place)); } catch (e) {}
+    }).catch(function () {
+      setBusy(false);
+      fail('网络没通，稍后再试');
+    });
+  }
+
+  function guessPreset(q) {
+    var hit = null;
+    PRESET.forEach(function (p) {
+      if (p.name === q) hit = p;
+    });
+    if (hit) return placeOf(hit);
+    PRESET.forEach(function (p) {
+      if (!hit && (p.name.indexOf(q) > -1 || q.indexOf(p.name) > -1)) hit = p;
+    });
+    return hit ? placeOf(hit) : null;
+  }
+
+  function search(raw) {
+    var q = (raw || '').trim();
+    if (!q) { input.focus(); return; }
+    var direct = guessPreset(q);
+    if (direct) { load(direct); return; }
+
+    setBusy(true);
+    var geo = 'https://geocoding-api.open-meteo.com/v1/search?name=' +
+      encodeURIComponent(q) + '&count=6&language=zh&format=json';
+    getJSON(geo).then(function (d) {
+      var list = (d.results || []).filter(function (r) { return r.country_code === 'CN'; });
+      if (!list.length) list = d.results || [];
+      if (!list.length) throw new Error('none');
+      var best = list[0];
+      return {
+        name: best.name,
+        region: best.admin1 || best.country || '',
+        lat: best.latitude,
+        lon: best.longitude
+      };
+    }).then(function (place) {
+      setBusy(false);
+      load(place);
+    }).catch(function () {
+      setBusy(false);
+      elCond.textContent = '找不到这个城市';
+      elLive.dataset.off = '1';
+      elTime.textContent = '换个写法，比如「黄山」「歙县」';
+    });
+  }
+
+  // chips
+  CHIPS.forEach(function (name) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'wx__chip';
+    b.textContent = name;
+    b.dataset.city = name;
+    b.addEventListener('click', function () { search(name); });
+    elChips.appendChild(b);
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    search(input.value);
+    input.blur();
+  });
+
+  var retry = document.getElementById('wxRefresh');
+  if (retry) retry.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (lastPlace) load(lastPlace);
+  });
+
+  // 首次：读上次的城市，没有就用武汉
+  var start = PRESET[6];
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved && saved.lat && saved.lon) start = saved;
+  } catch (e) {}
+  elName.textContent = start.name;
+  elRegion.textContent = start.region || '';
+  load(start);
 })();

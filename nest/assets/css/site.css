@@ -758,3 +758,125 @@ body.lamp-on .wall.on{filter:brightness(1.17) saturate(1.08) contrast(1.01)}
   background:rgba(233,200,135,.72);
   box-shadow:0 0 12px rgba(226,186,110,.5);
 }
+
+/* ---------- 天气卡片（visionOS 玻璃质感） ---------- */
+.card--wx{
+  padding:18px 18px 14px;border-radius:26px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(120% 72% at 4% -16%, rgba(255,255,255,.20), rgba(255,255,255,.055) 44%, rgba(255,255,255,0) 74%),
+    radial-gradient(130% 110% at 106% 120%, rgba(88,146,255,.30), rgba(88,146,255,0) 58%),
+    linear-gradient(180deg, rgba(19,28,47,.82), rgba(7,11,20,.90));
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:
+    0 40px 78px -32px rgba(0,0,0,.95),
+    0 0 0 1px rgba(255,255,255,.045),
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -34px 62px -44px rgba(130,180,255,.38);
+  backdrop-filter:blur(28px) saturate(190%);
+  -webkit-backdrop-filter:blur(28px) saturate(190%);
+  isolation:isolate;
+  animation:wxIn .95s cubic-bezier(.2,.8,.2,1) both;
+}
+.card--wx::after{
+  content:"";position:absolute;left:14px;right:14px;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.5), rgba(255,255,255,0));
+  opacity:.65;
+}
+@keyframes wxIn{
+  from{opacity:0;transform:translateY(12px) scale(.985)}
+  to{opacity:1;transform:none}
+}
+
+.wx__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.wx__label{
+  margin:0;font-size:10px;letter-spacing:.2em;color:rgba(226,235,255,.62);
+  font-weight:500;display:flex;align-items:baseline;gap:7px;
+}
+.wx__label span{font-size:8px;letter-spacing:.3em;color:rgba(226,235,255,.30);font-weight:400}
+.wx__live{
+  display:flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:.14em;
+  color:rgba(226,235,255,.48);
+}
+.wx__live i{width:4px;height:4px;border-radius:50%;background:#7fd7a5;box-shadow:0 0 8px rgba(127,215,165,.9)}
+.wx__live[data-off="1"] i{background:#f0a37a;box-shadow:0 0 8px rgba(240,163,122,.9)}
+
+.wx__search{
+  display:flex;align-items:center;gap:7px;height:34px;padding:0 5px 0 11px;border-radius:17px;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(255,255,255,.115);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13), inset 0 -10px 18px -14px rgba(120,170,255,.45);
+  transition:border-color .3s, box-shadow .3s, background .3s;
+}
+.wx__search:focus-within{
+  background:rgba(255,255,255,.10);
+  border-color:rgba(122,176,255,.6);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 0 0 3px rgba(90,150,255,.18);
+}
+.wx__mag{width:13px;height:13px;flex:none;stroke:rgba(226,235,255,.58);stroke-width:1.6;fill:none}
+.wx__search input{
+  flex:1;min-width:0;height:100%;border:0;outline:0;background:transparent;
+  color:#f2f6ff;font-size:11.5px;letter-spacing:.02em;font-family:inherit;
+}
+.wx__search input::placeholder{color:rgba(226,235,255,.40)}
+.wx__search button{
+  width:24px;height:24px;flex:none;display:grid;place-items:center;border:0;border-radius:12px;
+  cursor:pointer;background:rgba(255,255,255,.09);transition:background .25s;
+}
+.wx__search button svg{width:12px;height:12px;stroke:rgba(235,243,255,.75);stroke-width:1.7;fill:none}
+.wx__search button:hover{background:rgba(255,255,255,.19)}
+
+.wx__stage{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-top:16px}
+.wx__read{padding-top:2px;min-width:0}
+.wx__temp{display:flex;align-items:flex-start;line-height:1;color:#f7faff;font-variant-numeric:tabular-nums}
+.wx__temp b{
+  font-size:46px;font-weight:300;letter-spacing:-.04em;
+  text-shadow:0 8px 28px rgba(118,168,255,.34);transition:opacity .35s;
+}
+.wx__temp i{font-size:17px;font-style:normal;font-weight:300;color:rgba(235,243,255,.58);margin:3px 0 0 2px}
+.wx__cond{margin:9px 0 0;font-size:11px;letter-spacing:.06em;color:rgba(226,235,255,.70)}
+.card--wx[data-busy="1"] .wx__temp b{opacity:.45}
+
+.wx__glyph{
+  width:62px;height:62px;flex:none;display:grid;place-items:center;
+  filter:drop-shadow(0 12px 22px rgba(90,140,230,.30));
+}
+.wx__glyph svg{width:100%;height:100%;overflow:visible}
+
+.wx__place{
+  display:flex;align-items:baseline;gap:8px;margin-top:14px;padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.085);
+}
+.wx__place span{font-size:13.5px;letter-spacing:.05em;color:#f2f6ff}
+.wx__place em{font-size:9px;font-style:normal;letter-spacing:.14em;color:rgba(226,235,255,.40)}
+
+.wx__facts{
+  list-style:none;margin:11px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:rgba(255,255,255,.075);border-radius:12px;overflow:hidden;
+}
+.wx__facts li{background:rgba(10,16,30,.55);padding:9px 10px;display:flex;flex-direction:column;gap:4px}
+.wx__facts span{font-size:8px;letter-spacing:.18em;color:rgba(226,235,255,.42)}
+.wx__facts b{font-size:12px;font-weight:400;color:#eaf1ff;font-variant-numeric:tabular-nums}
+
+.wx__chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.wx__chip{
+  border:1px solid rgba(255,255,255,.115);background:rgba(255,255,255,.055);
+  color:rgba(226,235,255,.70);font:inherit;font-size:10px;letter-spacing:.04em;
+  padding:5px 9px;border-radius:11px;cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.wx__chip:hover{background:rgba(255,255,255,.14);color:#fff}
+.wx__chip[data-active="1"]{
+  background:rgba(120,170,255,.20);border-color:rgba(140,185,255,.46);color:#fff;
+}
+
+.wx__foot{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin:13px 0 0;padding-top:10px;border-top:1px solid rgba(255,255,255,.075);
+  font-size:9px;letter-spacing:.1em;color:rgba(226,235,255,.36);
+}
+.wx__foot a{color:rgba(180,208,255,.72);text-decoration:none;transition:color .2s}
+.wx__foot a:hover{color:#fff}
+
+@media (prefers-reduced-motion:reduce){
+  .card--wx{animation:none}
+}
