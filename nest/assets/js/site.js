@@ -1349,9 +1349,12 @@
   var KEY = 'nest.return.y.v1';
   // 去介绍页之前，先把当前位置记下来
   document.addEventListener('click', function (e) {
-    var a = e.target && e.target.closest ? e.target.closest('a[href^="me.html"]') : null;
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="me.html"], a[href^="work-orb.html"]') : null;
     if (!a) return;
-    try { sessionStorage.setItem(KEY, String(Math.round(window.scrollY || 0))); } catch (err) {}
+    try {
+      sessionStorage.setItem(KEY, String(Math.round(window.scrollY || 0)));
+      sessionStorage.setItem('nest.return.page.v1', 'index.html');
+    } catch (err) {}
   }, true);
 
   var params = new URLSearchParams(location.search);

@@ -207,3 +207,36 @@
       .catch((err) => failNote(workGrid, err));
   }
 })();
+
+
+/* ---------- 作品页：从交互作品回来，落回点开它的那一格 ---------- */
+(function () {
+  var KEY = 'nest.return.y.v1';
+  var PAGE = 'nest.return.page.v1';
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="work-orb.html"]') : null;
+    if (!a) return;
+    try {
+      sessionStorage.setItem(KEY, String(Math.round(window.scrollY || 0)));
+      sessionStorage.setItem(PAGE, 'works.html');
+    } catch (err) {}
+  }, true);
+
+  var params = new URLSearchParams(location.search);
+  if (params.get('enter') !== '1') return;
+
+  var y = 0;
+  try { y = parseInt(sessionStorage.getItem(KEY) || '0', 10) || 0; } catch (err) {}
+  if (y <= 0) return;
+
+  var root = document.documentElement;
+  root.style.scrollBehavior = 'auto';
+  function go() { window.scrollTo(0, y); }
+  go();
+  requestAnimationFrame(function () { go(); requestAnimationFrame(go); });
+  window.addEventListener('load', function () {
+    setTimeout(go, 80);
+    root.style.scrollBehavior = '';
+  });
+})();

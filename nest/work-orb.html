@@ -92,13 +92,13 @@
 <div class="glow" aria-hidden="true"></div>
 
 <main class="wrap">
-  <a class="backlink" href="index.html"><i></i>回小窝</a>
+  <a class="backlink" href="index.html?enter=1" id="backNest"><i></i>回小窝</a>
 
   <div class="hero">
     <div class="stage">
       <div>
         <div class="orbwrap">
-          <iframe id="orbFrame" src="assets/orb-ai/orb-v2.html?v=20261108z2" title="液态玻璃球" loading="lazy" allow="autoplay"></iframe>
+          <iframe id="orbFrame" src="assets/orb-ai/orb-v2.html?v=20261108z3" title="液态玻璃球" loading="lazy" allow="autoplay"></iframe>
           <span class="orbfallback" id="orbFallback" aria-hidden="true"><i></i></span>
         </div>
         <p class="orbnote">它一直在流 · 点一下这颗球</p>
@@ -173,6 +173,16 @@
       done = true; clearTimeout(t);
       if (!a) fallback();
     }).catch(function () { done = true; clearTimeout(t); fallback(); });
+  })();
+</script>
+
+<script>
+  (function () {
+    var from = '';
+    try { from = sessionStorage.getItem('nest.return.page.v1') || ''; } catch (err) {}
+    var link = document.getElementById('backNest');
+    if (!link) return;
+    if (from === 'works.html') link.setAttribute('href', 'works.html?enter=1');
   })();
 </script>
 </body>
