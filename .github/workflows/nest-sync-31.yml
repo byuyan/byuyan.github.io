@@ -1,0 +1,31 @@
+name: nest sync 31
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/nest-sync-31.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: fetch zip
+        run: curl -fL --retry 3 -o /tmp/p.zip "https://aka.doubaocdn.com/s/jnjmSmzAeP"
+      - name: unzip
+        run: unzip -o /tmp/p.zip -d .
+      - name: commit
+        run: |
+          git config user.name "nest-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A nest
+          if ! git diff --cached --quiet; then
+            git commit -m "nest: cache-bust tokens to z2, AI fab uses old orb"
+            git push
+          else
+            echo "no changes"
+          fi
