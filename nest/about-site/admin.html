@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#f3efe6" />
+<title>成果管理 · 郑宇彬</title>
+<style>
+  :root{
+    --paper:#f3efe6; --paper-2:#fbf8f1; --ink:#16170f; --ink-2:#4a4a3e; --ink-3:#8a8578;
+    --line:rgba(22,23,15,.12); --line-2:rgba(22,23,15,.22); --gold:#a8813f; --danger:#a3423a;
+    --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;background-image:radial-gradient(rgba(22,23,15,.045) 1px,transparent 1px);background-size:22px 22px}
+  a{color:inherit}
+  .top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:18px;padding:14px 20px;
+    background:rgba(243,239,230,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .top .back{font-size:12px;letter-spacing:.06em;text-decoration:none;color:var(--ink-2);border-bottom:1px solid var(--line-2);padding-bottom:2px}
+  .top .brand{font-family:var(--serif);font-size:19px;letter-spacing:.04em}
+  .top .dot{margin-left:auto;font-size:11px;letter-spacing:.1em;font-family:var(--mono);color:var(--ink-3);
+    display:inline-flex;align-items:center;gap:7px}
+  .top .dot::before{content:"";width:7px;height:7px;border-radius:50%;background:#b9b4a6}
+  .top .dot.on::before{background:#6f8a55}
+  .top .dot.ro::before{background:var(--gold)}
+  main{max-width:1080px;margin:0 auto;padding:26px 20px 80px}
+  h2{font-family:var(--serif);font-weight:400;font-size:22px;margin:0 0 6px;letter-spacing:.02em}
+  .card{background:var(--paper-2);border:1px solid var(--line);border-radius:16px;padding:22px;
+    box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 18px 40px -34px rgba(22,23,15,.5)}
+  .hint{font-size:12px;color:var(--ink-3);line-height:1.7;margin:10px 0 0}
+  .hint b{color:var(--ink-2);font-weight:600}
+  .hint code{font-family:var(--mono);font-size:11px;background:rgba(22,23,15,.06);padding:1px 5px;border-radius:4px}
+  input[type=text],input[type=password],input[type=url],textarea,select{
+    width:100%;font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line-2);border-radius:9px;
+    padding:9px 11px;outline:none;transition:border-color .15s,box-shadow .15s}
+  input:focus,textarea:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(168,129,63,.14)}
+  textarea{resize:vertical;min-height:86px;line-height:1.65}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+  button{font:inherit;cursor:pointer;border:1px solid var(--line-2);background:#fff;color:var(--ink);
+    border-radius:9px;padding:8px 14px;transition:background .15s,border-color .15s,opacity .15s}
+  button:hover{background:#f6f2e8}
+  button.primary{background:var(--ink);color:#f7f3ea;border-color:var(--ink)}
+  button.primary:hover{background:#2a2b20}
+  button.ghost{background:transparent}
+  button.danger{color:var(--danger);border-color:rgba(163,66,58,.32)}
+  button:disabled{opacity:.42;cursor:not-allowed}
+  .bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 12px}
+  .bar .cnt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink-3)}
+  .bar .sp{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .item{display:grid;grid-template-columns:96px 1fr auto;gap:14px;align-items:center;padding:12px;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:13px}
+  .item.empty{opacity:.6;border-style:dashed}
+  .thumb{width:96px;height:72px;border-radius:8px;overflow:hidden;background:#e7e2d6;display:grid;place-items:center}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb span{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+  .item .t{font-family:var(--serif);font-size:17px}
+  .item .m{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);margin-top:3px}
+  .item .s{font-size:12px;color:var(--ink-2);margin-top:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .item .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .item .acts button{padding:6px 10px;font-size:12px}
+  .modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:18px}
+  .modal[hidden]{display:none}
+  .modal__mask{position:absolute;inset:0;background:rgba(22,23,15,.42);backdrop-filter:blur(3px)}
+  .modal__panel{position:relative;width:min(720px,100%);max-height:86vh;overflow:auto;background:var(--paper-2);
+    border-radius:18px;padding:22px;box-shadow:0 30px 70px -30px rgba(22,23,15,.7)}
+  .modal__head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+  .modal__head h3{font-family:var(--serif);font-weight:400;font-size:20px;margin:0}
+  .modal__head .x{margin-left:auto;border:none;background:none;font-size:18px;line-height:1;padding:4px 6px;color:var(--ink-3)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  label.f{display:block;margin-top:12px}
+  label.f>span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);margin-bottom:5px}
+  .cover-row{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:start;margin-top:12px}
+  .cover-prev{width:150px;height:112px;border-radius:9px;overflow:hidden;background:#e7e2d6;border:1px solid var(--line);
+    display:grid;place-items:center}
+  .cover-prev img{width:100%;height:100%;object-fit:cover;display:block}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);z-index:90;max-width:min(560px,92vw);
+    background:rgba(22,23,15,.92);color:#f7f3ea;font-size:13px;padding:11px 16px;border-radius:11px;
+    opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;line-height:1.55}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+  .toast.err{background:#7d2b25}
+  .selftest{position:fixed;left:8px;top:8px;z-index:99;background:#fff;border:1px solid #333;padding:6px;font-size:11px;font-family:monospace}
+  @media (max-width:620px){
+    .item{grid-template-columns:70px 1fr;grid-template-areas:"thumb body" "acts acts"}
+    .thumb{width:70px;height:56px;grid-area:thumb}
+    .item .body{grid-area:body}
+    .item .acts{grid-area:acts;justify-content:flex-start}
+    .cover-row{grid-template-columns:1fr}
+    .grid2{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="back" href="index.html">← 回介绍页</a>
+  <span class="brand">成果管理</span>
+  <span class="dot" id="state">未连接</span>
+</div>
+
+<main>
+  <section class="card" id="gate">
+    <h2>先连上你自己</h2>
+    <p class="hint" style="margin-top:0">
+      这个后台直接改仓库里的 <code>about-site/assets/js/content.js</code>，提交后 GitHub Pages 自动重发，全站立刻同步。<br />
+      没有服务器，所以钥匙就是一枚 <b>GitHub 细粒度令牌</b>：只给这个仓库、只给 <b>Contents: Read and Write</b> 权限就够。令牌只存在你这台机器的浏览器里，不会上传到任何地方。
+    </p>
+    <input type="password" id="pat" placeholder="github_pat_…（粘贴后点保存）" autocomplete="off" spellcheck="false" />
+    <div class="row">
+      <button class="primary" id="btnConnect">保存并进入</button>
+      <button class="ghost" id="btnGuest">先只读浏览</button>
+      <button class="ghost" id="btnForget" hidden>忘掉这台机器上的令牌</button>
+    </div>
+    <p class="hint">
+      生成位置：GitHub → Settings → Developer settings → <b>Personal access tokens → Fine-grained tokens</b> → Generate new token；
+      Repository access 选 <b>Only select repositories: byuyan.github.io</b>；Permissions → Repository permissions → <b>Contents: Read and write</b>。
+    </p>
+  </section>
+
+  <section id="board" hidden>
+    <div class="bar">
+      <span class="cnt" id="count">—</span>
+      <div class="sp">
+        <button id="btnAdd">＋ 新增一件</button>
+        <button id="btnReload" class="ghost">重新读取</button>
+        <button id="btnSave" class="primary" disabled>发布到 GitHub</button>
+      </div>
+    </div>
+    <ul class="list" id="list"></ul>
+    <p class="hint" id="dirtyHint" hidden>有改动还没发布。点右上角「发布到 GitHub」才会真正生效。</p>
+  </section>
+</main>
+
+<div class="modal" id="editor" hidden>
+  <div class="modal__mask" data-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-label="编辑作品">
+    <div class="modal__head">
+      <h3 id="edTitle">编辑作品</h3>
+      <button class="x" data-close aria-label="关闭">✕</button>
+    </div>
+
+    <div class="grid2">
+      <label class="f"><span>标题</span><input type="text" id="f-title" /></label>
+      <label class="f"><span>英文名 / 小标</span><input type="text" id="f-en" /></label>
+    </div>
+    <div class="grid2">
+      <label class="f"><span>分类</span><input type="text" id="f-category" /></label>
+      <label class="f"><span>年份</label><input type="text" id="f-year" /></label>
+    </div>
+    <label class="f"><span>一句话简介（卡片上显示）</span><textarea id="f-summary"></textarea></label>
+    <label class="f"><span>详细说明（点开后显示）</span><textarea id="f-description" style="min-height:120px"></textarea></label>
+    <div class="grid2">
+      <label class="f"><span>作品链接</span><input type="url" id="f-link" placeholder="https://…" /></label>
+      <label class="f"><span>右上角标签（短）</span><input type="text" id="f-highlight" placeholder="手势即开合 · 实时粒子" /></label>
+    </div>
+    <label class="f"><span>关键词（逗号分隔）</span><input type="text" id="f-tags" placeholder="手势交互, 粒子" /></label>
+    <label class="f"><span>标识 id（英文小写，用于图片文件名）</span><input type="text" id="f-id" /></label>
+
+    <div class="cover-row">
+      <div class="cover-prev" id="coverPrev"></div>
+      <div>
+        <label class="f" style="margin-top:0"><span>封面图（本地上传，会自动压到 1200px 宽）</span>
+          <input type="file" id="f-file" accept="image/*" />
+        </label>
+        <label class="f"><span>或直接填图片路径</span><input type="text" id="f-cover" placeholder="assets/img/cover-xxx.jpg" /></label>
+        <div class="row" style="margin-top:8px">
+          <label style="display:inline-flex;gap:7px;align-items:center;font-size:12px;color:var(--ink-2)">
+            <input type="checkbox" id="f-feat" style="width:auto" /> 精选（featured）
+          </label>
+        </div>
+        <details style="margin-top:10px"><summary style="font-family:var(--mono);font-size:11px;color:var(--ink-3);cursor:pointer">配色（一般不用改）</summary>
+          <div class="grid2" style="margin-top:8px">
+            <label class="f" style="margin-top:0"><span>accent</span><input type="text" id="f-accent" /></label>
+            <label class="f" style="margin-top:0"><span>ink</span><input type="text" id="f-ink" /></label>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="row" style="justify-content:flex-end;margin-top:22px">
+      <button class="ghost" data-close>取消</button>
+      <button class="primary" id="btnApply">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var OWNER_REPO = "byuyan/byuyan.github.io";
+  var BRANCH = "main";
+  var FILE = "nest/about-site/assets/js/content.js";
+  var IMG_DIR = "nest/about-site/assets/img/";
+  var KEY = "nest.admin.pat.v1";
+
+  var state = { token:"", sha:"", src:"", projects:[], dirty:false, editing:-1 };
+
+  var $ = function(s){ return document.querySelector(s); };
+  var elState = $("#state"), elGate = $("#gate"), elBoard = $("#board");
+  var elList = $("#list"), elCount = $("#count"), elSave = $("#btnSave"), elDirty = $("#dirtyHint");
+  var elEditor = $("#editor");
+  var toastTimer = null;
+
+  function toast(msg, isErr){
+    var t = $("#toast");
+    t.textContent = msg;
+    t.classList.toggle("err", !!isErr);
+    t.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove("on"); }, isErr ? 6500 : 3800);
+  }
+
+  function setState(text, cls){
+    elState.textContent = text;
+    elState.classList.remove("on","ro");
+    if (cls) elState.classList.add(cls);
+  }
+
+  /* ---------- base64 <-> utf8 ---------- */
+  function enc64(str){
+    var bytes = new TextEncoder().encode(str);
+    var bin = "", i;
+    for (i = 0; i < bytes.length; i += 8192){
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(i + 8192, bytes.length)));
+    }
+    return btoa(bin);
+  }
+  function dec64(b64){
+    var bin = atob(String(b64).replace(/[\r\n\s]/g, ""));
+    var len = bin.length, bytes = new Uint8Array(len), i;
+    for (i = 0; i < len; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+
+  /* ---------- github api ---------- */
+  function api(method, path, body){
+    var headers = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+    if (state.token) headers["Authorization"] = "Bearer " + state.token;
+    return fetch("https://api.github.com/repos/" + OWNER_REPO + "/" + path, {
+      method: method,
+      headers: headers,
+      body: body ? JSON.stringify(body) : undefined,
+      cache: "no-store"
+    }).then(function(res){
+      return res.text().then(function(txt){
+        var data = null;
+        try { data = txt ? JSON.parse(txt) : null; } catch(e) { data = null; }
+        if (!res.ok){
+          var m = (data && data.message) ? data.message : ("HTTP " + res.status);
+          if (res.status === 401) m = "令牌无效或已过期（401）";
+          if (res.status === 404) m = "仓库或文件找不到，或令牌没有 Contents 权限（404）";
+          if (res.status === 403) m = "令牌权限不够或被限流（403）：" + m;
+          throw new Error(m);
+        }
+        return data;
+      });
+    });
+  }
+
+  /* ---------- 读 / 写 projects 数组 ---------- */
+  function readProjects(src){
+    var sandbox = { window: {} };
+    var fn = new Function("window", "document", src + "\n;return (window.PORTFOLIO_DEFAULT || {}).projects || [];");
+    var list = fn(sandbox.window, {});
+    return Array.isArray(list) ? list : [];
+  }
+
+  function replaceProjects(src, arr){
+    var m = /projects\s*:\s*\[/.exec(src);
+    if (!m) throw new Error("在 content.js 里找不到 projects 数组，先不要自动改，联系我");
+    var start = m.index + m[0].length - 1; /* 指向 [ */
+    var depth = 0, q = null, esc = false, j = start, ch;
+    for (; j < src.length; j++){
+      ch = src.charAt(j);
+      if (q){
+        if (esc){ esc = false; continue; }
+        if (ch === "\\"){ esc = true; continue; }
+        if (ch === q){ q = null; }
+        continue;
+      }
+      if (ch === "\"" || ch === "'" || ch === "`"){ q = ch; continue; }
+      if (ch === "[" || ch === "{" || ch === "("){ depth++; continue; }
+      if (ch === "]" || ch === "}" || ch === ")"){ depth--; if (depth === 0) break; }
+    }
+    if (depth !== 0) throw new Error("projects 数组括号没配对，已中止");
+    var end = j + 1;
+    var json = JSON.stringify(arr, null, 2).split("\n");
+    var body = json.map(function(line, idx){ return idx === 0 ? line : "  " + line; }).join("\n");
+    return src.slice(0, start) + body + src.slice(end);
+  }
+
+  /* ---------- 载入 ---------- */
+  function load(){
+    setState("读取中…");
+    return api("GET", "contents/" + FILE + "?ref=" + encodeURIComponent(BRANCH))
+      .then(function(res){
+        state.sha = res.sha;
+        state.src = dec64(res.content);
+        state.projects = readProjects(state.src);
+        state.dirty = false;
+        setState(state.token ? "已连接 · 可发布" : "只读模式", state.token ? "on" : "ro");
+        elGate.hidden = true;
+        elBoard.hidden = false;
+        render();
+      })
+      .catch(function(err){
+        setState("出错");
+        elGate.hidden = false;
+        toast(err.message || String(err), true);
+      });
+  }
+
+  /* ---------- 渲染列表 ---------- */
+  function render(){
+    elCount.textContent = state.projects.length + " 件成果 · " +
+      state.projects.filter(function(p){ return p.featured; }).length + " 件精选";
+    elList.innerHTML = "";
+    state.projects.forEach(function(p, i){
+      var li = document.createElement("li");
+      li.className = "item";
+      var thumb = p.cover
+        ? '<img src="' + esc(p.cover) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'" />'
+        : '<span>NO IMG</span>';
+      li.innerHTML =
+        '<div class="thumb">' + thumb + '</div>' +
+        '<div class="body">' +
+          '<div class="t">' + esc(p.title || "（未命名）") + '</div>' +
+          '<div class="m">' + esc((p.en || "") + (p.category ? " / " + p.category : "") + (p.year ? " / " + p.year : "") + " · " + (p.id || "")) + '</div>' +
+          '<div class="s">' + esc(p.summary || "") + '</div>' +
+        '</div>' +
+        '<div class="acts">' +
+          '<button data-up="' + i + '" title="上移">↑</button>' +
+          '<button data-down="' + i + '" title="下移">↓</button>' +
+          '<button data-edit="' + i + '">编辑</button>' +
+          '<button class="danger" data-del="' + i + '">删除</button>' +
+        '</div>';
+      elList.appendChild(li);
+    });
+    updateDirty();
+  }
+
+  function esc(s){
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+    });
+  }
+
+  function updateDirty(){
+    elDirty.hidden = !state.dirty;
+    elSave.disabled = !state.dirty || !state.token;
+    elSave.title = state.token ? "" : "先保存令牌才能发布";
+  }
+
+  function markDirty(){ state.dirty = true; updateDirty(); }
+
+  /* ---------- 编辑器 ---------- */
+  var FIELDS = ["title","en","category","year","summary","description","link","highlight","tags","id","cover","accent","ink"];
+
+  function openEditor(i){
+    state.editing = i;
+    var p = i < 0
+      ? { id:"work-" + Date.now().toString(36), title:"", en:"", category:"网页项目", year:String(new Date().getFullYear()),
+          featured:false, accent:"#8a8578", ink:"#16170f", cover:"", summary:"", description:"", link:"", highlight:"", tags:[] }
+      : state.projects[i];
+    $("#edTitle").textContent = i < 0 ? "新增一件作品" : "编辑作品";
+    FIELDS.forEach(function(k){
+      var el = $("#f-" + k);
+      if (!el) return;
+      if (k === "tags") el.value = (p.tags || []).join(", ");
+      else el.value = p[k] == null ? "" : p[k];
+    });
+    $("#f-feat").checked = !!p.featured;
+    $("#f-file").value = "";
+    paintCover(p.cover);
+    elEditor.hidden = false;
+    document.body.style.overflow = "hidden";
+    setTimeout(function(){ $("#f-title").focus(); }, 30);
+  }
+
+  function closeEditor(){
+    elEditor.hidden = true;
+    document.body.style.overflow = "";
+    state.editing = -1;
+  }
+
+  function paintCover(src){
+    var box = $("#coverPrev");
+    box.innerHTML = src ? '<img src="' + esc(src) + '" alt="" onerror="this.parentNode.innerHTML=\'<span style=&quot;font-family:monospace;font-size:11px;color:#8a8578&quot;>图裂了</span>\'" />' : '<span style="font-family:monospace;font-size:11px;color:#8a8578">暂无封面</span>';
+  }
+
+  $("#f-cover").addEventListener("input", function(){ paintCover(this.value.trim()); });
+
+  function applyEditor(){
+    var p = state.editing < 0
+      ? { id:"", title:"", en:"", category:"", year:"", featured:false, accent:"#8a8578", ink:"#16170f",
+          cover:"", summary:"", description:"", problem:"", approach:"", outcome:"", cut:"", learned:"",
+          shots:[], role:"个人项目 · 独立完成", deliverables:[], tags:[], link:"", highlight:"" }
+      : state.projects[state.editing];
+
+    FIELDS.forEach(function(k){
+      var v = $("#f-" + k).value.trim();
+      if (k === "tags"){
+        p.tags = v ? v.split(/[,，、]/).map(function(x){ return x.trim(); }).filter(Boolean) : [];
+      } else {
+        p[k] = v;
+      }
+    });
+    p.featured = $("#f-feat").checked;
+
+    if (!p.title){ toast("标题不能空着", true); return; }
+    if (!p.id){ p.id = "work-" + Date.now().toString(36); }
+    if (!/^[a-z0-9-]+$/.test(p.id)){ toast("id 只能用英文小写字母、数字和连字符", true); return; }
+    if (state.editing < 0) state.projects.push(p);
+
+    markDirty();
+    closeEditor();
+    render();
+    toast("已放进列表，别忘了点「发布到 GitHub」");
+  }
+
+  /* ---------- 封面压缩上传 ---------- */
+  function pickCover(file, id){
+    return new Promise(function(resolve, reject){
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function(){
+        URL.revokeObjectURL(url);
+        var W = 1200, H, c = document.createElement("canvas"), ctx;
+        if (img.width >= img.height){ H = Math.round(img.height * W / img.width); }
+        else { H = W; W = Math.round(img.width * W / img.height); }
+        c.width = W; c.height = H;
+        ctx = c.getContext("2d");
+        ctx.fillStyle = "#efeade"; ctx.fillRect(0,0,W,H);
+        ctx.drawImage(img, 0, 0, W, H);
+        resolve(c.toDataURL("image/jpeg", 0.84));
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("这张图读不出来")); };
+      img.src = url;
+    });
+  }
+
+  function uploadCover(dataUrl, id){
+    if (!state.token) return Promise.reject(new Error("只读模式下不能上传图片，先保存令牌"));
+    var b64 = dataUrl.split(",")[1];
+    var path = IMG_DIR + "cover-" + id + ".jpg";
+    return api("GET", "contents/" + path + "?ref=" + BRANCH)
+      .then(function(res){ return res.sha; }, function(){ return null; })
+      .then(function(sha){
+        var body = { message: "admin: 上传封面 cover-" + id + ".jpg", content: b64, branch: BRANCH };
+        if (sha) body.sha = sha;
+        return api("PUT", "contents/" + path, body);
+      })
+      .then(function(){ return "assets/img/cover-" + id + ".jpg"; });
+  }
+
+  /* ---------- 发布 ---------- */
+  function publish(){
+    if (!state.token){ toast("先保存令牌才能发布", true); return; }
+    var next;
+    try { next = replaceProjects(state.src, state.projects); }
+    catch(err){ toast(err.message, true); return; }
+
+    elSave.disabled = true;
+    setState("提交中…");
+    api("PUT", "contents/" + FILE, {
+      message: "admin: 更新成果列表（" + state.projects.length + " 件）",
+      content: enc64(next),
+      sha: state.sha,
+      branch: BRANCH
+    }).then(function(res){
+      state.sha = res.content.sha;
+      state.src = next;
+      state.dirty = false;
+      updateDirty();
+      setState("已发布 · 等 Pages", "on");
+      toast("已提交到 GitHub（" + res.commit.sha.slice(0, 7) + "）。Pages 一般 2–4 分钟后生效。");
+    }).catch(function(err){
+      setState("发布失败");
+      updateDirty();
+      toast("发布失败：" + (err.message || err), true);
+    });
+  }
+
+  /* ---------- 事件绑定 ---------- */
+  $("#btnConnect").addEventListener("click", function(){
+    var v = $("#pat").value.trim();
+    if (!v){ toast("先把令牌粘进去", true); return; }
+    state.token = v;
+    try { localStorage.setItem(KEY, v); } catch(e) {}
+    load();
+  });
+
+  $("#btnGuest").addEventListener("click", function(){
+    state.token = "";
+    load();
+  });
+
+  $("#btnForget").addEventListener("click", function(){
+    try { localStorage.removeItem(KEY); } catch(e) {}
+    state.token = "";
+    $("#pat").value = "";
+    $("#btnForget").hidden = true;
+    setState("未连接");
+    toast("这台机器上的令牌已删掉");
+  });
+
+  $("#btnReload").addEventListener("click", function(){
+    if (state.dirty && !confirm("有改动还没发布，重新读取会丢掉它们。继续？")) return;
+    load();
+  });
+
+  $("#btnAdd").addEventListener("click", function(){ openEditor(-1); });
+  $("#btnSave").addEventListener("click", publish);
+  $("#btnApply").addEventListener("click", applyEditor);
+
+  elList.addEventListener("click", function(e){
+    var b = e.target.closest("button");
+    if (!b) return;
+    var i;
+    if (b.dataset.edit != null){ openEditor(+b.dataset.edit); return; }
+    if (b.dataset.del != null){
+      i = +b.dataset.del;
+      if (!confirm("删掉「" + (state.projects[i].title || "这件作品") + "」？发布后才会真的消失。")) return;
+      state.projects.splice(i, 1);
+      markDirty(); render();
+      return;
+    }
+    if (b.dataset.up != null){
+      i = +b.dataset.up;
+      if (i <= 0) return;
+      state.projects.splice(i - 1, 0, state.projects.splice(i, 1)[0]);
+      markDirty(); render();
+      return;
+    }
+    if (b.dataset.down != null){
+      i = +b.dataset.down;
+      if (i >= state.projects.length - 1) return;
+      state.projects.splice(i + 1, 0, state.projects.splice(i, 1)[0]);
+      markDirty(); render();
+    }
+  });
+
+  elEditor.addEventListener("click", function(e){
+    if (e.target.hasAttribute("data-close")) closeEditor();
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && !elEditor.hidden) closeEditor();
+  });
+
+  $("#f-file").addEventListener("change", function(){
+    var f = this.files && this.files[0];
+    if (!f) return;
+    var id = ($("#f-id").value.trim() || "work");
+    if (!/^[a-z0-9-]+$/.test(id)){ toast("先把 id 改成英文小写再传图", true); this.value = ""; return; }
+    if (!state.token){ toast("只读模式下不能上传图片", true); this.value = ""; return; }
+    toast("正在压图并上传…");
+    pickCover(f, id).then(function(dataUrl){
+      return uploadCover(dataUrl, id).then(function(path){
+        $("#f-cover").value = path;
+        paintCover(path);
+        toast("封面已上传：" + path);
+      });
+    }).catch(function(err){ toast("封面上传失败：" + (err.message || err), true); });
+  });
+
+  /* ---------- 启动 ---------- */
+  var saved = "";
+  try { saved = localStorage.getItem(KEY) || ""; } catch(e) {}
+  if (saved){
+    state.token = saved;
+    $("#pat").value = saved;
+    $("#btnForget").hidden = false;
+    load();
+  } else {
+    setState("未连接");
+  }
+
+  /* 自检：?selftest=1 时验证解析/回写不破坏原文 */
+  if (/(^|[?&])selftest=1/.test(location.search)){
+    load().then(function(){
+      var out = { count: state.projects.length, ok: true, err: "" };
+      try {
+        var next = replaceProjects(state.src, state.projects);
+        var re = readProjects(next);
+        out.roundtrip = (re.length === state.projects.length);
+        out.grew = next.length - state.src.length;
+      } catch(e){ out.ok = false; out.err = String(e && e.message || e); }
+      var d = document.createElement("div");
+      d.className = "selftest";
+      d.textContent = "SELFTEST " + JSON.stringify(out);
+      document.body.appendChild(d);
+    });
+  }
+})();
+</script>
+</body>
+</html>
