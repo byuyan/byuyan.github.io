@@ -1510,16 +1510,7 @@
   var cursorRing = $(".cursor__ring");
   var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  var embedded = false;
-  try {
-    embedded = !!(window.parent && window.parent !== window);
-  } catch (error) {
-    embedded = true;
-  }
-  if (/[?&]embed=1(&|$)/.test(window.location.search)) embedded = true;
-
-  /* 被 iframe 嵌进来时 .is-embed .cursor 是隐藏的，这时若还藏真光标，页面上就一根指针都没有 */
-  if (cursor && canHover && !reduceMotion && !embedded) {
+  if (cursor && canHover && !reduceMotion) {
     document.body.classList.add("has-custom-cursor");
     var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     var ring = { x: mouse.x, y: mouse.y };
