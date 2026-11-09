@@ -5108,3 +5108,23 @@ html.is-embed {
 .project-slot__note{
   font-size:13px;line-height:1.7;color:rgba(24,22,18,.42);
 }
+
+/* ---------- 01 关于我 · 长自我介绍 ---------- */
+.about__bio p {
+  max-width: 62ch;
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 2;
+  color: var(--muted);
+}
+.about__bio p:first-child {
+  margin-top: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(19px, 1.7vw, 23px);
+  line-height: 1.9;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+@media (max-width: 720px) {
+  .about__bio p:first-child { font-size: 17px; line-height: 1.9; }
+}
