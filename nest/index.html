@@ -10,12 +10,12 @@
 <meta property="og:description" content="一间自己搭的电子小窝：蓝莓壁纸、机械滚轮时钟、环境音、留言信箱。">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%238aa8ff' font-family='sans-serif'%3EN%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/site.css?v=20261108w">
-<link rel="stylesheet" href="assets/css/sub.css?v=20261108w">
+<link rel="stylesheet" href="assets/css/site.css?v=20261108x">
+<link rel="stylesheet" href="assets/css/sub.css?v=20261108x">
 </head>
 <body>
 <div class="intro" id="intro">
-  <iframe class="intro__frame" id="introFrame" src="assets/orb/splash.html?v=20261108w" title="小窝开场" scrolling="no" aria-hidden="true"></iframe>
+  <iframe class="intro__frame" id="introFrame" src="assets/orb/splash.html?v=20261108x" title="小窝开场" scrolling="no" aria-hidden="true"></iframe>
   <button class="intro__tap" id="introTap" type="button" aria-label="进入小窝"></button>
   <div class="intro__hint"><i></i>点一下 · 进小窝</div>
 </div>
@@ -158,14 +158,32 @@
       <h2 class="band__title">作品<span class="band__tag">SELECTED WORK</span></h2>
       <p class="band__sub">一格一个，做好再填——点开看我在里面具体做了什么。</p>
     </div>
-    <a class="work work--feature" href="work-orb.html">
-      <span class="wfeat__orb" aria-hidden="true"><img src="assets/img/orb-thumb.png" alt="" width="150" height="150" loading="lazy"></span>
-      <span class="wfeat__body">
-        <span class="wfeat__cap">液态玻璃球 · 交互自我介绍<small>INTERACTIVE · 01</small></span>
-        <span class="wfeat__sub">滑到这儿，点开这颗球——它不是一张封面，是一份会动的自我介绍。</span>
-        <span class="wfeat__go">点开球 <em>→</em></span>
+    <a class="wfeat" href="work-orb.html" aria-label="液态玻璃球 · 点开看我的自我介绍" title="点开这颗球">
+      <span class="wfeat__stage">
+        <span class="wfeat__base" aria-hidden="true"></span>
+        <span class="wfeat__orb">
+          <iframe class="wfeat__live" src="assets/orb-ai/orb.html" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+          <img class="wfeat__still" src="assets/img/orb-thumb.png" alt="" aria-hidden="true">
+          <span class="wfeat__sheen" aria-hidden="true"></span>
+        </span>
+        <span class="wfeat__contact" aria-hidden="true"></span>
       </span>
     </a>
+    <script>
+      (function () {
+        var orb = document.querySelector('.wfeat__orb');
+        if (!orb) return;
+        var live = orb.querySelector('.wfeat__live');
+        var still = orb.querySelector('.wfeat__still');
+        function fallback() { live.style.display = 'none'; still.style.display = 'block'; }
+        if (!navigator.gpu || !navigator.gpu.requestAdapter) return fallback();
+        var done = false;
+        var t = setTimeout(function () { if (!done) fallback(); }, 4000);
+        navigator.gpu.requestAdapter().then(function (a) {
+          done = true; clearTimeout(t); if (!a) fallback();
+        }).catch(function () { done = true; clearTimeout(t); fallback(); });
+      })();
+    </script>
     <div class="wgrid" id="homeWorks">
       <div class="subnote">正在读取…</div>
     </div>
@@ -266,10 +284,10 @@
   </div>
   <button class="ai__fab ai__orb" id="aiFab" aria-label="打开小窝助手">
     <span class="ai__orb-halo" aria-hidden="true"></span>
-    <iframe class="ai__orb-frame" id="aiOrbFrame" src="assets/orb-ai/orb.html?v=20261108w" title="小窝助手" tabindex="-1" aria-hidden="true"></iframe>
+    <iframe class="ai__orb-frame" id="aiOrbFrame" src="assets/orb-ai/orb.html?v=20261108x" title="小窝助手" tabindex="-1" aria-hidden="true"></iframe>
   </button>
 </div>
 
-<script src="assets/js/site.js?v=20261108w"></script>
+<script src="assets/js/site.js?v=20261108x"></script>
 </body>
 </html>
