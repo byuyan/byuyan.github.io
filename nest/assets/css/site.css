@@ -745,3 +745,16 @@ body.lamp-on .wall.on{filter:brightness(1.17) saturate(1.08) contrast(1.01)}
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
   .card,.wcard,.postcard,.player{transition:none}
 }
+
+/* ---------- 时钟：金色宋体 ---------- */
+.digit__reel i{
+  font-family:"Songti SC","STSong","SimSun","Source Han Serif SC","Noto Serif SC",serif;
+  font-weight:400;
+  letter-spacing:.02em;
+  color:#e9c887;
+  text-shadow:0 0 22px rgba(226,186,110,.28), 0 2px 12px rgba(0,0,0,.65);
+}
+.clock__sep i{
+  background:rgba(233,200,135,.72);
+  box-shadow:0 0 12px rgba(226,186,110,.5);
+}
