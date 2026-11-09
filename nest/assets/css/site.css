@@ -726,3 +726,22 @@ body.lamp-on .wall.on{filter:brightness(1.17) saturate(1.08) contrast(1.01)}
 .mailform__state[data-state="ok"]{color:#9fe3b6}
 .mailform__state[data-state="err"]{color:#ffb4b4}
 .mailform__state a{color:#b9c9ff}
+
+/* 微交互：卡片轻抬 + 滚动浮现 */
+.card,.wcard{transition:transform .42s cubic-bezier(.22,.8,.28,1),box-shadow .42s ease,border-color .42s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 28px 56px -36px #000}
+.plist__item{animation:rise .7s cubic-bezier(.22,.8,.28,1) both}
+.plist__item:nth-child(2){animation-delay:.08s}
+.plist__item:nth-child(3){animation-delay:.16s}
+.plist__item:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.player{transition:transform .42s cubic-bezier(.22,.8,.28,1),box-shadow .42s ease}
+.player:hover{transform:translateY(-2px);box-shadow:0 26px 52px -34px #000}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,.8,.28,1)}
+.reveal.in{opacity:1;transform:none}
+.player__cover{transition:transform .3s ease,filter .3s ease}
+.player__cover:hover{transform:scale(1.04)}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+  .card,.wcard,.postcard,.player{transition:none}
+}
