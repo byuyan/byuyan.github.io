@@ -857,11 +857,11 @@ body.lamp-on .wall.on{filter:brightness(1.17) saturate(1.08) contrast(1.01)}
 .wx__facts span{font-size:8px;letter-spacing:.18em;color:rgba(226,235,255,.42)}
 .wx__facts b{font-size:12px;font-weight:400;color:#eaf1ff;font-variant-numeric:tabular-nums}
 
-.wx__chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.wx__chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:12px}
 .wx__chip{
   border:1px solid rgba(255,255,255,.115);background:rgba(255,255,255,.055);
   color:rgba(226,235,255,.70);font:inherit;font-size:10px;letter-spacing:.04em;
-  padding:5px 9px;border-radius:11px;cursor:pointer;
+  padding:6px 4px;border-radius:11px;cursor:pointer;text-align:center;
   transition:background .2s,border-color .2s,color .2s;
 }
 .wx__chip:hover{background:rgba(255,255,255,.14);color:#fff}
