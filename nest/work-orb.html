@@ -3,180 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>液态玻璃球 · 一份会动的自我介绍</title>
-<meta name="description" content="郑宇彬的交互作品：一颗一直在流动的液态玻璃球，点开它，是他的一份自我介绍。">
+<title>关于我 · 郑宇彬的小窝</title>
+<meta name="description" content="郑宇彬的个人介绍：关于、成绩、能力、成果、经历、随笔、爱好与联系。">
 <meta name="theme-color" content="#05070c">
-<meta property="og:title" content="液态玻璃球 · 一份会动的自我介绍">
-<meta property="og:description" content="郑宇彬 · 武汉理工大学 数字经济 2503。点开这颗球看看。">
+<meta property="og:title" content="关于我 · 郑宇彬的小窝">
+<meta property="og:description" content="郑宇彬的个人介绍页。">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1220'/%3E%3Ctext x='32' y='43' font-size='30' text-anchor='middle' fill='%238aa8ff' font-family='sans-serif'%3EN%3C/text%3E%3C/svg%3E">
 <style>
-  :root{
-    --bg:#05070c; --ink:#eef2fb; --muted:rgba(238,242,251,.66); --faint:rgba(238,242,251,.42);
-    --line:rgba(255,255,255,.1); --accent:#8aa8ff;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
-  .glow{position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:
-      radial-gradient(60% 52% at 22% 18%, rgba(90,130,255,.18), transparent 70%),
-      radial-gradient(50% 46% at 82% 8%, rgba(120,220,255,.10), transparent 70%),
-      radial-gradient(70% 60% at 50% 108%, rgba(30,40,80,.35), transparent 70%);
-  }
-  .wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,4vw,42px) clamp(18px,4vw,40px) 72px}
-  .backlink{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;letter-spacing:.16em;
-    color:var(--faint);text-decoration:none;margin:6px 0 30px;transition:color .25s ease}
-  .backlink i{width:16px;height:1px;background:currentColor;display:inline-block;position:relative}
-  .backlink i::before{content:"";position:absolute;left:0;top:-3px;width:6px;height:6px;border-left:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg)}
-  .backlink:hover{color:var(--ink)}
-
-  .eyebrow{font-size:10.5px;letter-spacing:.32em;color:var(--accent);opacity:.8;margin:0 0 14px}
-  h1{font-size:clamp(26px,4.4vw,40px);font-weight:400;letter-spacing:.14em;margin:0 0 12px;line-height:1.35}
-  .lead{font-size:13px;line-height:2.05;color:var(--muted);margin:0;max-width:34em}
-
-  .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center;margin-top:26px}
-  .stage{display:flex;justify-content:center}
-  .orbwrap{position:relative;width:min(430px,84vw);aspect-ratio:1;
-    border-radius:50%;padding:0;background:radial-gradient(circle at 50% 50%, rgba(120,160,255,.10), rgba(5,7,12,0) 62%)}
-  .orbwrap::after{content:"";position:absolute;inset:-1px;border-radius:50%;
-    border:1px solid rgba(255,255,255,.10);box-shadow:0 0 90px rgba(110,150,255,.16) inset,0 30px 90px -40px rgba(110,150,255,.5);
-    pointer-events:none}
-  .orbwrap iframe{display:block;width:100%;height:100%;border:0;border-radius:50%;background:#030409}
-  .orbfallback{display:none;position:absolute;inset:13%;border-radius:50%;
-    background:
-      radial-gradient(circle at 34% 26%, rgba(255,255,255,.92) 0 3%, rgba(198,228,255,.55) 14%, rgba(120,170,255,.38) 32%, rgba(44,52,86,.92) 62%, rgba(9,11,20,1) 88%);
-    box-shadow:inset 0 -30px 50px rgba(255,130,200,.18),inset 0 24px 46px rgba(90,150,255,.3),0 0 80px rgba(110,150,255,.28)}
-  .orbfallback i{position:absolute;inset:0;border-radius:50%;
-    background:radial-gradient(circle at 72% 76%, rgba(255,150,215,.30), rgba(0,0,0,0) 52%);}
-  .orbfallback.on{display:block}
-  .orbnote{text-align:center;font-size:10.5px;letter-spacing:.18em;color:var(--faint);margin-top:18px}
-
-  .blocks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(34px,6vw,64px)}
-  .block{border:1px solid var(--line);border-radius:18px;padding:20px 20px 22px;
-    background:linear-gradient(155deg,rgba(255,255,255,.06),rgba(255,255,255,.012));backdrop-filter:blur(10px) saturate(1.1)}
-  .block h2{margin:0 0 14px;font-size:10.5px;letter-spacing:.26em;color:var(--faint);font-weight:400}
-  .block p{margin:0 0 10px;font-size:12.5px;line-height:1.95;color:var(--muted)}
-  .block p:last-child{margin-bottom:0}
-  .kv{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);padding:6px 0;
-    border-bottom:1px dashed rgba(255,255,255,.07)}
-  .kv:last-child{border-bottom:0}
-  .kv b{color:var(--ink);font-weight:400;font-variant-numeric:tabular-nums}
-
-  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
-  .tags span{font-size:10.5px;letter-spacing:.1em;color:rgba(238,242,251,.72);
-    border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 11px}
-
-  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
-  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 22px;
-    font-size:11.5px;letter-spacing:.14em;text-decoration:none;color:var(--ink);
-    border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);transition:all .28s ease}
-  .btn:hover{background:rgba(255,255,255,.1);transform:translateY(-1px)}
-  .btn--main{background:linear-gradient(135deg,rgba(138,168,255,.9),rgba(120,200,255,.8));color:#08101f;border-color:transparent}
-  .btn--main:hover{filter:brightness(1.06)}
-  .foot{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:10.5px;letter-spacing:.14em;color:var(--faint)}
-
-  @media (max-width:820px){
-    .hero{grid-template-columns:1fr;gap:30px}
-    .stage{order:-1}
-    .blocks{grid-template-columns:1fr}
-  }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+html,body{margin:0;height:100%;background:#05070c;overflow:hidden}
+.me-frame{
+  position:fixed;inset:0;width:100%;height:100%;border:0;
+  background:#f4f1e6;
+}
+.me-chip{
+  position:fixed;left:18px;bottom:18px;z-index:50;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.16);
+  background:rgba(12,10,8,.72);backdrop-filter:blur(14px);
+  color:#f6f1e4;text-decoration:none;
+  font:500 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  letter-spacing:.02em;transition:transform .18s ease,background .18s ease,opacity .18s ease;
+  opacity:.86;
+}
+.me-chip:hover{transform:translateY(-2px);background:rgba(12,10,8,.9);opacity:1}
+.me-chip i{
+  width:6px;height:6px;border-radius:50%;background:#8aa8ff;flex:none;
+  box-shadow:0 0 10px rgba(138,168,255,.8)
+}
+@media (max-width:520px){
+  .me-chip{left:12px;bottom:12px;padding:10px 15px;font-size:12px}
+}
 </style>
 </head>
 <body>
-<div class="glow" aria-hidden="true"></div>
 
-<main class="wrap">
-  <a class="backlink" href="index.html?enter=1" id="backNest"><i></i>回小窝</a>
+<iframe class="me-frame" id="me-frame" src="about-site/index.html?v=20261108z7" title="郑宇彬的个人介绍" allow="fullscreen"></iframe>
 
-  <div class="hero">
-    <div class="stage">
-      <div>
-        <div class="orbwrap">
-          <iframe id="orbFrame" src="assets/orb-ai/orb-v2.html?v=20261108z3" title="液态玻璃球" loading="lazy" allow="autoplay"></iframe>
-          <span class="orbfallback" id="orbFallback" aria-hidden="true"><i></i></span>
-        </div>
-        <p class="orbnote">它一直在流 · 点一下这颗球</p>
-      </div>
-    </div>
+<a class="me-chip" href="index.html?enter=1" id="backNest"><i></i>回小窝</a>
 
-    <div>
-      <p class="eyebrow">INTERACTIVE · 01</p>
-      <h1>一颗一直在流的球，<br>和它后面的人</h1>
-      <p class="lead">
-        球是真的在动——WebGPU 在显卡上一帧帧算出来的，不是图片，也不是循环视频。
-        我把它做成一份能点开的自我介绍：不用往下翻长文，看着它转，就把我这个人看个大概。
-      </p>
-      <div class="tags">
-        <span>数字经济</span><span>SQL / Python</span><span>Vibe Coding</span><span>信息可视化</span><span>排版与字体</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="blocks">
-    <div class="block">
-      <h2>WHO</h2>
-      <p>郑宇彬，2006 年 4 月生，安徽黄山歙县人，现在住在武汉。</p>
-      <p>武汉理工大学 · 数字经济 2503（2025 级），大二。</p>
-      <div class="kv"><span>GPA</span><b>3.408 / 5</b></div>
-      <div class="kv"><span>必修绩点班级排名</span><b>2 / 24</b></div>
-      <div class="kv"><span>已修学分</span><b>53 / 175</b></div>
-    </div>
-
-    <div class="block">
-      <h2>WHAT</h2>
-      <p>喜欢把抽象的东西做成看得见的样子：一张表、一个图表、一段能滚动的叙事，或者这间小窝。</p>
-      <p>现在在做：正大杯市场调查与分析大赛（备赛）、这个站、几门课的项目。</p>
-      <p>在学：数据清洗到建模这一条线，和前端的一点手感。</p>
-    </div>
-
-    <div class="block">
-      <h2>HOW</h2>
-      <p>不用框架，一行行手写。这块球、这台时钟、这盏灯，都是自己搭的。</p>
-      <div class="kv"><span>写代码</span><b>HTML / CSS / JS</b></div>
-      <div class="kv"><span>跑数据</span><b>Python / SQL</b></div>
-      <div class="kv"><span>做东西</span><b>Node + Express</b></div>
-      <div class="kv"><span>玩画面</span><b>Three.js / WebGPU</b></div>
-    </div>
-  </div>
-
-  <div class="actions">
-    <a class="btn btn--main" href="me.html">看完整的介绍页 →</a>
-    <a class="btn" href="index.html#mail">留一句话给我</a>
-    <a class="btn" href="mailto:byuyan@qq.com">byuyan@qq.com</a>
-    <a class="btn" href="https://github.com/byuyan" target="_blank" rel="noopener">GitHub @byuyan</a>
-  </div>
-
-  <p class="foot">© 2026 郑宇彬 · 这颗球用的是他自己的代码，一个字符都没改</p>
-</main>
 <script>
-  /* 这台设备如果没有 WebGPU，就不让它停在 iframe 里的英文报错上 */
+  // 内嵌整页时补两处矮视口布局修正：
+  // 1) 首屏给一个高度下限，底部的状态块不再压住按钮；
+  // 2) 左下「向下滚动 / SCROLL」在矮窗口会叠字，收掉。
   (function () {
-    var frame = document.getElementById('orbFrame');
-    var fb = document.getElementById('orbFallback');
-    var note = document.querySelector('.orbnote');
-    if (!frame || !fb) return;
-    function fallback() {
-      frame.style.display = 'none';
-      fb.classList.add('on');
-      if (note) note.textContent = '这台设备没开 WebGPU，先给你一颗静的球';
+    var frame = document.getElementById("me-frame");
+    if (!frame) return;
+    var PATCH = [
+      ".hero{min-height:max(100svh,900px)}",
+      ".hero__foot{display:none}"
+    ].join("\n");
+    function apply() {
+      try {
+        var doc = frame.contentDocument;
+        if (!doc || !doc.head) return;
+        if (doc.getElementById("me-viewport-patch")) return;
+        var style = doc.createElement("style");
+        style.id = "me-viewport-patch";
+        style.textContent = PATCH;
+        doc.head.appendChild(style);
+      } catch (e) { /* 跨域或未加载完，忽略 */ }
     }
-    if (!navigator.gpu || !navigator.gpu.requestAdapter) return fallback();
-    var done = false;
-    var t = setTimeout(function () { if (!done) fallback(); }, 4000);
-    navigator.gpu.requestAdapter().then(function (a) {
-      done = true; clearTimeout(t);
-      if (!a) fallback();
-    }).catch(function () { done = true; clearTimeout(t); fallback(); });
+    frame.addEventListener("load", apply);
+    apply();
   })();
 </script>
 
 <script>
+  // 回小窝按来路返回：从作品页点进来的，回作品页
   (function () {
     var from = '';
     try { from = sessionStorage.getItem('nest.return.page.v1') || ''; } catch (err) {}
@@ -185,5 +79,6 @@
     if (from === 'works.html') link.setAttribute('href', 'works.html?enter=1');
   })();
 </script>
+
 </body>
 </html>

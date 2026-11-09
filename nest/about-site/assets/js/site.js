@@ -411,13 +411,18 @@
     if (!host) return;
     var projects = data.projects || [];
     var visible = filteredProjects();
+    var slots = Math.max(Number(data.projectSlots || 0), visible.length);
     renderProjectChips(projects);
-    setText("[data-projects-count]", projects.length);
+    setText("[data-projects-count]", slots);
     var result = $("[data-project-result]");
     if (result) {
-      result.textContent = visible.length === projects.length
-        ? projects.length + " 个项目"
-        : "显示 " + visible.length + " / " + projects.length + " 个项目";
+      if (!projects.length) {
+        result.textContent = "共 " + String(slots).padStart(2, "0") + " 个位置，已放 0 个";
+      } else {
+        result.textContent = visible.length === projects.length
+          ? projects.length + " 个项目"
+          : "显示 " + visible.length + " / " + projects.length + " 个项目";
+      }
     }
 
     host.innerHTML = visible
@@ -444,6 +449,24 @@
         );
       })
       .join("");
+
+    var blanks = slots - visible.length;
+    if (blanks > 0) {
+      var blanksHTML = "";
+      for (var k = 0; k < blanks; k++) {
+        var no = visible.length + k + 1;
+        blanksHTML +=
+          '<div class="project-slot" aria-label="空位，待填">' +
+          '<div class="project-slot__no">' + String(no).padStart(2, "0") + " / " + String(slots).padStart(2, "0") + "</div>" +
+          '<div class="project-slot__title">空位</div>' +
+          '<div class="project-slot__note">做好一个，把封面和故事放进这一格。</div>' +
+          "</div>";
+      }
+      host.innerHTML += blanksHTML;
+    }
+
+    var browse = $("[data-project-browse]");
+    if (browse) browse.hidden = !projects.length;
 
     var empty = $("[data-project-empty]");
     if (empty) empty.hidden = visible.length > 0;
